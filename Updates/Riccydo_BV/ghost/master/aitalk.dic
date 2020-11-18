@@ -204,7 +204,7 @@ RandomTalk : nonoverlap
 			{
 			"\0\s[5]\i[5]So...\w8 you weren't hired by my father?\e"
 		
-			"\0\s[5]\i[5]I'm not here to die?\e"
+			"\0\s[5]\i[5]You mean, I'm not here to die?\e"
 			
 			"\0\s[1]I actually found a cup in decent shape the other night!\e"
 		
