@@ -1,0 +1,1223 @@
+﻿//---------------------------Menus--------------------------
+//This .dic file is primarily concerned with the double-click menus for each of your ghosts. If you don't want to have menus for your characters, you'd just have to delete the OnMouseDoubleClick functions near the end of mouse.dic and then ignore this file, as none of it will be called I believe. Menus can be cool though, since you can put stuff in them and create new functions if you know what you're doing. For example, I've added a lot of games and interactions and little linked icons to my Hunter Smoker ghost to keep track of their feelings and such. Much of that is pretty complicated though (and kind of messy, cough), so I won't go into it here, but I covered some of the concepts in the coding page of the walkthrough, and enterprising ghost makers can study the menu.dic file I set up for Hunter/Smoker and see how I put it together.
+//Anyway, menu.dic also contains the settings for a config menu that will let your user change their name or pronouns if they want, as well as the talk rate of the ghost, all of which are useful things for your ghost to do. So think hard about whether or not you want to skip this file or not.
+
+//The complexity of this file depends on how customized you want your menus. If you just want to leave them as they are, then all you'll have to do is replace dialogue appropriately. You can always add stuff to their menus later if you get the urge. Otherwise, if you have plans in mind, you'll need to study what's going on in here carefully and pay attention to how things are set up! You can do a lot of unique stuff in this file if you're creative.
+
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+
+//--OpenSakuraMenu
+//This is a bit of intro dialogue before the main character opens their menu. You can see below that there are three pieces of separate dialogue listed before it goes to MenuRun. The character will randomly choose one of those pieces of dialogue before opening the rest of their menu. You can customize this with individual greetings for the character, such as "Yes, %(username)?" or "Need something, %(username)?" or things like that. Note that none of the lines end with \e!
+//The \b2 tag tells the ghost to use their big balloon for this dialogue. If your menu has a lot of stuff, this'll probably look better than the small one.
+
+OpenSakuraMenu
+{
+	if rummaging == 1
+	{
+		"\b4\![*]\q[Stop scavenging,nomorerummage]\n\n"
+	}
+	if urnice <= 150 && meanie <= 4 && rummaging == 0
+	{
+		{
+		reading = 0
+			
+		"\0\s[2]\i[1]I don't want to talk right now.\e"
+		"\0\s[0]\i[6]\b2What?"
+		"\0\s[5]\i[6]\b2What do you want?"
+		}
+		{
+		reading = 0
+		
+		"\0\s[0]\i[6]\b2Be quick about it."
+		"\0\s[0]\b2<Sigh>"
+		}
+		--
+		MenuRun
+	}
+	if urnice >= 151 && rummaging == 0
+	{
+		reading = 0
+		
+		"\0\s[0]\b2Yes?"
+		"\0\s[0]\b2How can I help you?"
+		"\0\s[0]\b2What is on your mind?"
+		"\0\s[0]\i[9]\b2It's always a pleasure to talk to you."
+		--
+		MenuRun
+	}
+	elseif meanie >= 5
+	{
+		reading = 0
+		
+		"\0\s[2]\i[1]\b2Ugh! What?"
+		--
+		MenuRun
+	}
+}
+
+//--MenuRun
+//As you just saw above. This actually fills out the rest of the menu. If you're going to be adding or changing functions, this is where you'll be doing your edits.
+
+MenuRun
+ {	
+ 	wd = GetWeekDay
+ 	ap = GetAP
+ 	nowmin = Getnowmin
+ 	nowhour = Getnowhour
+	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
+	--
+	"\n\n\_q\b2" //The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
+	--
+
+	
+ 	"\![*]\q[Talk to Me,altalk]\n/
+	\![*]\q[Can You Repeat That,OnLastTalk]\n\n/
+	\![*]\q[Chat,chat]\n/
+	\![*]\q[Give,give]\n/
+	\![*]\q[Be Mean,crushhim]\n\n"
+	
+	--
+	if meanie >= 2
+	{
+		"\![*]\q[Apologize,apologize]\n\n"
+	}
+	if urnice >= 400 && rummaging == 0
+	{
+		"\![*]\q[Can we scavenge together?,rummage]\n\n"
+	}
+	
+	--
+	
+	"\![*]\q[User Settings,configmenu]\n/
+	\![*]\q[Functions,dosomething]\n\n/
+	//\![*]\q[Testing,testvariable]\n\n/
+ 	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
+}
+
+Select.apologize
+{
+	meanie -= 1
+	
+	"<You tell him you're sorry for being needlessly rude>\w8\0\s[2]\i[5]\w8\n\nYou better be sorry. There's no reason to act like that!\e"
+	"<You say you didn't mean to offend him>\w8\s[2]\i[5]\w8\n\nYou didn't just offend me.\w8\i[6] You really bothered me.\e"
+	"<You apologize for being cruel to him>\w8\s[2]\i[5]\w8\n\nWhatever.\w8 Just don't do it again.\e"
+}
+	
+
+Select.chat
+{
+	"\![*]\q[You're grumpy,grumpy]\n/
+	\![*]\q[Wheelchair?,chair]\n/
+	\![*]\q[Tell me a story,story]\n/
+	\![*]\q[Soothe,soothe]\n/
+	\![*]\q[Compliment,compliment]\n\n/
+	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+Select.grumpy
+{
+	if urnice <= 200
+	{
+		"\0\s[0]\i[6]I'm sure you'd be 'grumpy', too, if you were me.\e"
+		"\0\s[2]\i[1]So?\e"
+		"\0\s[0]\i[2]Yes.\w8\i[6] I am.\e"
+		"\0\s[0]\i[6]How observant of you.\e"
+	}
+	
+	if urnice >= 201 && urnice <= 400 && meanie <= 4
+	{
+		"\0\s[2]\i[2]Maybe a little, but I didn't get a lot of sleep this past day.\e"
+		"\0\s[0]\i[5]Well, there was a weird noise outside, so I didn't want to sleep.\e"
+		
+		if giveblood <= 0
+		{
+		"\0\s[0]\i[5]I'm just a little thirsty.\e"
+		}
+		
+		"\0\s[0]\i[3]I live in an abandoned building, what do you expect?!\e"
+		"\0\s[0]\i[4]You try sleeping on my broken up mattress and we'll see how pleasant you are when you wake up.\e"
+		"\0\s[2]Leave me alone.\w8 I have enough on my plate without worrying about your feelings.\e"
+	}
+	
+	if urnice >= 401 && meanie <= 4
+	{
+		"\0\s[2]\i[3]Oh... Uh... I apologize.\e"
+		"\0\s[2]\i[7]That's not fair of me.\w8 You've been nothing but kind to me.\w8 I'll try to keep it in check.\e"
+		"\0\s[0]\i[5]I suppose I'm just tired.\w8 I apologize.\e"
+		"\0\s[2]\i[5]I could stand to be kinder, couldn't I?\e"
+		"\0\s[1]\i[2]Despite what you may think, I am trying.\w8\0\s[2]\i[3] I do apologize for my behavior, though.\e"
+		"\0\s[2]\i[7]Please do not take it personally.\e"
+	}
+	
+	if meanie >= 5
+	{
+		if toldname == 1
+		{
+			"\0\s[2]\i[5]It's not like you deserve to be treated with kindness.\w8 Cruelty is not met with respect, %(username).\e"
+		}
+		
+		"\0\s[0]\i[4]Well, I suppose someone like you wouldn't understand why I might be unhappy.\w8 You obviously have empathy problems.\e"
+		"\0\s[0]\i[4]Oh that's rich.\w8 You can be horrible and unkind, but I'm not allowed to be in a bad mood?\e"
+		"\0\s[0]\i[2]You are several shades of hypocritical.\e"
+		"\0\s[5]\i[4]Are you mocking me?\e"
+		"\0\s[0]\i[2]Oh shut up.\e"
+		"\0\s[0]\i[6]You sound just like my father.\e"
+		"\0\s[2]\i[1]Humph.\e"
+	}
+}
+
+Select.chair
+{	
+	if urnice <= 200 || meanie >= 5
+	{
+		"\0\s[2]\i[1]What about it?\e"
+		"\0\s[0]\i[4]Yes. I'm in a wheelchair.\w8 You're so observant.\e"
+		"\0\s[0]\i[2]Good job noticing,\w8\i[4] asshole.\e"
+		"\0\s[2]\i[1]I can't use my legs.\w8 What are you confused about?\e"
+	}
+	
+	if urnice >= 201 && urnice <= 350 && meanie <= 4
+	{
+		"\0\s[0]I was paralyzed from the waist down.\w8 So I use a wheelchair to get around.\w8\s[0]\i[4] It's not exactly complicated.\e"
+		"\0\s[5]\i[7]It's just a wheelchair.\w8 Nothing to ogle at.\e"
+		"\0\s[2]\i[7]My back is messed up.\w8 Hence, the chair.\e"
+		"\0\s[0]\i[2]What else would I use?\e"
+	}
+	
+	if urnice >= 351 && meanie <= 4
+	{
+		"\0\s[2]\i[5]My father made sure I would have to use this stupid thing.\w8 I just hope it's not for the rest of my life.\e"
+		"\0\s[3]It's stolen.\w8 But it was the only way.\e"
+		"\0\s[2]\i[5]I can't believe my father felt so threatened by my existence that he had to paralyze me.\w8 What an asshole.\e"
+		"\0\s[3]You would think a man who has hundreds of years on me would not feel the need to hurt me like he did.\e"
+	}
+}
+
+Select.story
+{
+	urnice += 5
+	
+	if urnice <= 100 || meanie >= 5
+	{
+		"\0\s[1]\i[6]Once upon a time there was a human who held a vampire hostage and asked the vampire stupid things.\w8 One day the human asked for a story and the vampire killed them.\w8\s[2]\i[1]\w8 The end.\e"
+		
+		"\0\s[1]\i[6]There was once a rude human who asked for stories and never got them.\w8\s[2]\i[1]\w8 The stupid human died of disappointment.\e"
+	}
+	
+	if urnice >= 101 && meanie <= 4
+	{
+		"\![enter,passivemode]\0\s[0]\i[3]Hm...\w8 An old friend used to tell me this one about an old king...\w8\x\s[1]\w8\b2\_q There was once an old king who asked his advisors for all the knowledge of the world. Well, they obediently searched out all the books they could find, taking months to meticulously gather every known fact mankind had to offer. When they brought it to the king, however, he looked at the giant pile of books and wanted it condensed.\x\c\b2The advisors spent as short a time as they could to get this great pile of knowledge condensed down to a few books. When they brought these books to the king, he took one look at it and told them he wanted it condensed even more. Well, the advisors put their heads together and took their time to get all this knowledge down to one book.\x\c\b2 The king scowled when he saw the book. It wasn't short enough for him. He wanted all the knowledge of the world and he wanted it all as quickly as possible. The advisors were frustrated, but one stepped up to the king, insisting he could give it all to the king right then and there. 'This too shall pass for everything changes,' the advisor told the king.\x\c\0\s[2]\i[7]\_qSometimes I think about that story when things are hard. Because nothing lasts forever. Things always change. Even the bad times will pass.\x\![leave,passivemode]"
+		
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was once a napping lion sound asleep on the savannah. A little mouse was on his way home, but had to pass the lion by. The lion woke, however, when the mouse brushed by his paw. The lion scooped up the mouse and was going to eat him when the mouse shouted, 'Please, king of beasts, spare me. One day I may return the favor.' The lion was amused, and so he let the mouse go.\x\c\b2 It so happened the next day the lion got caught in a trap made by man. He moaned and roared, but nothing helped. The mouse happened upon the scene and quickly set to work. He chewed off the ropes until the lion was soon free. 'And now my debt is paid,' the mouse said with a grin.\x\![leave,passivemode]"
+		
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was once an old farmer, worn from working hard all his life. As he toiled in the field, he fell to his knees and said, 'I can work no longer. I wish Death would only come and take me from this life.' Just then, a willowy skeleton with a twisted scythe appeared. 'You called on me, Mortal?' The old man turned quickly around 'Sir, would you help me work this field?'\x\![leave,passivemode]"
+		
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was once an old vampire who had many quarreling children. He took them all out one night. First, he took them to a city and told them to feast. The humans there banded together and they were unable to quench their thirst.\x\c\b2 Then, the old vampire took his children to a rural area and told them to feed. The isolated farmers stood no chance. The old vampire then took his children aside and said, 'Like the humans in the city, we are strong together, but like the farmers you fed from, we are weak when divided.'\x\![leave,passivemode]"
+		
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2A young vampire lived alone from his people. There were no others for hundreds of miles around and he took what he wanted from the humans in the area. As the years passed, he fed more and more, taking what he wanted without care.\x\c\b2Well, a year passed and the vampire had killed hundreds of people. The humans were tired of it and organized themselves. During the light of day, they stormed his home and dragged him out into the sun. His charred body was hung up as a reminder to the gluttonous to restrain themselves.\x\![leave,passivemode]"
+		
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was a village in the mountains that never had any kind of ill fortune fall upon them. Even when the rest of the country started to fall into depression and famine, this little village was modestly wealthy and everyone was happy. Their fortune did not go unnoticed, however.\x\c\b2The ruler of the land heard about the wealth of the town and sent his son, the prince, to figure out how they were so prosperous. When the son arrived, he asked as many people as he could where the wealth came from. He learned of a legend of a dragon in the mountains that the locals believed watched over the land.\x\c\b2The prince traveled into the mountains and happened upon a cave where a great noise was coming from. When he went inside, he saw a white dragon curled around thousands of dazzling gems. It woke up and looked at him with great blue eyes. 'I've come to take your treasure for the rest of the kingdom,' the prince cried out.\x\c\b2Before the prince's eyes, the dragon suddenly transformed into a beautiful girl with long white hair and the same beautiful blue eyes. 'If you would kill me for my treasure, then do it. I will not stop you.' But the prince could not. Instead, he fell to his knees and wept at her beauty and innocence. 'I'm sorry, my lady,' he told her.\x\c\b2 The dragon girl walked up to him and gently kissed his forehead. 'You want only what is best for your people,' she said. 'But I cannot let the king have my treasure. He killed my family and drove me here to live in secrecy and fear. If he dies, I will marry you and share my wealth with the rest of your kingdom.' The prince left with a heavy heart.\x\c\b2When the prince returned home, he could only look at his father with disgust. In the histories of the kingdom, he found proof that his father had killed the luck dragons of their kingdom and that was when the famine had first truly started, so he challenged his father to a duel.\x\c\b2The day of the duel, the dragon came in her human form to bless the prince with luck. She stood quietly in the crowd of people who watched and it gave the prince courage. The prince and the king fought hard against each other until the prince disarmed his father and held him at tip of sword. 'Don't corrupt your heart with his death,' the dragon suddenly cried out and the prince spared his father.\x\c\b2 The prince married the dragon shortly after and soon, wealth spread back over the kingdom. The famine ended, crops yielding more food than ever, and the people were happy again. And so it was for thousands of year.\x\![leave,passivemode]"
+	}
+}
+
+Select.soothe
+{
+	urnice += 5
+	
+	"\0\s[3]\w8\w8\w8\w8\_q<You tell him he's safe here.\0\s[2]\i[3]>\e"
+	"\0\s[4]\w8\w8\w8\w8\_q<You hum softly and pleasantly.>\w8\0\s[2]\i[7]\w8\w8\w8\n\n <He looks a lot more relaxed>\e"
+	"\0\s[4]\w8\w8\w8\w8\_q<You light a scented candle and the smell fills the air\w8\0\s[2]\i[7]>\n\n\w8\w8<He looks a lot more relaxed>\e"
+	"\0\s[3]\w8\w8\w8\w8\_q<You tell him you believe in him\w8\0\s[2]\i[6]\w8\w8 Did you see him sob once?>\e"
+	"\0\s[4]\w8\w8\w8\w8\_q<You tell him he is good enough>\w8\0\s[2]\i[6]\w8\w8\n\n <Has anyone ever told him that?>\e"
+	"\0\_q<You tell him he is worthy of affection>\w8\0\s[2]\i[6]\w8\w8\n\n <It seems hard for him to believe>\e"
+}
+
+Select.compliment
+{
+	"\0<You tell him you like his hair>\n\n\w8"
+	"\0<You tell him that he's handsome>\n\n\w8"
+	"\0<You tell him he's very talented>\n\n\w8"
+	"\0<You tell him you enjoy his company>\n\n\w8"
+	"\0<You tell him he's super cool>\n\n\w8"
+	"\0<You tell him he's very smart>\n\n\w8"
+	
+	--
+	if meanie <= 4
+	{
+		urnice += 5
+		"\0\s[2]\i[3]\w8\w8You don't know what you're saying.\e"
+		"\0\s[2]\i[3]\w8\w8You shouldn't say such things to me.\e"
+		"\0\s[2]\i[3]\w8\w8I'm nothing.\w8 Definitely not worth your compliments.\e"
+	}
+	if meanie >= 5
+	{
+		"\0\s[9]That's wasn't your opinion earlier.\e"
+		"\0\s[9]You don't mean that.\e"
+		"\0\s[9]You weren't being very nice to me before, so why should I trust you, now?\e"
+	}
+}
+
+Select.give
+{
+	"\0\s[0]\n\n"
+	
+	--
+	
+	"\![*]\q[Book,book]\n/
+	\![*]\q[Bedding,bedding]\n/
+	\![*]\q[Scented Candle,candle]\n/
+	\![*]\q[Blood,blood]\n/
+	\![*]\q[Stuffed Cat,kitty]\n\n/
+	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+Select.book
+{
+	if givebook <= 1 && meanie <= 4
+	{
+		givebook += 1
+		urnice += 5
+		
+		"\0\s[7]\w8\w8\w8What -\w8\s[12]\i[9]\w8\w8 A book?\w8 Are you sure?\e"
+		"\0\s[7]\w8\w8\w8Are you sure you want to give me -\w8\s[12]\w8\w8 I don't really deserve -\s[12]\i[9] Thank you.\e"
+	}
+	elseif givebook >= 2 && meanie <= 4 && givebook <= 5
+	{
+		givebook += 1
+		urnice += 1
+		
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Dragons: Myths and Legends'?\w8 That sounds interesting.\w8 Thank you.\e"
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Frankenstein'?\w8 Hm... A monster book.\w8 You have a sense of humor.\e"
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Dracula'?\w4 Really?\e"
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Dreams and Their Meanings'?\w8 Hm...\w8 Not what I would usually read, but it is appreciated.\e"
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Classic Poems and Their Poets'?\w8 Mm... I'll enjoy this one.\e"
+		
+		if harrypotter == 0
+		{
+			harrypotter = 1
+			"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Harry Potter'...\w8 I heard about this one.\w8 There is magic involved, right?\w8 I'm sure it's inaccurate, but...\w8 thank you.\e"
+		}
+	}
+	elseif givebook >= 6 && meanie <= 4
+	{
+		"\0\_q<You've given him a lot of books. Calm down a little.>\e"
+		"\0\_q<He's content with what you've given him. No need to give more.>\e"
+		"\0\_q<Woah there. He's got plenty now.>\e"
+	}
+	elseif meanie >= 5
+	{
+		"\0\s[9]\_q<He doesn't want anything from you.>"
+	}
+}
+
+Select.bedding
+{
+	if givebedding < 3 && meanie <= 4
+	{
+		givebedding += 1
+		urnice += 2
+		
+		"\0\s[0]\i[9]\_q<You give him a thick, fuzzy blanket. It quickly disappears into his dimensional box to be used at home.>\e"
+		"\0\s[0]\i[9]\_q<You give him a homemade quilt. It quickly disappears into his dimensional box to be used at home.>\e"
+		"\0\s[0]\i[9]\_q<You give him a fluffy pillow. It quickly disappears into his dimensional box to be used at home.>\e"
+		"\0\s[0]\i[9]\_q<You give him a plush body pillow. It quickly disappears into his dimensional box to be used at home.>\e"
+	}
+	
+	if givebedding >= 3 && meanie <= 4
+	{
+		urnice += 1
+		
+		"\0\s[0]\i[9]The blankets you gave me has helped so much.\w8 I've been sleeping so much more comfortably.\e"
+		
+		"\0\s[1]\i[9]You'll be happy to know your blanket and pillow donations have made sleeping wonderfully comfortable.\w8 I'm not so cold while I sleep.\w8 Thank you.\e"
+	}
+	
+	if meanie >= 5
+	{
+		"\0\s[9]\_q<He doesn't want anything from you.>"
+	}
+}
+
+Select.candle
+{
+	if givecandle < 0
+	{
+		givecandle = 0
+	}
+	--
+	if givecandle <= 5 && meanie <= 4
+	{
+		givecandle += 1
+		urnice += 2
+		
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like apple pie. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like cinnamon. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like clean linen. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like pine trees. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like strawberries. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like oranges. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like cherry blossoms. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like coffee. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like vanilla. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like wild flowers. It disappears into his dimensional box to be used at home>\e"
+		"\0\s[0]\i[9]\_q<You give him a candle that smells like coconut. It disappears into his dimensional box to be used at home>\e"
+	}
+	
+	if givecandle >= 6 && meanie <= 1
+	{
+		urnice += 1
+		
+		"\0\s[0]The candles you gave me are so pleasant to have lit.\w8 I feel like I have more of a home, now.\e"
+		"\0\s[0]I really love the candles you gave me.\w8 Thank you.\e"
+		"<You've given him a lot of candles. Don't worry. It's enough.>\e"
+	}
+	
+	if meanie >= 5
+	{
+		"\0\s[9]\_q<He doesn't want anything from you.>\e"
+	}
+}
+
+Select.blood
+{
+	if giveblood <= 60 && meanie <= 4
+	{
+		urnice += 5
+		giveblood += 30
+		
+		"\0\s[14]\i[9]You're a lifesaver! Thank you!\e"
+		"\0\s[14]\i[9]That smells amazing!\e"
+		"\0\s[14]\i[9]That is exactly what I need right now.\e"
+		"\0\s[0]\i[9]Please, give that here.\w8\s[14]\e"
+		"\0\s[14]\i[9]Thank you so much.\e"
+		"\0\s[14]\i[9]I didn't even realize how thirsty I was.\e"
+		"\0\s[14]\i[9]You're really too considerate.\e"
+		"\0\s[14]\i[9]I don't know how you got a hold of blood, but thank you.\e"
+	}
+	
+	if giveblood >= 75 && meanie <= 4
+	{
+		urnice += 1
+		
+		"\0\s[11]\i[3]No thank you.\w8 I couldn't drink anymore.\e"
+		"\0\s[11]\i[3]My stomach is full, thank you.\e"
+		"\0\s[0]I'll take that for home, if you do not mind.\e"
+	}
+	
+	if meanie >= 5
+	{
+		"\0\s[9]\_q<He won't accept blood from you.>\e"
+	}
+}
+
+Select.kitty
+{
+	if meanie >= 5
+	{
+		"\0\s[9]\_q<He doesn't want anything from you.>\e"
+	}
+	if meanie <= 4
+	{
+		if givekitty == 0
+		{
+			givekitty = 1
+			urnice += 5
+			kammy = 0
+		
+			"\0\s[8]\w8\w8\w8A cat?\0\s[8]\w8\w8 Why did you -\w8\w8\0\s[0]\i[9]\w8 Thank you?\e"
+		}
+		elseif givekitty == 1
+		{
+			{
+				"<You ask about the stuffed cat you gave him>\n\n"
+		
+				--
+				"\w8\0\s[0]\i[9]What about her - it?\e"
+				"\w8\0\s[0]\i[9]I still have her - it, yes.\e"
+				"\w8\0\s[2]\i[3]She's - It's doing well.\e"
+				"\w8\0\s[2]\i[3]She's - It's doing well.\w4 I always wanted a cat, you know?\w4 She's not real, but she's still nice to have.\e"
+			}
+			{
+				if kammy == 0
+				{
+				kammy = 1
+				
+				"<You ask if he gave the cat a name>\n\n\w8\w8\0\s[2]\i[3]Maybe.\w8\w8\w8\w8\w8 Asami.\e"
+				}
+			
+				elseif kammy == 1
+				{
+				"<You ask if he sleeps with Asami>\n\n\w8\w8\0\s[1]\i[6]No!\w8\w8 \0\s[2]\i[3]Maybe!\w8\w8\0\s[1]\i[9] Only sometimes!\w8\w8 \0\s[2]Shut up!\e"
+				}
+			}
+		}
+	}
+}
+	
+
+Select.crushhim
+{
+	"\0\_q<BEWARE FOR ONCE YOU ARE UNKIND IN ANY WAY, YOU CANNOT TAKE IT BACK.>\n\n"
+	
+	--
+	if meanie >=5
+	{
+	"\![*]\q[You're not loveable,notloveable]\n/
+	\![*]\q[You'll never be happy,neverhappy]\n/
+	\![*]\q[You are nothing,urnothing]\n\n"
+	}
+	
+	--
+	"\![*]\q[Insult,insult]\n/
+	\![*]\q[Shove,shove]\n/
+	\![*]\q[Argue,argue]\n/
+	\![*]\q[Criticize,critic]\n\n/
+	\![*]\q[Back,BACKTOMENU]\e"
+}
+	
+Select.notloveable
+{
+	meanie += 5
+	
+	"\0<You tell him he's not worthy of anyone loving him. He doesn't deserve to be loved. He is hateful and mean and no one will ever love him.>\n\n\w8\w8\s[2]\i[5]\w8\w8You don't know that!\w8 You don't know anything!\e"
+}
+
+Select.neverhappy
+{
+	meanie += 5
+	
+	"\0<You tell him he'll never be happy. He's a miserable person and always will be.>\n\n\w8\w8\s[2]\i[6]\w8\w8I... I...\w8 You're right.\e"
+}
+
+Select.urnothing
+{
+	meanie += 5
+	
+	"\0<You tell him he is nothing>\s[6]\i[4]\w8\w8\w8\w8\w8\w8\s[2]\i[6]\n\n I'm not!\w8 I'm more than that! I -\s[2]\i[6]\w8\w8\w8 No.\w8\w8\w8\w8\w8 You're right.\w8\w8\w8\w8\w8 I am nothing.\w8 Not a person. Not normal. Not anything but his tool and now I'm not even that.\w8 I -\s[5]\i[5]\w8\w8\w8\s[-1]\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\x\e"
+}
+
+Select.insult
+{
+	meanie += 1
+	
+	"\0<You tell him he's ugly>\s[0]\i[2]That's really juvenile.\e"
+	"\0<You tell him he's dressed like a waiter>\s[0]\i[2]Well, you're dressed like a slob.\e"
+	"\0<You tell him he's a beetle-headed, flap-ear'd knave>\s[0]\i[2]Well, you're a canker blossom.\e"
+	"\0<You tell him he's fusty nut with no kernel>\s[0]\i[2]Well, you're a cream faced loom.\e"
+	"\0<You call him a crippled freak>\s[0]\i[5].\w4 You're very unkind...\e"
+	"\0<You tell him he's bad at writing poems>\s[0]\i[2]How would you even know?\e"
+}
+
+Select.shove
+{
+	meanie += 4
+	
+		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[2]\i[5]\e"
+		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[0]\i[4]You're a major asshole."
+		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[0]\i[4]Fucking moron."
+}
+
+Select.argue
+{
+	meanie += 1
+	
+		"\0<You say poetry is a stupid art form>\n\n\w8\w8\s[0]\i[6]It is not!\w8 You are obviously an imbecile if you cannot understand it!\n\n\w8\w8<You say only the weak write poetry>\n\n\w8\w8\s[2]\i[1]You're stupid.\e"
+	
+		"\0<You say reading is pointless>\n\n\w8\w8\s[0]\i[6]It is not!\w8 You're pointless, actually.\w8 The mind is dull and weak without the care given to it by reading.\n\n\w8\w8<You say he just reads because he can't do anything else>\n\n\w8\w8\s[1]\i[5]...\w8\w8\w8\w8\s[2]\i[5]\e"
+		
+		"\0<You tell him he's a nerd for writing poetry>\n\n\w8\w8\s[0]\i[6]I am not!\w8 If I am... well, nerds have to exist or you wouldn't have music.\n\n\w8\w8<You threaten to shove him in a locker>\n\n\w8\w8\s[2]\i[1]You're just a bully, aren't you?\e"
+}
+
+Select.critic
+{
+	meanie += 1
+	
+		"\0\s[0]<You tell him his hair isn't neat enough>\s[2]\i[1] It's fine. Thank you very much.\e"
+		"\0<You tell him his clothes are wrinkled and it's offensive to decent people>\s[0]\i[2]Hm...\w8 You're a slob the majority of the time, so shut the fuck up.\e"
+		"\0<You say his attitude sucks>\w8\s[0]\i[2]Oh because yours is soooooo much better.\e"
+}
+
+Select.rummage
+{
+	if urnice <= 499
+	{
+		"\0\s[0]%(norummage)"
+	}
+	if urnice >= 500 && urnice <= 699
+	{
+		"\0\s[0]%(mayberummage)"
+	}
+	if urnice >= 700
+	{
+		"\0\s[0]%(yesrummage)"
+	}
+}
+
+norummage
+{
+	"\0\s[0]\i[5]What?\w8 You want to go home with me?\s[2]No.\w8 No, I'm sorry, but no.\e"
+	"\0\s[2]I really don't want to do that with you.\w8 I'm sorry.\e"
+	"\0\s[5]You'd know where I live...\w8 I just don't want that.\e"
+}
+
+mayberummage
+{
+	"\0\s[2]\i[3]Is it that you want to do something with me?\w8 I'm flattered, but...\w8 Maybe one day.\e"
+}
+
+yesrummage
+{
+	rummaging = 1
+	
+	"Yes.\w8 We can absolutely do that.\c\0\s[40]\b4<This area looks mostly abandoned, weeds overgrown everywhere. It's set apart from any heavily populated area and is an easy place to live secretively if needed.>"
+	"Yes.\w8 We can absolutely do that.\c\0\s[40]\b4<Despite its location adjacent to the river, this area Riccardo has found to live in has low traffic. People seem to have abandoned this place.>"
+	--
+	OnRummaging
+}
+
+Select.nomorerummage
+{
+	rummaging = 0
+	
+	"\0\s[0]"
+	
+	--
+	OnRummagingStop
+}
+
+//Leave this next bit alone.
+//Advanced users, note that this is formatted as Select.linkedfunction? Remember how it went \q[Displayed Name,linkedfunction] above? When a user clicks an option that doesn't begin with On, they'll be linked to Select.linkedfunction. Pay close attention as we go through and you'll see this in action.
+Select.altalk
+{
+	AiTalk
+}
+
+//Leave this alone
+OnLastTalk 
+{
+"%(lastTalk)\e"
+"Ha! No!\e"
+"\0\s[2]Should have been paying attention.\e"
+}
+
+//This is figuring out what day of the week it is. Leave it alone.
+GetWeekDay
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+//This is finding out whether it's AM or PM. Leave it alone.
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+ 		{
+ 			"AM"
+ 		}
+ 	else
+ 		{
+ 			"PM"
+ 		}
+}
+
+//This is figuring out the minute. Leave it alone.
+Getnowmin
+{
+	if minute >= 0 && minute <=9
+		{
+			"0%(minute)"
+		}
+	else
+		{
+			"%(minute)"
+		}
+}
+
+//This is figuring out the hour. Leave it alone.
+Getnowhour
+{
+	if hour12 >= 0 && hour12 <=9
+		{
+			"0%(hour12)"
+		}
+	else
+		{
+			"%(hour12)"
+		}
+}
+
+//If someone selects an option linked to BACKTOMENU, it will go back to MenuRun.
+
+Select.BACKTOMENU
+	{
+		MenuRun
+	}
+
+//If someone selects configmenu, this will lead to TalkConfig.
+Select.configmenu
+	{
+		TalkConfig
+	}
+
+//*********************Advanced User Info*******************************
+//Some of you may be wondering why some of these Select.options lead to another function. Why not just put the config menu coding under Select.configmenu, instead of linking to TalkConfig?
+//Basically any function that's preceded with Select. is limited in its complexity and can only be called within its own .dic file in my experience. Why should you care, you ask? Well, if you're going to link to this function any other way, such as linking it in other .dic files or as a page in a menu, it needs to be a stand-alone function so it can be properly called. I'm pretty sure.
+//The basic jist is this; if you're going to reuse whatever it is the option leads to, you should make it its own function. Otherwise, you can leave it in Select.option. As a rule of thumb I'd probably put any complicated stuff in its own function, then use the Select.option to call the full function as you can see above. Simple dialogue responses to a choice can stay as a Select.option though. Study what stays as a Select.option and what links to another Function as we go through the file.
+//***********************************************************************
+
+//--TalkConfig
+//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You shouldn't need to touch any of what's under TalkConfig, although you can adjust dialogue in the following functions related to it.
+
+TalkConfig
+{
+	"\0\b[2]\_q\" 
+	//This bit of dialogue sets up a large balloon and a quick session, like above, so all the text will appear immediately. The rest is formatted to display the information and options to change it. I wouldn't touch any of it if you don't know what you're doing.
+	//I'll briefly explain the font tags I used here. \f[bold,1] turns bold on, \f[bold,0] turns it off, not unlike a <b> tag. \f[sup,1] turns superscript on (making it tiny and above the text) and \f[sup,0] turns it off. I touch on these tags in the walkthrough on SakuraScript.
+	--
+	"f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	--
+	"\f[bold,1]Your pronouns:\f[bold,0] %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	--
+	//"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
+	//--
+	"\f[bold,1]Talk Rate:\f[bold,0] - every %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	--		
+		{
+		"\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]\n\n"
+		}
+	--
+	"\![*]\q[Reset Riccardo,softreset]\n\n/
+	\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+Select.softreset
+{
+	"\_qBy resetting Riccardo, you lose all progress good or bad you have made in your relationship with him. He will start over as if freshly installed. Do you want to proceed?\n\n"
+	
+	--
+	"\![*]\q[Yes,hardreset]\n/
+	\![*]\q[No,BACKTOMENU]\e"
+}
+
+Select.hardreset
+{
+	"%(OnFirstBoot)"
+}
+
+//This and the next few set up the pronouns, as you can see by the linkedfunction names. You can replace "\0\s[0]What pronouns do you want?" with your own dialogue if you prefer, but leave the rest of it alone.
+
+Select.TEACHPRONOUN
+{
+	"\0<You tell him your pronouns are...>\w5\n\n[half]\_q/
+		\![*]\q[He-His-Him,choicemasc]\n/
+		\![*]\q[She-Her-Her,choicefem]\n/	
+		\![*]\q[They-Their-Them,choiceneither]\e"
+}
+
+Select.choicemasc
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	--
+	"\0\s[2]\i[1]I don't believe I asked.\w4 It's good to know, though.\e"
+	//Leave the part above the double dashes alone. You can replace the snip of dialogue however with whatever you like.
+}
+
+Select.choicefem
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	--
+	"\0\s[2]\i[1]I don't believe I asked.\w4 It's good to know, though.\e"
+	//as above, you can also replace this dialogue.
+}
+
+Select.choiceneither
+{
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	--
+	"\0\s[2]\i[1]I don't believe I asked.\w4 It's good to know, though.\e"
+	//and this one.
+}
+
+
+//These two options toggle whether or not you can delete your ghost. Leave them alone.
+
+Select.deleteon
+{
+	deleteshitai = "ON"
+	TalkConfig
+}
+
+Select.deleteoff
+{
+	deleteshitai = "OFF"
+	TalkConfig
+}
+
+
+//This next set of functions handles inputting the user's birthday.
+
+Select.TEACHBDAY
+	{
+		dayslot = GetDaySlot //This is setting up in case today is the user's birthday.
+		
+		"\0\s[2]<You tell him your birthday month with a number value>\![open,inputbox,OnUserBornMonth,-1]\e"
+		
+		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information. Note that the month HAS to be put in in number format as well, so you might want to have your ghost mention that.
+		
+		//*********************Advanced User Info*******************************
+		//I also touched on this in bootend.dic and explained it in the walkthrough page on coding, but I'll also go into it here. I'm going to break down the tag there at the end of the sentence so you know what it's doing. Basically, \! means a function is going to happen, open tells it to open something, inputbox tells it to open an input box, and OnUserBornMonth is the function the input box will be linked to, which is just below here. -1 means the input box should not time out. If you want to add input boxes to some new function for whatever reason, you should follow this basic format.
+		//On a related note, you can raise any function at the end of any piece of dialogue by using this format - ![raise,InsertFunctionName]. This can be handy for testing things if the function is hard to get to run otherwise.
+		//***********************************************************************
+	}
+
+//--OnUserBornMonth
+//This takes the value that the user put into the input box above and evaluates it.
+
+OnUserBornMonth
+	{
+		_tempmonth = reference0 //this stores what the user input in as a variable called _tempmonth
+		if _tempmonth >= 1 && _tempmonth <= 12 //if the month is a valid month
+			{
+			bornmonth = _tempmonth
+			bornmonthprint = Printmonth
+			
+			"\0\s[2]\_q<What day of %(bornmonthprint)?> \![open,inputbox,OnUserBornDay,-1]\e"
+			
+			//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue up to the input box just as with above.
+			}
+		else //if the month isn't a valid month, like 32 or something.
+			{
+			"\0\s[2]\_q<That's not right.> \![open,inputbox,OnUserBornMonth,-1]\e"
+			
+			//You can replace this dialogue as well up to the \! tag, as mentioned. You need to leave the tag for the input box so they can put in a correct month.
+			}
+	}
+
+//This puts the name to the number of the month. No need to mess with these.
+Printmonth
+{
+	if bornmonth == 1
+	{
+		"January"
+	}
+	elseif bornmonth == 2
+	{
+		"February"
+	}
+	elseif bornmonth == 3
+	{
+		"March"
+	}
+	elseif bornmonth == 4
+	{
+		"April"
+	}
+	elseif bornmonth == 5
+	{
+		"May"
+	}
+	elseif bornmonth == 6
+	{
+		"June"
+	}
+	elseif bornmonth == 7
+	{
+		"July"
+	}
+	elseif bornmonth == 8
+	{
+		"August"
+	}
+	elseif bornmonth == 9
+	{
+		"September"
+	}
+	elseif bornmonth == 10
+	{
+		"October"
+	}
+	elseif bornmonth == 11
+	{
+		"November"
+	}
+	else
+	{
+		"December"
+	}
+}
+
+//This adds an appropriate suffix to the number for the day. No need to mess with this either.
+
+Printday
+{
+	if bornday == 1 || bornday == 21 || bornday == 31
+	{
+	"%(bornday)st"
+	}
+	elseif bornday == 2 || bornday == 22
+	{
+	"%(bornday)nd"
+	}
+	elseif bornday == 3 || bornday == 23
+	{
+	"%(bornday)rd"
+	}
+	else
+	{
+	"%(bornday)th"
+	}
+}	
+
+//--OnUserBornDay
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it.
+
+OnUserBornDay
+{
+	tempday = reference0 //storing the input in tempday
+	
+	if bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12 //This is checking to see if it's one of the months with 31 days.
+		{
+			if tempday >= 1 && tempday <= 31 //if it falls in the right range
+				{
+					bornday = tempday
+					borndayprint = Printday
+					userbirthday = "%(bornmonth)month %(bornday)day"
+					birthdayprint = "%(bornmonthprint) %(borndayprint)"
+					
+					"%(birthchecked)"
+					//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
+				}
+			else //if the day isn't valid, like the 10046th or something.
+				{
+					"\0\s[2]\_q<That's not right.> \![open,inputbox,OnUserBornDay,-1]\e"
+					
+					//Similar as you can see to the month check above. You can replace the dialogue here up to the tag as you just did, but make sure to leave the input box tag so the user can put in a correct day.
+				}
+		}
+	elseif bornmonth == 2 //if the month is february
+		{
+			if tempday >= 1 && tempday <= 29 //and the day falls in the right range
+				{
+					bornday = tempday
+					borndayprint = Printday
+					userbirthday = "%(bornmonth)month %(bornday)day"
+					birthdayprint = "%(bornmonthprint) %(borndayprint)"
+					
+					"%(birthchecked)"
+					//just as with the above.
+				}
+			else
+				{
+					"\0\s[2]\_q<That's not right.> \![open,inputbox,OnUserBornDay,-1]\e"
+					
+					//And the same as above again! You see the pattern here?
+				}
+		}
+	else //if it's any other month than those
+		{
+			if tempday >= 1 && tempday <= 30 //if the day falls between these values
+				{
+					bornday = tempday
+					borndayprint = Printday
+					userbirthday = "%(bornmonth)month %(bornday)day"
+					birthdayprint = "%(bornmonthprint) %(borndayprint)"
+					
+					"%(birthchecked)"
+				}
+			else
+				{
+					"\0\s[2]\_q<That's not right.> \![open,inputbox,OnUserBornDay,-1]\e"
+				}
+		}		
+}
+
+//--birthchecked
+//This is the new envelope you saw me point out above. As you can see here, you can actually call dialogue in a function with an envelope, even when it has if and else statements like here! Which can be pretty handy. Again, more on envelopes in word.dic. Creative ghostmakers can find handy ways to exploit this, I'm sure.
+
+birthchecked
+{
+	if userbirthday == dayslot //if today is the user's birthday
+		{
+			"\0\s[2]\[1]Happy birthday.\w8 I guess.\e"
+			//replace this dialogue with whatever you like
+		}
+	elseif userbirthday == "12month 25day"
+		{
+			//"\0\s[0]The user was born on Christmas.\w8\1\s[10]Happy birthday, %(username). \w5\s[15]AND JESUS!\w8\0\s[9]\n\n[half]We're supposed to be a blank template, knock it off before we get in trouble.\e"
+			//As you can see, you can set up an elseif statement to check if the user's birthday is any day you want! More on elseif statements in bootend.dic. In this case, there's specialized dialogue if the user was born on Christmas. You can replace this with whatever you like, or change the date you're checking as well, like to one of your character's birthdays if you want. You can also delete this elseif if you don't care.
+		}
+	else //if the birthday is not listed above.
+		{
+			"\0\_q<Your birthday is %(bornmonthprint) %(borndayprint). He knows now, but he may or may not care.>\e"
+			//note the use of envelopes to display the newly set birthday properly. You can replace this dialogue as well, and you can use %(bornmonthprint) and %(borndayprint) to display the month and day in the new dialogue, if you want.
+		}
+}
+
+//--Talk Rate
+//This is when the user chooses to adjust the talk rate in the config menu. The talk rate is how often the ghost will read some dialogue from aitalk.dic.
+
+Select.talkinter
+ 	{
+ 		"\0\s[2]\b2It seems you can control how often I can speak. Right now I talk every %(talktime)./
+		//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
+ 		\0\n\n[half]/
+ 		\![*]\q[Every 30 seconds,TALKMAX]\n/
+		\![*]\q[Every minute,TALKHIGH]\n/
+ 		\![*]\q[Every 3 minutes,TALKNORMAL]\n/
+		\![*]\q[Every 5 minutes,TALKPOOR]\n/
+ 		\![*]\q[Don't speak,TALKNONE]\n\n[half]/
+		\![*]\q[Don't change,TalksTill]\e"
+	}
+
+//If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I would NOT recommend it, it'd just be confusing I'm sure.
+Select.TalksTill
+	{
+		"\0\s[0]\i[6]I'll keep talking the same amount, your majesty.\e"
+	}
+
+//If the user chooses every 30 seconds.
+Select.TALKMAX
+	{
+ 		talktime = "30 seconds" //this sets up the envelope properly
+		aitalkinterval = 45 //this changes the actual rate
+		
+ 		"\0\s[0]\i[7]That's a lot of talking.\w8 Lonely are we?\e"
+	}
+
+//If the user chooses every minute.
+Select.TALKHIGH
+	{
+ 		talktime = "minute"
+		aitalkinterval = 75
+		
+ 		"\0\s[0]\i[7]Mm... Every minute, then.\e"
+	}
+
+//If the user chooses every three minutes.
+Select.TALKNORMAL
+	{
+ 		talktime = "3 minutes"
+		aitalkinterval = 195
+		
+ 		"\0\s[2]\i[1]I'll just shut up for 3 minutes at a time, then.\e"
+	}
+
+//If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
+Select.TALKPOOR
+	{
+ 		talktime = "5 minutes"
+		aitalkinterval = 315
+		
+ 		"\0\s[2]\i[1]I'll just shut up for 5 minutes at a time, then.\e"
+	}
+
+//If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
+Select.TALKNONE
+	{
+ 		talktime = "... I don't, actually."
+		aitalkinterval = 0
+		
+		"\0\s[5]\i[6]How about you never talk and we'll see how you like it.\e"
+	}
+
+	
+//This is when the user chooses to change their name. It's linked to the functions outlined in nameteach.dic. Nothing to touch here.
+Select.TEACHNAME
+	{
+		OnTeachName	
+	}
+
+	
+//If the user selects cancel in a menu. Replace as you like, or just leave them blank.
+Select.CANCEL
+	{
+		"\0\s[0]\i[6]Leave me alone next time.\e"
+		
+		"\0\s[2]\i[1]Fine.\e"
+		
+		"\0\s[0]\i[2]Whatever.\e"
+ 	}
+
+	
+//Going back to the MenuRun function we finished above, this is if someone selects the Functions option, linked to dosomething. As you can see, it ends up as Select.dosomething.
+
+Select.dosomething
+{
+ 		"\0\s[2]\i[1]\b2I'd rather not be your errand boy.\n\n"
+		
+		//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
+		//If you don't want to deal with this, just delete the extra lines and leave one. Otherwise, replace the dialogue above as you like, but note that they don't end with \e here. You can leave the rest of this below alone.
+		--
+ 		"\![*]\q[Open Calendar,CALENDAR]\n/
+		\![*]\q[Check Email,MailCheck]\n/
+		\![*]\q[Open SSP Preferences,sspconfig]\n/
+		\![*]\q[Empty Recycle Bin,ChoiceGarbagecan]\n/
+		\![*]\q[System Information,ChoiceSystemInformation]\n\n/
+ 		\![*]\q[Back to main menu,BACKTOMENU]\e"
+}
+
+//When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
+Select.CALENDAR
+{
+	"\0\s[2]\i[1]Here's your stupid calendar.\![open,calendar]\e"
+	
+	//You can replace the dialogue here up to the \!.
+	//Advanced users, can you break it down yet? It's basically just using \! to open calender.exe or dll or whatever SSP uses to make it happen.
+}
+
+//When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
+Select.sspconfig
+{
+	"\0\s[2]\i[1]Here's this, I guess.\![open,configurationdialog]\e"
+	
+	//Again, you can replace up to the \! tag.
+}
+
+//If the user chooses to empty the recycle bin.
+Select.ChoiceGarbagecan
+{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	//Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. It's just some ghost trivia, basically.
+	
+	if _gomicheck == 0 //If the recycle bin is empty.
+	{
+		"\0\s[0]\w8\w8\s[0]\i[5]\w8\w8\s[-1]\w8\w8\w8\w8\w8\w8\\w8\w8\w8\w8s[2]It was empty.\e"
+		
+		//This isn't the usual flat template dialogue, mostly because I wanted to show that this is a good place to use s[-1], which I covered in the walkthrough file. You can have your ghost disappear momentarily like they're going to check your recycle bin, then come back. \c clears the ghost's balloon of text. Replace dialogue as you desire.
+	}
+	elseif _gomicheck >= 1 //If the recycle bin is full.
+	{
+		"\0\s[0]\w8\w8\s[0]\i[5]\w8\w8\s[-1]\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w9\w9\w9\0\s[2]\cDone.\e"
+		
+		//Somewhat similar to the above, but notice the \![raise],OnGarbagecanEmpty] tag in there. That's what actually empties the recycle bin, so make sure you don't delete that tag. Otherwise, replace the dialogue as you want.
+		//As you can see, you can have multiple pieces of dialogue in here, just like you can for many other functions scattered through the .dic files. If you only want the one, just delete the others, or if you want to add more, just copy and paste and write new dialogue as it comes to you. This applies to when the recycle bin is empty as well.
+	}
+}
+
+
+//This is for the SAORI, don't touch it.
+OnGarbagecanEmpty
+{
+	_gomi = FUNCTIONEX("gomi.dll", "-f")
+}
+
+//This is when the user chooses System Information. Don't touch any of this either. For those curious though, note that this is done using another SAORI, this time saori_cpuid.dll.
+Select.ChoiceSystemInformation
+{
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	"/
+	\0\s[0]\b[2]/
+	\_q\f[bold,1]OS:\f[bold,0] %(os_name) %(os_version)\n/
+	\f[bold,1]Memory Load:\f[bold,0] %(memoryload)%\n/
+	\f[bold,1]Physical Memory:\f[bold,0] %(memoryavailphys) KB\n/
+	\f[bold,1]CPU:\f[bold,0] %(cpu_name) %(cpu_clockex)MHz\n/
+	\f[bold,1]Ukagaka:\f[bold,0] %property[baseware.version]/
+	\e"
+}
+	
+//This is when the user chooses to check their email. The rest of this function plays out in etc.dic. You can leave this alone.
+Select.MailCheck
+	{
+		"\![biff]\e"
+	}
+
+
+//This is when the user ends their headline session. Headlines are detailed more in etc.dic. Replace dialogue with what strikes you.
+Select.HEADLINECANCEL
+ 	{
+ 		"\0\s[0]Finished with headlines.\e"
+	}
+
+	
+//---- OnChoiceTimeout ---------------------------------------------------------
+//If the user is given a menu with choices, but doesn't pick one of the choices, it will eventually time out. At that point, they will say this dialogue. Replace with whatever you like, or leave it blank.
+
+OnChoiceTimeout
+ {
+	"\0\s[2]\i[1]Why did you bother me?\e"
+	"\0\s[2]\i[6]Fine, then.\e"
+ }
+
+//--Test Variable --------------------------------------------------------
+//I briefly mentioned the test variable in bootend.dic and possibly in etc.dic as well, I'm not sure. What exactly is the test variable? Basically, it's a place you can plug in anything you want to test out. What this means is that you can write some ghost dialogue, then copy and paste it into the test variable dialogue snippet down there, reload your ghost, then choose "test variable" from your second character's menu. Check your dialogue to see if it looks right and if it does, put it back in aitalk, or edit it until it looks right and put it back. While you can use Script Input to test most of your ghost's dialogue, there are some lines it just can't do, and it can't help you test choices. But the test variable can! The dialogue/choices from OnFirstBoot are a prime candidate for testing with this variable.
+//You can also use this to test functions as I mentioned above by adding \![raise,function] at the end of it, although you can do this with Script Input as well. Advanced Users, the test variable is also great for testing out any new stuff you may add to your ghost, like mode settings, item values, functions, raising or lowering numbers, what have you.
+
+//It is ALWAYS A GOOD IDEA to test your dialogue! If you won't check it with the test variable, at least test it with Script Input! It'll save you so much trouble!
+
+
+Select.testvariable
+{
+	"\0\s[0]\n\n"
+	
+	--
+	"\![*]\q[Rummaging,rummage]\n/
+	\![*]\q[One Hundred,OneH]\n/
+	\![*]\q[Two hundred,TwoH]\n/
+	\![*]\q[Three hundred,ThreeH]\n/
+	\![*]\q[Four hundred,FourH]\n/
+	\![*]\q[Five hundred,FiveH]\n/
+	\![*]\q[Variables,Variables]\n\n/
+ 	\![*]\q[Nevermind,CANCEL]\e"
+}
+
+Select.Variables
+{
+	//"\0\![bind,Legs,Blanket,0]\e"
+	//"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(harrypotter) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
+	//givebedding = 0
+	//scarf = 0
+	
+	//"\0\Scarf %(scarf) and Blanket %(givebedding)\e"
+
+}
+
+Select.OneH
+{
+	urnice = 100
+}
+
+Select.TwoH
+{
+	urnice = 200
+}
+
+Select.ThreeH
+{
+	urnice = 300
+}
+
+Select.FourH
+{
+	urnice = 400
+}
+
+Select.FiveH
+{
+	urnice = 700
+}

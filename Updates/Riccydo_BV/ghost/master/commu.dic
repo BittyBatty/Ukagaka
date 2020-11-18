@@ -1,0 +1,95 @@
+//---------------------------Communication--------------------------
+
+//I'm going to level with you, I don't really get a lot of what's going on in this .dic file. I'm pretty sure it's related to having ghosts talk to each other, or acknowledge each other's presence in some way, but I don't really know. If someone else knows more about this than I do, I'd love to hear about it, but for now, leave it all alone except for a few lines near the bottom.
+
+OnOtherGhostTalk
+{
+   if reference0 == "Multiverse Sans"
+   {
+	   if reference3 == "OnChoiceSelect"
+	   {
+			if reference5 == "whosKnocking" || reference5 == "knock"
+			{
+				"\0\s[0]\i[1] Did you really just ask him for a joke?"
+				"\0\s[2] A skeleton that tells jokes?\w8 Interesting.\e"
+				"\0\s[0]\i[1] Did you raise him from the dead to tell jokes... or... what's going on here?\e"
+			}
+	   }
+	   elseif reference5 == "joke11" || reference5 == "joke22" || reference5 == "joke33"
+	   {
+		   "\0\s[2]\i[5]Heh...\w8 That one was kind of funny.\e"
+		   "\0\s[0]\i[2]I have to admit, the skeleton can tell a joke.\e"
+		   "\0\s[2]\i[5]Mm...\w8 Heh... That was kind of a good one.\e"
+	   }
+	   elseif reference5 == "cheer"
+	   {
+		   if urnice > 400 && meanie <= 4
+		   {
+				"\0\s[8]You're not feeling well?\e"
+				"\0\s[8]I'm sorry you're not feeling well.\e"
+				"\0\s[8]You should wrap up in a comfortable blanket or robe...\w8 It helps.\e"
+		   }
+		   elseif meanie >= 5
+		   {
+			   "\0\s[2]I'm glad you're not feeling well, rude ass.\e"
+		   }
+	   }
+	   elseif reference5 == "sadt"
+	   {
+		   if urnice > 400 && meanie == 0
+		   {
+			   "\0\s[3] I understand feeling depressed.\w8 I'm sorry you feel that way.\e"
+		   }
+	   }
+   } //Closes off MVSans related stuff
+     
+   if reference0 == "Hunter and Smoker Beta"
+   {
+	   if reference3 == "OnPlayOX" || reference3 == "OnBlackjack0"
+	   {
+		   "\0\s[3]Hm... That looks fun.\w8 I don't get to play a lot of games.\e"
+		   
+		   if reference3 == "OnBlackjack0"
+		   {
+				"\w8\w8\w8\w8\0\s[1]You should Stay!\w8\s[1]\i[3]Or...\w4 Maybe not.\e"
+				"You're not gambling, right?\e"
+		   }
+	   }
+	   if reference5 == "hypno"
+	   {
+		   "\0\s[2]Hypnotizing doesn't work!\e"
+	   }
+   } //Closes off Hunter and Smoker stuff
+}
+
+OnCommunicate
+ {
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//---- 사용자로부터의 이야기에 대답
+ 		ReplyToUser
+	}
+ 	else
+	{
+ 		//---- 유령로부터의 이야기에 대답
+		ReplyToGhost
+ 	}
+}
+
+ReplyToUser
+{
+	TalkToUser
+}
+
+
+//Again, I just have to guess at what's going on here since I've never really seen this in action. I think what's going on here is that there is a limited functionality for having ghosts communicate with each other, but I don't really know how you'd set it up or even see it happen. I believe ReplyToGhost would be in response to something the other ghost is saying, but I'm not sure. I wouldn't really mess very much with this - you may even just want to blank out the dialogue entirely. I've never personally seen it come up. I may experiment with this later and see if I can figure out more about it, but for now I wouldn't worry too much.
+
+ReplyToGhost
+{
+ 	res_reference0 = reference0
+	{
+	"\0\s[0]You said %(res_reference0).\w8\1\s[10]Odd thing to say.\e"
+	
+	"\1\s[10]Hey, %(res_reference0).\e"
+	}
+}

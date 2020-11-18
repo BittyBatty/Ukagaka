@@ -1,0 +1,57 @@
+Item Menu - maybe find these items in mini game instead
+- Gloves
+- Scarf
+- Necklace
+- Travel guide "I've always wanted to travel, maybe you'd like to as well?"
+
+Surfaces
+- Ruffled hair, surprised petting pose
+- Deeply enjoying pets pose, eyes closed, head tilts, ears relaxed, purring
+- won't read in your presence until comfortable
+
+Dialogue
+- Asks if you like the cold, variable for this
+
+OnBoot Dialogue
+- Look at surfaces, some are set to his default pose and shouldn't be
+
+VAGUE IDEAS
+- grungy up his clothes (holes, dirt, patches) because he is homeless after all
+
+Mini Game
+- scavenge for things with him in a kind of mini game (animate a screen so you can go left right, up or down and this randomizes places to scavenge? Perhaps pulls from a pool of random surfaces?)
+- \s[?] "There's nothing there"
+- \s[?] "There's a bunch of brush, you see something shining from within, check it out (yes or look somewhere else)"
+- HITBOXES to click on places on the map!!!!!!!!!
+	I think I'm going to base it on collisions
+	Like you can double click to go to the junkyard, river, convenience store, or river
+	And from there you can do like point click to scavenge stuff
+	Need to figure out how to set up variables for this
+	I obviously don't want him to exit out of the game before you're done
+	Surface restore?
+	But do I need to do a restore variable for every individual screen of the game to keep it there until you're done with it?
+	Hm...
+	I'm sure there's an easier way
+	
+	Passivemode will disable the surfacerestore
+	you can also set a Mode by having a variable to represent if a game is occurring 
+		OnSurfaceRestore 
+		{
+			if game == 1
+			{
+				//Nothing occurs here if the game is on
+			}
+			else 
+			{
+				// the basic surface restore
+				"\0\s[0]"
+			}
+		}
+- Envelopes for getting things, not getting things, getting junk, getting valuable things, etc.
+-  test if variables work within envelopes
+	envelope
+	{
+		gotathing += 1
+		"stuff"
+		"morestuff"
+	}

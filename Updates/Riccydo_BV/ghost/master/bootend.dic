@@ -1,0 +1,459 @@
+﻿//*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//--A Note about Functions--
+//A function that begins with On, such as OnFirstBoot here, can be called from anywhere in any .dic file by using \![raise, INSERTNAME]. A function that does NOT, however, can only be called within that .dic file, I believe. You can create your own On functions all over the place if you want, there's just a difference between OnDoodlebop and Doodlebop, if you get me. See the walkthrough page about coding for more about creating functions.
+//***********************************************************************
+
+
+//--OnFirstBoot--
+
+//OnFirstBoot is, as you can probably guess, what happens when your user first boots up your ghost. This is where you'll want to set up an introduction and ask your user for information your ghost will need, like their name and what pronouns they'll be using. This will only run the first time they are booted!
+
+//*********************Advanced User Info*******************************
+//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. Because OnFirstBoot has the / slash I talked about in the walkthrough page on scripting, you can't run it very easily through Script Input either unless you do so in pieces, and you won't be able to check your menu options. You CAN however paste it all into your Test Variable in menu.dic, so you can try that instead to test it properly. Only paste your dialogue/choices, not the values, and make sure to delete it from the test variable when you're through.
+
+//If you're going to be adding new variables and values and such, make sure you define them all in OnFirstBoot! You can make any value you want, but it has to equal SOMEthing to exist at first. Then you can do whatever with it.
+//***********************************************************************
+
+
+OnFirstBoot
+{
+//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from default_shell). Definitely don't delete them unless you know what you're doing.
+
+ 	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+	passmin = 0 
+	passsec = 0 // These two keep track of the time.
+ 	username         = "USER" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
+	stroke           = 0	// Sets their being-pet state to zero.
+ 	teachusername    = 0	// Related to them learning your name.
+	mikireflag       = 0	// Determines behavior at certain points.
+ 	aitalkinterval = 400 //Their default talk rate.
+ 	birthdayprint = "????" //A temporary value for the user's birthday.
+	talktime = "5 minutes" //How the value aitalkinterval will display in the config menu.
+	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+	nowshell = "default_shell" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here. 
+	urnice = 0
+	givebook = 0
+	harrypotter = 0
+	givebedding = 0
+	givecandle = 0
+	giveblood = 0
+	givekitty = 0
+	meanie = 0
+	kammy = 0
+	toldname = 0
+	reading = 0
+	pets = 0
+	scarf = 0
+	rummaging = 0 //controls whether the scavenging game is on or off
+	favoriteseason = "None"
+	favoritecolor = "None"
+	
+	if reference0 == 0 //Don't touch this line.
+ 	{
+		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
+		"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8 !\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\x\c\s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+ 	}
+	else
+ 	{
+		//This is good for testing your onfirstboot dialogue. It's never really used, so you can call this up with %(OnFirstBoot) in testvariable and it goes to this little thing right here. The passivemodes at beginning and end are important, don't touch those, Fursie.
+ 		{
+			urnice = 0
+			givebook = 0
+			harrypotter = 0
+			givebedding = 0
+			givecandle = 0
+			giveblood = 0
+			givekitty = 0
+			meanie = 0
+			kammy = 0
+			toldname = 0
+			reading = 0
+			pets = 0
+			rummaging = 0
+			Scarf = 0
+			
+			"\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8 !\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\x\c\s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+		}
+ 	}
+}
+
+//--GetTimeSlot - This is another unique function to tell what time of day it is. This is used for specialized dialogue related to the day. If you're uninterested, just ignore it. Either way, don't touch it. If you are going to use it though, make a note of the names used for each chunk of time, like earlymorning or lunch. Those are the names you'll be using later.
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 8
+	{
+		"earlymorning"
+	}
+	elseif hour >= 9 && hour <= 11
+	{
+		"morning"
+	}
+	elseif hour >= 12 && hour <= 14
+	{
+		"lunch"
+	}
+	elseif hour >= 15 && hour <= 17
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24
+	{
+		"latenight"
+	}
+	else
+	{
+		"midnight"
+	}
+}
+
+//Like the above, but to find out what day it is. You can primarily use this for specialized dialogue on certain days, like the user's birthday. Either way, don't touch it.
+
+GetDaySlot
+{
+	"%(month)month %(day)day"
+}
+
+
+//-----------------------Normal Booting----------------------------
+
+OnBoot
+ {
+	lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
+	passmin = 0
+	passsec = 0
+	giveblood = 0
+	givecandle -= 1
+	reading = 0
+	rummaging = 0
+	
+ 	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
+	
+	--
+	
+	if givebedding >= 3
+	{
+		"\0\![bind,Legs,Blanket,1]"
+	}
+	
+	elseif givebedding < 3
+	{
+		"\0\![bind,Legs,Blanket,0]"
+	}
+	
+	--
+	
+	if scarf == 1
+	{
+		"\0\![bind,Neck,Scarf,1]"
+	}
+	
+	elseif scarf == 0
+	{
+		"\0\![bind,Neck,Scarf,0]"
+	}
+
+	--
+	dayslot = GetDaySlot
+	timeslot = GetTimeSlot //You should remember these functions from above! They determine the date and time. Basically, it's using the functions GetDaySlot and GetTimeSlot to determine the two values for dayslot/timeslot that it will use in the following if statements. Those who read the coding page of the walkthrough and are interested in using your own functions, pay very close attention to this and study how it works!
+	
+	if dayslot == userbirthday
+	{
+				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\1\s[10]Happy birthday, %(username).\e"
+	}
+	//elseif dayslot == "7month 4day"
+	//{
+	//			"\1\s[10]It's the fourth of July.\e"
+				
+				//Leaving this in case I ever want to put in a specific day dialogue
+	//}
+	else
+	{
+		"%(normalboottalk)"
+	}
+}
+
+normalboottalk
+{
+	
+	{
+	"\0\s[2]\i[3]You're lucky it's comfortable here.\e"
+	"\0\s[0]\i[9]You again?\w8 What do you want now?\e"
+	"\0\s[2]I don't understand why you would seek out my company like this.\w8"
+	"\0\s[5]\i[4]Can you give me some sort of warning before you materialize me here for your entertainment?\w8 What if I was in the middle of something?\e"
+ 	{
+		if timeslot == "earlymorning" //5 to 8
+		{
+		"\0\s[0]\i[7]I know why I'm up so early, but what are you doing up right now?\e"
+		
+		"\0\s[2]\i[1]What do you want?\w8 I was about to go to bed.\e"
+		}
+		elseif timeslot == "morning" //9 to 11
+		{
+		"\0\s[2]\i[1]I was already in bed, so you better have a good reason for bringing me here.\e"
+		}
+		elseif timeslot == "lunch" //12 to 14
+		{
+		"\0\s[0]\i[4]You really don't care that this is when I'm usually in bed, do you?\e"
+		
+		"\0\s[0\i[4]]Ripped from bed to entertain some sorcerer.\w8 Still, I've been woken for worse reasons.\e"
+		
+		"\0\s[5]\i[7]<yawn> Sorry.\w8 I'll try to wake up."
+		}
+		elseif timeslot == "afternoon" //15 to 17
+		{
+		"\0\s[0]\i[4]You really don't care this is when I'm usually in bed, do you?\e"
+		
+		"\0\s[0]\i[4]Ripped from bed to entertain some sorcerer.\w8\s[0]\i[6]\w8 Still, I've been woken for worse reasons.\e"
+		
+		"\0\s[5]\i[7]<yawn> Sorry.\w8 I'll try to wake up."
+		}
+		elseif timeslot == "evening" //18 to 20
+		{
+ 		"\0\s[0]\i[6]Hm... Barely been awake for long and here I already am.\e"
+		}
+		elseif timeslot == "latenight" //21 to 24
+		{
+ 		"\0\s[2]\i[1]Can't I have one night to myself?\w8\i[3] Well, I suppose it isn't too bad being in the never-ending summer here.\e"
+		}
+		else //1 to 4
+		{
+		"\0\s[0]I can actually say I'm glad to be here.\w8 I've run out of things to do at home and still have hours to kill before sunrise.\e"
+		}
+	}
+	}
+}
+
+
+//--OnClose
+
+//Note though that each bit here ends with \w8 instead of \e. That's because the actual end statement to close the ghost is at the very end, one of the very very rare times you won't have to end a line with \e. Instead, end it with \w8 so there's a little bit of a pause for the user before your ghost closes so they can read the last message.
+
+OnClose
+ {
+ timeslot = GetTimeSlot //as you saw above, it's checking the time.
+ --
+	if passmin >= 5	//This checks to see if you've had them open for at least five minutes.
+		{
+				"\0\s[1]I can finally go get some reading done.\w8"
+				"\0\s[2]\i[1]So long as I'm dismissed, I'm going try to find somewhere better to live.\w8"
+				"\0\s[5]\i[3]I assume you'll be dragging me back here at your next convenience.\w8 I will see you, then.\w8"
+				{
+				if timeslot == "earlymorning"
+					{
+						"\0\s[1]\i[8]Perfect timing for me to read a little before bed.\w8"
+					}
+				elseif timeslot == "morning"
+					{
+ 					"\0\s[2]\i[1]I do hope I left the curtains over the window.\w8"
+					}
+				elseif timeslot == "lunch"
+					{
+						"\0\s[2]\i[7]Couldn't you have let me go earlier?\w8"
+						
+						"\0\s[0]\i[3]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
+					}
+				elseif timeslot == "afternoon"
+					{
+						"\0\s[2]\i[7]Couldn't you have let me go earlier?\w8"
+						
+						"\0\s[0]\i[3]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
+					}
+				elseif timeslot == "evening"
+					{
+						"\0\s[0]Couldn't you have let me go earlier?\w8"
+						
+						"\0\s[0]Time to get my night started, I suppose.\w8 Perhaps a nap beforehand, though.\w8"
+					}
+				elseif timeslot == "latenight"
+					{
+						"\0\s[0]\i[7]Why are you up so late, anyways?\w8"
+					}
+				else //like above, this is the midnight time slot since it's the last one left.
+					{
+						"\0\s[5]\i[7]I thought humans slept earlier than this.\w8 It does not matter.\w8 Keep your strange hours for whatever reasons you have.\w8"
+					}
+				}
+			
+ 		}
+ 		
+ 		
+ 	else //This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+ 		"\0\s[2]You summoned me to turn around and send me right back?\w8\w8"
+ 	}
+ 	--
+	"\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+ }
+
+
+ //-------------------------State Changing--------------------
+ //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
+ 
+
+//--OnWindowStateRestore
+
+//This will run when you minimize them and then bring them back up. Replace with what you like.
+
+OnWindowStateRestore
+ {
+	"\0\s[0]\e"
+}
+
+
+//--OnGhostChanging
+
+//This runs whenever you change or reload the ghost. 
+ 
+OnGhostChanging
+ {
+	if reference0 == "Bitter Riccardo" 
+	{
+		"\0\s[0]\e"
+	}
+ 	else //If you're switching to another Ghost.
+	{
+		"\0\s[0]You're replacing me with %(reference0).\w8 I do wish I knew how your magic worked.\w8\w8\e"
+		
+		//Replace this dialogue with whatever you like. Notice the use of the %(reference0) envelope here? In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to, so if you want to display what you're switching to, you can use %(reference0) as in this example. You don't have to use %(reference0) if you don't want to though.
+	}
+}
+
+
+//--OnGhostChanged
+
+//A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
+
+OnGhostChanged
+{
+	"\0\s[0]" //this sets up their default poses
+	--
+	if reference0 == "Bitter Riccardo" 
+	{
+		"\0\s[0]\i[4]I-I'm back.\w8 What did you just do to me?\e"
+	}
+	else //If you're switching to them from another ghost...
+	{
+		"%(normalboottalk)"
+
+		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
+	}
+}
+
+//FURSIE NONE OF THE STUFF UNDERE HERE IS IMPORTANT RIGHT NOW. SHELL STUFF AND DRESSUP STUFF.
+
+//--OnShellChanging
+
+//This will run when you change your ghost's shell. If you don't have any other shells for your ghost, you can safely ignore this but don't delete it, you might as well keep it just in case. I probably won't add a different shell to this template because shells are a lot of work ugh, but for the sake of argument, let's pretend I did.
+
+OnShellChanging
+ {
+	if reference0 == "Hypothetical Shell that doesn't actually exist" //reference0 in OnShellChanging is the name of the shell you're swapping to. It should be defined in the descript.txt file in your shell folder. If you do have alternate shells, put in the right name here.
+	{
+	"\1\s[10]This dialogue is specifically for changing to this particular shell.\w8\0\w8\s[9]It totally exists.\w8\e"
+	//Then rewrite this line as appropriate.
+	}
+	else //if you don't have any specific dialogue for a specific shell
+	{
+	"\0\s[0]This dialogue is for changing shells.\w8\1\s[10]Sure is.\w8\e"
+	
+	"\1\s[10]This is another bit of dialogue for changing shells.\w8\0\s[8]I wonder how many people will actually have multiple shells?\e"
+	
+	//Rewrite these two lines as you need.
+	}
+ }
+ 
+ 
+ //--OnShellChanged
+ 
+ //The sister to the above, this is the dialogue after you've changed the shell.
+ 
+OnShellChanged
+ {
+ 	if reference0 == "GT Default Shell" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+ 	{
+ 		nowshell = "default_shell" //This is the folder name for your shell. Not the same as the above! 
+		
+ 		"\0\s[0]This dialogue is for switching to our default shell.\w8\1\s[18]No really, will anyone actually put in the work to use these functions?\w8\0\s[9]\n\n[half]Shh.\e"
+		//Replace dialogue as required.
+ 	}
+ 	elseif reference0 == "Hypothetical Shell that doesn't actually exist" //You can use as many elseifs for as many shells as you've got.
+ 	{
+ 		nowshell = "totallyrealshell"
+		
+ 		"\0\s[0]This dialogue is for switching to that hypothetical shell.\e"
+		
+ 		"\0\s[0]This is another bit of dialogue for switching to this hypothetical shell.\w8\1\s[18]Man if you actually use this, you should tell Zar, it'll blow her mind.\w8\0\n\n[half]\s[9]Shut up, we're not supposed to be in-character here.\e"
+		//Replace these bits with whatever you have in mind.
+ 	}
+ 	elseif reference0 == "Another totally real shell wow"
+ 	{
+ 		nowshell = "thiswouldbesomuchwork"
+		
+ 		"\1\s[10]This dialogue is after we've switched to another totally real shell.\e"
+		//Replace this as well.
+ 	}
+ 	else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+ 	{
+	"\0\s[0]This dialogue is after we've changed our shell to %(reference[0]).\w8\1\s[18]How many shells you got?\e"
+	
+	//Note the %(reference[0]) here! This time that should store the name of whatever shell you're switching to. To be honest, I have not experimented with this too much because making shells is a pain in the tuckus, but I'm going to take cindysuke's coding on faith and assume reference[0] is correct instead of reference0. Replace this bit of dialogue as you need.
+	}
+ }
+
+
+ //--OnDressupChanged
+ 
+ //This runs whenever you fiddle with their clothing via the dress-up option, if you've set any for your ghost. Honestly setting up clothing is a nightmare and I hate doing it, and if your ghost is going to be moving around substantially or at all, clothing won't stay in the right place anyway. So unless you're like a real expert on surfaces.txt coding and rigging up clothing for different poses or you're intense or dedicated enough to set up clothing in the right place for every pose you do, I would not bother with clothing for your ghost.
+ //HOWEVER I can't begrudge people who actually would put in that effort! And in that case, this function is for you. For now, I'll fill this in with some hypothetical items. Replace the dialogue below with whatever you need.
+
+OnDressupChanged
+{
+if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
+	{
+	if reference1 == "blueblanket" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
+		{
+			if reference2 == 1 //This checks if you're putting it on.
+			{
+			"\0\s[0]You put my clothing item on me.\w8\1\s[19]lol like zar would ever bother with clothes for a ghost.\w8\0\s[9]\n\n[half]Shut up dude you're going to get us in trouble.\e"
+			}
+			else // This checks if you're taking it off.
+			{
+			"\0\s[0]You took the clothing item off.\e"
+			}
+		}		
+	}
+else //if reference0 isn't the main character, then it has to be the side character.
+	{
+	if reference1 == "some kind of clothing for triangle??" //The name of the item of clothing in the descript.txt file in your shell folder.
+		{
+			if reference2 == 1 //If you put it on
+			{
+			"\1\s[10]I'm wearing some kind of clothing.\w8\0\s[8]Maybe a hat?\e"
+			}
+			else //When you take it off.
+			{
+			"\1\s[10]You took off some kind of clothing.\e"
+			}
+		}
+	elseif reference1 == "i'm gonna say a propeller beanie" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
+		{
+			if reference2 == 1 //if you're putting it on
+			{
+			"\1\s[10]You put a hat on me.\w8\0\s[6]lol.\w8\1\n\n[half]\s[11]Shaddap.\e"
+			}
+			else //when you take it off
+			{
+			"\1\s[10]You took off the hat.\e"
+			}
+		}
+	}
+}
+
+//If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.
