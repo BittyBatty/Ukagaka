@@ -394,7 +394,7 @@ OnMinuteChange
 			else //if it isn't 11:55. These are meant to be examples of specific times you can check, you don't have to check for the same times. You can also always delete individual elseifs if you can't think of any time to check. Like, you could delete the elseif for hour == 23 and the subsequent checks below it, then move on to the elseif below for hour 7. This section is flexible.
 			{
 			//"\0\s[0]It's 11 pm.\e"
-			//replace the dialogue here again as you like.
+			//replace the dialogue here again as you like...
 			}
 		}
 		elseif hour == 7 && minute == 30 && weekday == 0 //Here, it's checking for a specific time on a specific day. You can add things to your time checks just like this by using the AND operator, &&. This adds up to 7:30, Sunday. If you have a favorite TV program on at some time, you could have your ghost comment on when it comes on like this.
