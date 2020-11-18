@@ -102,7 +102,7 @@ RandomTalk : nonoverlap
 	
 			"\0\s[0]\i[5]Why am I here?\e"
 	
-			"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad...\e"
+			"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\e"
 	
 			"\0\s[0]\i[7]You do know what I am, right?\e"
 	
