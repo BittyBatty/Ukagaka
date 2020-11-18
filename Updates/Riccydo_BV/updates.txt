@@ -1,4 +1,3 @@
-file,.gitattributes05bdb783ee6514c8c072e47680af8ff7size=66
 file,ghost/master/aitalk.dic399b8eaa50dba223838838a07058f688size=24012
 file,ghost/master/anchor.dic56bbd05dec8002e08c50f9074deda54asize=4922
 file,ghost/master/bootend.dic5f3a28acd6fca9b2d7da7520c3ccddbbsize=20211
@@ -15,7 +14,7 @@ file,ghost/master/Rummaging.mp3144a1b76468bd3b6ed9875f0b0b77597size=4127453
 file,ghost/master/R_icon.icob70b2d37e9d610968f34c0b7e1efa73asize=100443
 file,ghost/master/saori_cpuid.dlld13370aee8e579fe2517d789dba7c45esize=225280
 file,ghost/master/shiori3.dic7b52f1f0fa3efeda40ec280803b50d40size=36329
-file,ghost/master/string.dic6397e6033af7272a50fd9cdd215c98adsize=8007
+file,ghost/master/string.dic3485c28159b2f4a34ebef8e397636427size=8036
 file,ghost/master/system/yaya_compatible.dic6165adc2ab688dcb09cf468fccd9e040size=4535
 file,ghost/master/system/yaya_optional.dicf97af1ee6f108ee881d66d7f3de3f7d3size=10317
 file,ghost/master/system/yaya_shiori3.dic3cd66dd7c3abf6f919cfaea2c583ae17size=47083
