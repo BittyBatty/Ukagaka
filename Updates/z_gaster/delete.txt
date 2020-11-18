@@ -1,0 +1,4 @@
+ghost/master/aya5.dll
+ghost/master/aya5.txt
+ghost/master/gt_template.ico
+ghost/master/g_shiori3.dic
