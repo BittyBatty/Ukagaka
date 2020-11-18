@@ -1,9 +1,0 @@
-Charset,UTF-8
-install,588475920
-homeurl_found,1
-surfacecount,67
-homeurl,http://ukagakadreamteam.com/hosting/user00224029/ghost/Riccydo_BV/
-update_result,NG(404)
-firstboot,588475943
-commitmemorysize,2707392
-lastboot,658981281
