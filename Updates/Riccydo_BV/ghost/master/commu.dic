@@ -31,7 +31,7 @@ OnOtherGhostTalk
 		   }
 		   elseif meanie >= 5
 		   {
-			   "\0\s[2]I'm glad you're not feeling well, rude ass.\e"
+			   "\0\s[2]I'm glad you're not feeling well.\e"
 		   }
 	   }
 	   elseif reference5 == "sadt"
@@ -88,8 +88,6 @@ ReplyToGhost
 {
  	res_reference0 = reference0
 	{
-	"\0\s[0]You said %(res_reference0).\w8\1\s[10]Odd thing to say.\e"
-	
-	"\1\s[10]Hey, %(res_reference0).\e"
+	"\0\s[0]\i[9]Oh... Hello, %(res_reference0)?\e"
 	}
 }
