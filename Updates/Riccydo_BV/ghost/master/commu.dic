@@ -84,10 +84,103 @@ ReplyToUser
 
 //Again, I just have to guess at what's going on here since I've never really seen this in action. I think what's going on here is that there is a limited functionality for having ghosts communicate with each other, but I don't really know how you'd set it up or even see it happen. I believe ReplyToGhost would be in response to something the other ghost is saying, but I'm not sure. I wouldn't really mess very much with this - you may even just want to blank out the dialogue entirely. I've never personally seen it come up. I may experiment with this later and see if I can figure out more about it, but for now I wouldn't worry too much.
 
+OnStartTalking //For when Riccardo starts a conversation 
+{	
+	if ghostexcount > 0 //Checking to see if there are ghosts out at all
+    {
+
+		ghostname = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+		--
+		checkname = "%(ghostexlist[ghostname])" // This grabs the reference name of the ghost to check against known names.
+		--
+		case checkname
+        {
+			when "Dusty"
+			{
+				res_reference0 = "Dusty"
+				--
+				if MetDusty == 0
+				{
+					"\0\s[2]\i[4]\e Riccardo-Dusty_Meet00"
+				}
+				else
+				{
+					"\0\s[0]Hello, Dusty! How are you and Obsidian doing?\e DustyMakesRiccBlush00"
+				}
+			}
+            others //Ghosts there is no specific response to.
+            {
+				LoopPrevention = 1
+				--
+                res_reference0 = _randghost
+                
+                "\0\s[0]Hello %(_randghost)!\w8\w8\e"
+            }
+        }
+    }
+    else //If no ghosts are open.
+    {
+        "\0\s[2]There's no one here to talk to.\e"
+    }
+}
+
 ReplyToGhost
 {
- 	res_reference0 = reference0
+	if reference0 == "Dusty" //reference0 = sakura name of the ghost that sent the message
 	{
-	"\0\s[0]\i[9]Oh... Hello, %(res_reference0)?\e"
+		"%(TalkToDusty)"
+	}
+	else 
+	{
+		if LoopPrevention == 1 //This was toggled to 1 when Riccardo started the dialogue so that Riccardo doesn't try to say generic things back to the ghost who said something generic in response to him.
+		{
+		LoopPrevention = 0
+		res_reference0 = "" //using the blank quotation marks because this is more loop prevention. Because if you put in reference0 here it would send the response back to a ghost who might give a generic response back and then Riccardo might try to respond back with a generic response and it'd be a mess. 
+		--
+		"\e"
+		}
+		else //If the other ghost started to talk to him, but I need him to say his generic greeting to that ghost. The loop prevention gets toggled so that if they loop Riccardo's response gets sent to the above response and he won't actually say anything to them. 
+		{
+		LoopPrevention = 1
+		res_reference0 = reference0
+		--
+		"\0\s[0]\i[9]Oh... Hello, %(res_reference0)?\e"
+		}
 	}
 }
+
+TalkToDusty //Conversations with Dusty
+{
+	if "Riccardo-Dusty_Meet01" _in_ reference1 //Looking for those words within what Dusty says. In this case this is looking for the starting tag for this conversation. 
+	{
+		res_reference0 = "Dusty" //Sends this message to Dusty
+		"\0\s[2]\i[7]Hi, kitty.\w8 Where did you come from?\w8\w8\e Riccardo-Dusty_Meet02" //Things after the /e is invisible in the balloon and acts as tags here for us users to look for markers for our ghosts to talk. 
+	}
+  
+	elseif "Riccardo-Dusty_Meet03" _in_ reference1
+	{
+		res_reference0 = "Dusty"
+		MetDusty = 1
+		
+		"\0\s[2]\i[4]Obsidian is a really pretty name.\w8 Hi, Obsidian.\w8 My name is Riccardo...\w8 And what's your name, sir?\w8\w8\e Riccardo-Dusty_Meet04"
+	}
+	
+	elseif "DustyMakesRiccBlush01" _in_ reference1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[2]\i[4]Obsidian sounds as happy as ever.\w8 You must spoil her.\w8\w8\e DustyMakesRiccBlush02"
+	}
+	
+	elseif "DustyMakesRiccBlush03" _in_ reference1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[0]\i[9]Oh...\w8 Well...\w8 My day's always better when I get to see you, too, Obsidian.\w8\w8\e DustyMakesRiccBlush04"
+	}
+  
+	else //If someone didn't have both ghosts up to date, this will make sure Riccardo doesn't break from Dusty trying to talk to him. 
+	{
+	  "\0\s[0]Hello, Dusty.\e"
+	}
+}
+
+//LoopPrevention variable keeps ghosts from essentially spamming each other back and forth because when they are replying to each other generically, they're 'talking to each other' which makes the other ghost want to reply and then the first one wants to reply but those are all generic responses

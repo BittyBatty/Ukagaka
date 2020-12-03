@@ -74,6 +74,7 @@ MenuRun
 
 	
  	"\![*]\q[Talk to Me,altalk]\n/
+	\![*]\q[Talk to Others,Otherghosts]\n/
 	\![*]\q[Can You Repeat That,OnLastTalk]\n\n/
 	\![*]\q[Chat,chat]\n/
 	\![*]\q[Give,give]\n/
@@ -95,6 +96,11 @@ MenuRun
 	\![*]\q[Functions,dosomething]\n\n/
 	//\![*]\q[Testing,testvariable]\n\n/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
+}
+
+Select.Otherghosts
+{
+	OnStartTalking
 }
 
 Select.apologize

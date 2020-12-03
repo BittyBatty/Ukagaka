@@ -128,7 +128,8 @@ collision2,230,20,290,40,purrpurr
 
 //rolling eyes
 2interval,never
-2pattern0,1000,1,stop,1
+2pattern0,1000,0,overlay,0,0
+2pattern0,0,0,stop,1
 2pattern0,1108,12,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
@@ -375,7 +376,6 @@ collision2,230,20,290,40,purrpurr
 surface1
 {
 element0,overlay,surface1501.png,0,0
-element1,overlay,surface1000.png,0,0
 
 collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
@@ -387,6 +387,7 @@ collision2,230,20,290,40,purrpurr
 
 //rolling eyes
 2interval,never
+2pattern0,1000,0,overlay,0,0
 2pattern0,0,0,stop,1
 2pattern0,1108,12,overlay,0,0
 2pattern1,1104,12,overlay,0,0

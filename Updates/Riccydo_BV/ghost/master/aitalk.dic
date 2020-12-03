@@ -46,7 +46,7 @@ RandomTalk : nonoverlap
 	{
 		" " //Nothing here to keep surface from restoring to anything
 	}
-	if reading == 1 && rummaging == 0
+	elseif reading == 1 && rummaging == 0
 	{
 		"\0\s[17]Interesting...\w8\s[15]\e"
 		"\0\s[15]Thank you again for the books.\e"
@@ -63,9 +63,9 @@ RandomTalk : nonoverlap
 		"\0\s[15]\_q<Sometimes you can see his lips moving a tad while he reads.>\e"
 		"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\e"
 	}
-	if reading == 0 && rummaging == 0
+	elseif reading == 0 && rummaging == 0
 	{ //to start the not reading or rummaging
-			if RAND(4) == 0
+			if RAND(5) == 0
 			{ //First chunk here
 				if ghostexcount > 0
 				{ //if there are multiple ghosts out
@@ -83,7 +83,7 @@ RandomTalk : nonoverlap
 						when "Azura" //Sakura name, I think?
 						{
 							"\0\s[0]Is the girl over there part dragon?\e"
-							"\0\s[0]The girl with wings...\w8 Do you think she would answer some questions for me?\e"
+							"\0\s[0]The girl with wings...\w8 Do you think she would answer some of my questions...\w8 about dragons?\e"
 							"\0\s[0]i[9]Would you mind talking to the winged girl for me?\w8 She looks like she's part dragon and I do so love dragons.\e"
 						}
 						when "Cat"
@@ -92,46 +92,35 @@ RandomTalk : nonoverlap
 							"\0\s[2]\i[4]I wonder what the cat's name is.\e"
 							"\0\s[2]\i[4]I love cats.\w8 Will the cat be here from now on?\e"
 						}
-						else
+						when "Dusty"
 						{
-							" "
+							if MetDusty = 1
+							{
+								"\0\s[2]\i[4]Obsidian is such a cute cat!\e"
+								"\0\s[2]Dusty reminds me of someone I used to know.\w8 It's the way he talks and dresses.\w8 Just like the doctor...\e"
+								"\0\s[16]<All of Obsidian's purring seems to have made him want to purr back>\e"
+							}
+							else
+							{
+								"\0\s[2]\i[4]I wonder what the cat's name is.\e"
+								"\0\s[2]A skeleton?\e"
+							}
+						}							
+						others
+						{
+							"\![raise,OnAiTalk]"
 						}
 					} //end case check
 				} // end of multiple ghosts check
-			
-				"\0\s[3]...\e"
-	
-				"\0\s[0]\i[5]Why am I here?\e"
-		
-				"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\e"
-	
-				"\0\s[0]\i[7]You do know what I am, right?\e"
-	
-				"\0\s[0]\i[4]What enjoyment are you getting out of me being here?\e"
-	
-				"\0\s[1]\i[8]It is not polite to stare.\w8\s[0]\i[6] I say that because you keep staring!\e"
-		
-				"\0\s[6]Agh!\w8\w8\w8\w8\w8\w8\s[2]\i[2] I forgot you were here.\e"
-		
-				"\0\s[2]...\e"
-	
-				"\0\s[2]I suppose it's better to be here than...\w8 elsewhere.\e"
-	
-				"\0\s[2]\n\f[height,10]It does feel nice to not be shivering.\e"
-	
-				"\0\s[0]\i[8]Mm... Can't fall...\w8 asleep...\w8 here...\e"
-	
-				"\0\s[2]\i[6]Ugh... my back... hurts...\e"
-	
-				"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\e"
 			} //end First chunk
 	
-			if RAND(4) == 1
+			elseif RAND(5) == 1
 			{ //Second chunk
-				if givebook >= 2 && urnice >= 100
+				if givebook >= 3 && urnice >= 150
 					{
 						reading = 1
 					}
+				
 				"\0\s[3]It's unnatural for you to keep calling me here...\e"
 	
 				"\0\s[4]...\e"
@@ -144,7 +133,7 @@ RandomTalk : nonoverlap
 			
 			} //end Second chunk
 	
-			if RAND(4) == 2
+			elseif RAND(5) == 2
 			{ //third chunk; lots of if conditions in here 
 				if toldname == 1
 				{
@@ -201,8 +190,8 @@ RandomTalk : nonoverlap
 				}
 			} //end of grouping if item statements
 	
-			if RAND(4) == 3
-			{ //start random check
+			elseif RAND(5) == 3
+			{ //start random check for fourth chunk
 				"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\e"
 				if urnice >= 200 && meanie == 0 && urnice <=400
 				{
@@ -289,7 +278,40 @@ RandomTalk : nonoverlap
 					}
 				}
 			} //End Random check
+			
+			elseif RAND(5) == 4
+			{ //Fifth Chunk
+				"\0\s[3]...\e"
+	
+				"\0\s[0]\i[5]Why am I here?\e"
+		
+				"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\e"
+	
+				"\0\s[0]\i[7]You do know what I am, right?\e"
+	
+				"\0\s[0]\i[4]What enjoyment are you getting out of me being here?\e"
+	
+				"\0\s[1]\i[8]It is not polite to stare.\w8\s[0]\i[6] I say that because you keep staring!\e"
+		
+				"\0\s[6]Agh!\w8\w8\w8\w8\w8\w8\s[2]\i[2] I forgot you were here.\e"
+		
+				"\0\s[2]...\e"
+	
+				"\0\s[2]I suppose it's better to be here than...\w8 elsewhere.\e"
+	
+				"\0\s[2]\n\f[height,10]It does feel nice to not be shivering.\e"
+	
+				"\0\s[0]\i[8]Mm... Can't fall...\w8 asleep...\w8 here...\e"
+	
+				"\0\s[2]\i[6]Ugh... my back... hurts...\e"
+	
+				"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\e"
+			} // end fifth chunk
 	} //end of else statement to not rummaging or reading
+	else
+	{
+		"\0\This should never show up.\e"
+	}
 } //to end AI talk
 
 Select.whatcatch
@@ -501,7 +523,7 @@ OnSurfaceRestore
 				"\0\s[5]\i[5]\e"
 				"\0\s[2]\e"
 	}
-	elseif urnice > 301 && meanie <= 4
+	elseif urnice > 300 && meanie < 5
 	{
 				"\0\s[0]\e"
 				"\0\s[0]\i[5]\e"

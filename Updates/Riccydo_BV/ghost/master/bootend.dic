@@ -49,6 +49,8 @@ OnFirstBoot
 	rummaging = 0 //controls whether the scavenging game is on or off
 	favoriteseason = "None"
 	favoritecolor = "None"
+	LoopPrevention = 0
+	MetDusty = 0
 	
 	if reference0 == 0 //Don't touch this line.
  	{
@@ -73,6 +75,10 @@ OnFirstBoot
 			pets = 0
 			rummaging = 0
 			Scarf = 0
+			favoriteseason = "None"
+			favoritecolor = "None"
+			LoopPrevention = 0
+			MetDusty = 0
 			
 			"\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8 !\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\x\c\s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
 		}
