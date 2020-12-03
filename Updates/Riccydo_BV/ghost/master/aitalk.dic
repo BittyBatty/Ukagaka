@@ -46,14 +46,13 @@ RandomTalk : nonoverlap
 	{
 		" " //Nothing here to keep surface from restoring to anything
 	}
-	elseif reading == 1 && rummaging == 0
+	if reading == 1 && rummaging == 0
 	{
 		"\0\s[17]Interesting...\w8\s[15]\e"
 		"\0\s[15]Thank you again for the books.\e"
 		"\0\s[17]Really?\w8\s[15]\e"
 		"\0\s[17]Hm...\e"
 		"\0\s[17]Heh...\w8\s[15]\e"
-		"\0\s[15]...\e:chain=noreading"
 		"\0\s[15]\_q<You're glad to see the books you gave him are getting some use.>\e"
 		"\0\s[15]...\e"
 		"\0\s[15]\_q<He's just reading.>\e"
@@ -62,8 +61,9 @@ RandomTalk : nonoverlap
 		"\0\s[15]\_q<He used to read a lot like this... Hours and hours every night. You've brought him a lot of joy by giving him back this comfort.>\e"
 		"\0\s[15]\_q<Sometimes you can see his lips moving a tad while he reads.>\e"
 		"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\e"
+		"\0\s[15]...\e:chain=noreading"
 	}
-	elseif reading == 0 && rummaging == 0
+	if reading == 0 && rummaging == 0
 	{ //to start the not reading or rummaging
 			if RAND(5) == 0
 			{ //First chunk here
@@ -114,26 +114,31 @@ RandomTalk : nonoverlap
 				} // end of multiple ghosts check
 			} //end First chunk
 	
-			elseif RAND(5) == 1
+			if RAND(5) == 1
 			{ //Second chunk
 				if givebook >= 3 && urnice >= 150
 					{
 						reading = 1
+						--
+						
+						"\0\s[15]<Looks like it's reading time again.\e"
 					}
 				
-				"\0\s[3]It's unnatural for you to keep calling me here...\e"
+				{
+					"\0\s[3]It's unnatural for you to keep calling me here...\e"
 	
-				"\0\s[4]...\e"
+					"\0\s[4]...\e"
 	
-				"\0\s[4]\w8\w8\w8\w8...\i[5]\w8\w8\w8\w8\s[3]\e"
+					"\0\s[4]\w8\w8\w8\w8...\i[5]\w8\w8\w8\w8\s[3]\e"
 	
-				"\0\s[0]\i[7]I'm just going to rest my eyes.\e"
+					"\0\s[0]\i[7]I'm just going to rest my eyes.\e"
 	
-				"\0\s[0]\i[3]It smells nice here.\e"
+					"\0\s[0]\i[3]It smells nice here.\e"
+				}
 			
 			} //end Second chunk
 	
-			elseif RAND(5) == 2
+			if RAND(5) == 2
 			{ //third chunk; lots of if conditions in here 
 				if toldname == 1
 				{
@@ -190,9 +195,13 @@ RandomTalk : nonoverlap
 				}
 			} //end of grouping if item statements
 	
-			elseif RAND(5) == 3
+			if RAND(5) == 3
 			{ //start random check for fourth chunk
-				"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\e"
+				if urnice < 200
+				{
+					"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\e"
+					"\0\s[2]How can I trust you?\e"
+				}
 				if urnice >= 200 && meanie == 0 && urnice <=400
 				{
 					{
@@ -279,7 +288,7 @@ RandomTalk : nonoverlap
 				}
 			} //End Random check
 			
-			elseif RAND(5) == 4
+			if RAND(5) == 4
 			{ //Fifth Chunk
 				"\0\s[3]...\e"
 	
@@ -308,10 +317,6 @@ RandomTalk : nonoverlap
 				"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\e"
 			} // end fifth chunk
 	} //end of else statement to not rummaging or reading
-	else
-	{
-		"\0\This should never show up.\e"
-	}
 } //to end AI talk
 
 Select.whatcatch
@@ -396,7 +401,7 @@ noreading
 
 OnMinuteChange
  {
-	timeslot = GetTimeSlot //this tells the ghost what time it is so the time related conversations above will work.
+	timeslot = GetTimeSlot //this tells the ghost what time it is 
 	giveblood -= 1
 	--
  	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
@@ -513,22 +518,22 @@ OnSurfaceRestore
 	}
 	elseif reading == 1
 	{
-		"\0\s[15]\e"
+		"\0\s[15]"
 	}
-	elseif urnice <= 300 || meanie >= 5
+	elseif urnice <= 300 || meanie >= 5 && reading == 0
 	{
-				"\0\s[0]\i[4]\e"
-				"\0\s[0]\i[5]\e"
-				"\0\s[5]\i[4]\e"
-				"\0\s[5]\i[5]\e"
-				"\0\s[2]\e"
+				"\0\s[0]\i[4]"
+				"\0\s[0]\i[5]"
+				"\0\s[5]\i[4]"
+				"\0\s[5]\i[5]"
+				"\0\s[2]"
 	}
-	elseif urnice > 300 && meanie < 5
+	elseif urnice > 300 && meanie < 5 && reading == 0
 	{
-				"\0\s[0]\e"
-				"\0\s[0]\i[5]\e"
-				"\0\s[2]\i[4]\e"
-				"\0\s[0]\i[9]\e"
+				"\0\s[0]"
+				"\0\s[0]\i[5]"
+				"\0\s[2]\i[4]"
+				"\0\s[0]\i[9]"
 	}
  }
 
