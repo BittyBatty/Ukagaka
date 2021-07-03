@@ -176,10 +176,92 @@ TalkToDusty //Conversations with Dusty
 		res_reference0 = "Dusty"
 		"\0\s[0]\i[9]Oh...\w8 Well...\w8 My day's always better when I get to see you, too, Obsidian.\w8\w8\e DustyMakesRiccBlush04"
 	}
-  
+	
+	elseif "CanYouHoldObsidian?" _in_ reference1
+	{
+		if rummaging == 1
+		{
+			res_reference0 = " "
+			"<Obsidian can't leave the desktop and go rummaging with Riccardo, but he can hold her when you two are done>\e"
+		}
+		else
+		{
+			res_reference0 = "Dusty"
+			"\e ICanHoldObsidian,0"
+		}
+	}
+	
+	elseif "RiccardoPickupObsidian02" _in_ reference1
+	{
+		holdingobsidian = 1
+		reading = 0
+		--
+		res_reference0 = "Dusty"
+		
+		"\0\s[18]Hello, Obsidian.\w8 You're such a pretty kitty.\e RiccardoPickupObsidian03"
+	}
+	
+	elseif "RiccardoPickupObsidian04" _in_ reference1
+	{
+		res_reference0 = ""
+		"\0\s[18]She must sense I'm a cat person.\e"
+	}
+	
+	elseif "RiccardoObsiJumpDown03" _in_ reference1
+	{
+		res_reference0 = ""
+		holdingobsidian = 0
+		"\0\s[0]\i[5]Oh...\w8 Goodbye, Obsidian.\e"
+	}
+	
+	elseif "DustyMinimizedRiccardo 0" _in_ reference1 //Dusty was minimized
+	{
+		res_reference0 = ""
+		holdingobsidian = 0
+	
+		"\0\s[0]\i[5] <Obsidian disappears into the taskbar with Dusty>\w8\w8\n\nI'll see them later, I guess...\e"
+	}
+	
+	elseif "Riccardo,0ObsiJumpDown01" _in_ reference1
+	{
+		"\0\s[18]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+	}
+	
 	else //If someone didn't have both ghosts up to date, this will make sure Riccardo doesn't break from Dusty trying to talk to him. 
 	{
 	  "\0\s[0]Hello, Dusty.\e"
+	}
+}
+
+OnObsidianJumpDown
+{
+    res_reference0 = "Dusty"
+    _XCoord = TOINT(reference0[0])
+    _YCoord = TOINT(reference0[3])
+    "\0\s[19]\i[5]\e RiccardoObsiJumpDown02,%(_XCoord),%(_YCoord)\e"
+}
+
+OnOtherGhostChanged
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[18]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] I'd love to keep her, but here's Obsidian back.\e"
+		}
+	}
+}
+
+OnOtherGhostClosed
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[18]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] I'd love to keep her, but here's Obsidian back.\e"
+		}
 	}
 }
 

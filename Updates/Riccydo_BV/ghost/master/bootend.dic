@@ -51,6 +51,7 @@ OnFirstBoot
 	favoritecolor = "None"
 	LoopPrevention = 0
 	MetDusty = 0
+	HoldingObsidian = 0
 	
 	if reference0 == 0 //Don't touch this line.
  	{
@@ -138,6 +139,7 @@ OnBoot
 	givecandle -= 1
 	reading = 0
 	rummaging = 0
+	HoldingObsidian = 0
 	
  	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
 	
@@ -247,6 +249,13 @@ OnClose
  --
 	if passmin >= 5	//This checks to see if you've had them open for at least five minutes.
 		{
+			if holdingObsidian == 1
+			{
+				holdingObsidian = 0
+				"\0\s[18]Oh...\w8 I'll give Obsidian back, I guess.\w8\s[-1]\w8\w8 Goodbye!\w8\w8\-\e"
+			}
+			else
+			{
 				"\0\s[1]I can finally go get some reading done.\w8"
 				"\0\s[2]\i[1]So long as I'm dismissed, I'm going try to find somewhere better to live.\w8"
 				"\0\s[5]\i[3]I assume you'll be dragging me back here at your next convenience.\w8 I will see you, then.\w8"
@@ -286,7 +295,7 @@ OnClose
 						"\0\s[5]\i[7]I thought humans slept earlier than this.\w8 It does not matter.\w8 Keep your strange hours for whatever reasons you have.\w8"
 					}
 				}
-			
+			}
  		}
  		
  		
@@ -307,6 +316,16 @@ OnClose
 
 //This will run when you minimize them and then bring them back up. Replace with what you like.
 
+OnWindowStateMinimize
+{
+    if holdingObsidian == 1
+    {
+        res_reference0 = "Dusty"
+        holdingObsidian = 0
+        "\e RiccardoObsiMinimize"
+    }
+}
+
 OnWindowStateRestore
  {
 	"\0\s[0]\e"
@@ -318,16 +337,30 @@ OnWindowStateRestore
 //This runs whenever you change or reload the ghost. 
  
 OnGhostChanging
- {
-	if reference0 == "Bitter Riccardo" 
+{
+	if reference0 == "Riccardo" //reloading
 	{
-		"\0\s[0]\e"
+		if holdingObsidian == 1
+		{
+			"\0\s[18]<Reloading>\e"
+		}
+		else
+		{
+			"\0\s[0]<Reloading>\e"
+		}
 	}
- 	else //If you're switching to another Ghost.
+	else
 	{
-		"\0\s[0]You're replacing me with %(reference0).\w8 I do wish I knew how your magic worked.\w8\w8\e"
-		
-		//Replace this dialogue with whatever you like. Notice the use of the %(reference0) envelope here? In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to, so if you want to display what you're switching to, you can use %(reference0) as in this example. You don't have to use %(reference0) if you don't want to though.
+		if holdingObsidian == 1
+		{
+			holdingObsidian = 0
+			
+			"\0\s[18]I guess I'm being sent away.\w8 You can have Obsidian back, Dusty.\w8\s[-1]\w8\w8\s[0]Goodbye.\w8\w8\e"
+		}
+		else
+		{
+			"\0\s[0]<Switching to %(reference0)>\w8\w8\e"
+		}
 	}
 }
 
@@ -340,7 +373,7 @@ OnGhostChanged
 {
 	"\0\s[0]" //this sets up their default poses
 	--
-	if reference0 == "Bitter Riccardo" 
+	if reference0 == "Riccardo" 
 	{
 		"\0\s[0]\i[4]I-I'm back.\w8 What did you just do to me?\e"
 	}

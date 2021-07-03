@@ -234,50 +234,57 @@ OnMouseDoubleClick
  
 MouseDoubleClickSakura
  {
-	if reference4 == "constore" 
+	if holdingObsidian == 1
+	{
+		"\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]\e"
+	}
+	else
+	{
+		if reference4 == "constore" 
  			{
 				"\0\s[44]\b4I've found some interesting things in this abandoned shop.\w8 Maybe you can find something I've missed.\e"
 				"\0\s[44]\b4\_q<An abandoned store. It appears to have been picked clean of anything useful. Some looking about might prove this assumption wrong, however.>\e"
 				"\0\s[44]\b4Do you see anything interesting?\e"
  			}
-	elseif reference4 == "alley" 
+		elseif reference4 == "alley" 
  			{
 				"\0\s[41]\b4Do you see anything interesting?\e"
 				"\0\s[41]\b4I try to avoid digging through the trash unless I'm desperate.\w8 People throw away some useful things at times, however.\e"
 				"\0\s[41]\b4<The alley besides the abandoned store. It looks like people still dump things in the trash here.>\e"
  			}		
-	elseif reference4 == "junkyard" 
+		elseif reference4 == "junkyard" 
  			{
 				"\0\s[42]\b4Do you see anything interesting?\e"
 				"\0\s[42]\b4The truck has mostly been cleared out, but I still find all kinds of things buried through the grass here.\e"
 				"\0\s[42]\b4<A junkyard. That truck looks like it's been here a long time.>\e"
  			}		
-	elseif reference4 == "dock" 
+		elseif reference4 == "dock" 
  			{
 				"\0\s[43]\b4Do you see anything interesting?\e"
 				"\0\s[43]\b4I like coming out here to listen to the water sometimes.\w8 It's very relaxing.\e"
 				"\0\s[43]\b4<A dock overlooking the river. It's peaceful here and looks like a fantastic place to meditate... or read.>\e"
  			}		
-	elseif reference4 == "back" 
+		elseif reference4 == "back" 
  			{
 				"\0\s[40]\b4You're right.\w8 There wasn't anything there.\e"
  			}
-	elseif reference4 == "searchone"
+		elseif reference4 == "searchone"
 			{
 				Onitemornot //found in etc.dic
 			}
-	elseif reference4 == "searchtwo"
+		elseif reference4 == "searchtwo"
 			{
 				Onitemornot
 			}
-	elseif reference4 == "searchthree"
+		elseif reference4 == "searchthree"
 			{
 				Onitemornot
 			}
-	else
- 	{
-		//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
- 		OpenSakuraMenu
+		else
+		{
+			//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+			OpenSakuraMenu
+		}
 	}
  }
  

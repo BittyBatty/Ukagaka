@@ -15,6 +15,7 @@
 
 OpenSakuraMenu
 {
+	
 	if rummaging == 1
 	{
 		"\b4\![*]\q[Stop scavenging,nomorerummage]\n\n"
@@ -1195,7 +1196,7 @@ Select.testvariable
 Select.Variables
 {
 	//"\0\![bind,Legs,Blanket,0]\e"
-	//"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(harrypotter) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
+	"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(harrypotter) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
 	//givebedding = 0
 	//scarf = 0
 	

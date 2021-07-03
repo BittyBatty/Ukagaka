@@ -42,281 +42,294 @@ AiTalk
 
 RandomTalk : nonoverlap
 {
-	if rummaging == 1 && reading == 0
+	if holdingobsidian == 1
 	{
-		" " //Nothing here to keep surface from restoring to anything
+		"\0\s[18]I'm definitely a cat person.\e"
+		"\0\s[18]Hello, Obsidian... I'll pet you as long as you want.\e"
+		"\0\s[18]Hellow, sweet kitty.\e"
+		"\0\s[18]I'd like to get a cat of my own one day.\e"
 	}
-	if reading == 1 && rummaging == 0
+	if holdingobsidian == 0
 	{
-		"\0\s[17]Interesting...\w8\s[15]\e"
-		"\0\s[15]Thank you again for the books.\e"
-		"\0\s[17]Really?\w8\s[15]\e"
-		"\0\s[17]Hm...\e"
-		"\0\s[17]Heh...\w8\s[15]\e"
-		"\0\s[15]\_q<You're glad to see the books you gave him are getting some use.>\e"
-		"\0\s[15]...\e"
-		"\0\s[15]\_q<He's just reading.>\e"
-		"\0\s[15]\_q<He continues to read.>\e"
-		"\0\s[15]\_q<You wonder what he is reading about this time.>\e"
-		"\0\s[15]\_q<He used to read a lot like this... Hours and hours every night. You've brought him a lot of joy by giving him back this comfort.>\e"
-		"\0\s[15]\_q<Sometimes you can see his lips moving a tad while he reads.>\e"
-		"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\e"
-		"\0\s[15]...\e:chain=noreading"
-	}
-	if reading == 0 && rummaging == 0
-	{ //to start the not reading or rummaging
-			if RAND(5) == 0
-			{ //First chunk here
-				if ghostexcount > 0
-				{ //if there are multiple ghosts out
-					ghostname = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
-					--
-					checkname = "%(ghostexlist[ghostname])" // This grabs the reference name of the ghost to check against known names.
-					--
-					case checkname
-					{ //case check
-						when "Gaster" //reference1 name
-						{
-							"\0\_q<He seems fascinated by Gaster.>\e"
-							"\0\s[2]I wonder if he would know anything about vampires...\w8 A doctor would be useful to talk to...\w8 Even if he is a skeleton.\e"
-						}
-						when "Azura" //Sakura name, I think?
-						{
-							"\0\s[0]Is the girl over there part dragon?\e"
-							"\0\s[0]The girl with wings...\w8 Do you think she would answer some of my questions...\w8 about dragons?\e"
-							"\0\s[0]i[9]Would you mind talking to the winged girl for me?\w8 She looks like she's part dragon and I do so love dragons.\e"
-						}
-						when "Cat"
-						{
-							"\0\s[2]\i[4]Hi, kitty.\w8 You're a cute kitty.\e"
-							"\0\s[2]\i[4]I wonder what the cat's name is.\e"
-							"\0\s[2]\i[4]I love cats.\w8 Will the cat be here from now on?\e"
-						}
-						when "Dusty"
-						{
-							if MetDusty = 1
-							{
-								"\0\s[2]\i[4]Obsidian is such a cute cat!\e"
-								"\0\s[2]Dusty reminds me of someone I used to know.\w8 It's the way he talks and dresses.\w8 Just like the doctor...\e"
-								"\0\s[16]<All of Obsidian's purring seems to have made him want to purr back>\e"
-							}
-							else
-							{
-								"\0\s[2]\i[4]I wonder what the cat's name is.\e"
-								"\0\s[2]A skeleton?\e"
-							}
-						}							
-						others
-						{
-							"\![raise,OnAiTalk]"
-						}
-					} //end case check
-				} // end of multiple ghosts check
-			} //end First chunk
-	
-			if RAND(5) == 1
-			{ //Second chunk
-				if givebook >= 3 && urnice >= 150
-					{
-						reading = 1
+		if rummaging == 1
+		{
+			" " //Nothing here to keep surface from restoring to anything
+		}
+		if rummaging == 0
+		{
+			if reading == 1
+			{
+				"\0\s[17]Interesting...\w8\s[15]\e"
+				"\0\s[15]Thank you again for the books.\e"
+				"\0\s[17]Really?\w8\s[15]\e"
+				"\0\s[17]Hm...\e"
+				"\0\s[17]Heh...\w8\s[15]\e"
+				"\0\s[15]\_q<You're glad to see the books you gave him are getting some use.>\e"
+				"\0\s[15]...\e"
+				"\0\s[15]\_q<He's just reading.>\e"
+				"\0\s[15]\_q<He continues to read.>\e"
+				"\0\s[15]\_q<You wonder what he is reading about this time.>\e"
+				"\0\s[15]\_q<He used to read a lot like this... Hours and hours every night. You've brought him a lot of joy by giving him back this comfort.>\e"
+				"\0\s[15]\_q<Sometimes you can see his lips moving a tad while he reads.>\e"
+				"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\e"
+				"\0\s[15]...\e:chain=noreading"
+			}
+			if reading == 0
+			{ //to start the not reading or rummaging
+				if RAND(5) == 0
+				{ //First chunk here
+					if ghostexcount > 0
+					{ //if there are multiple ghosts out
+						ghostname = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
 						--
+						checkname = "%(ghostexlist[ghostname])" // This grabs the reference name of the ghost to check against known names.
+						--
+						case checkname
+						{ //case check
+							when "Gaster" //reference1 name
+							{
+								"\0\_q<He seems fascinated by Gaster.>\e"
+								"\0\s[2]I wonder if he would know anything about vampires...\w8 A doctor would be useful to talk to...\w8 Even if he is a skeleton.\e"
+							}
+							when "Azura" //Sakura name, I think?
+							{
+								"\0\s[0]Is the girl over there part dragon?\e"
+								"\0\s[0]The girl with wings...\w8 Do you think she would answer some of my questions...\w8 about dragons?\e"
+								"\0\s[0]i[9]Would you mind talking to the winged girl for me?\w8 She looks like she's part dragon and I do so love dragons.\e"
+							}
+							when "Cat"
+							{
+								"\0\s[2]\i[4]Hi, kitty.\w8 You're a cute kitty.\e"
+								"\0\s[2]\i[4]I wonder what the cat's name is.\e"
+								"\0\s[2]\i[4]I love cats.\w8 Will the cat be here from now on?\e"
+							}
+							when "Dusty"
+							{
+								if MetDusty = 1
+								{
+									"\0\s[2]\i[4]Obsidian is such a cute cat!\e"
+									"\0\s[2]Dusty reminds me of someone I used to know.\w8 It's the way he talks and dresses.\w8 Just like the doctor...\e"
+									"\0\s[16]<All of Obsidian's purring seems to have made him want to purr back>\e"
+								}
+								else
+								{
+									"\0\s[2]\i[4]I wonder what the cat's name is.\e"
+									"\0\s[2]A skeleton?\e"
+								}
+							}							
+							others
+							{
+								"\![raise,OnAiTalk]"
+							}
+						} //end case check
+					} // end of multiple ghosts check
+				} //end First chunk
+	
+				if RAND(5) == 1
+				{ //Second chunk
+					if givebook >= 3 && urnice >= 150
+						{
+							reading = 1
+							--
 						
-						"\0\s[15]<Looks like it's reading time again.\e"
-					}
+							"\0\s[15]<Looks like it's reading time again.\e"
+						}
 				
-				{
-					"\0\s[3]It's unnatural for you to keep calling me here...\e"
+					{
+						"\0\s[3]It's unnatural for you to keep calling me here...\e"
 	
-					"\0\s[4]...\e"
+						"\0\s[4]...\e"
 	
-					"\0\s[4]\w8\w8\w8\w8...\i[5]\w8\w8\w8\w8\s[3]\e"
+						"\0\s[4]\w8\w8\w8\w8...\i[5]\w8\w8\w8\w8\s[3]\e"
 	
-					"\0\s[0]\i[7]I'm just going to rest my eyes.\e"
+						"\0\s[0]\i[7]I'm just going to rest my eyes.\e"
 	
-					"\0\s[0]\i[3]It smells nice here.\e"
-				}
+						"\0\s[0]\i[3]It smells nice here.\e"
+					}
 			
-			} //end Second chunk
+				} //end Second chunk
 	
-			if RAND(5) == 2
-			{ //third chunk; lots of if conditions in here 
-				if toldname == 1
-				{
-					"\0\s[2]You can't possibly like me being here, %(username).\e"
-					"\0\s[2]\i[1]You are very strange, %(username).\e"
-				}
-				if givebook <= 4
-				{
-					"\0\s[5]\i[3]I could use a good book to read right now.\e"
-					"\0\s[2]\i[6]I miss my library.\e"
-				}
+				if RAND(5) == 2
+				{ //third chunk; lots of if conditions in here 
+					if toldname == 1
+					{
+						"\0\s[2]You can't possibly like me being here, %(username).\e"
+						"\0\s[2]\i[1]You are very strange, %(username).\e"
+					}
+					if givebook <= 4
+					{
+						"\0\s[5]\i[3]I could use a good book to read right now.\e"
+						"\0\s[2]\i[6]I miss my library.\e"
+					}
 	
-				if harrypotter == 1 && urnice >= 200
-				{
-					"\0\s[2]\i[7]Albus Percy ... What was it again?\e"
-					"\0\s[0]\i[9]I read that Harry Potter book you gave me.\w8 And then I went to the library and read the rest of the series.\w8 It was really good.\w8 It made me... \w8 hopeful because Harry had so many friends in the end.\e"
-					"\0\s[0]Good has to triumph over evil.\w8 It always does, right?\w8 Just like in Harry Potter.\e"
-					"\0\s[0]I would like to have a hippogriff.\e"
-				}
+					if harrypotter == 1 && urnice >= 200
+					{
+						"\0\s[2]\i[7]Albus Percy ... What was it again?\e"
+						"\0\s[0]\i[9]I read that Harry Potter book you gave me.\w8 And then I went to the library and read the rest of the series.\w8 It was really good.\w8 It made me... \w8 hopeful because Harry had so many friends in the end.\e"
+						"\0\s[0]Good has to triumph over evil.\w8 It always does, right?\w8 Just like in Harry Potter.\e"
+						"\0\s[0]I would like to have a hippogriff.\e"
+					}
 	
-				if givekitty == 1
-				{
-					"\0\s[13]<Does he really think you don't notice he has his stuffed cat out?>\e"
-					"\0\s[13]\w8\w8\w8\w8\w8\w8<You ask about his cat and if he really likes it that much>\w8\i[12]\w8\n\nI don't know what you're talking about.\e"
-					"\0\s[13]\w8\w8\w8\w8\w8\w8<You tell him he's cute with his stuffed cat under his arm>\w8\s[2]\i[3]\w8\e"
-				}
+					if givekitty == 1
+					{
+						"\0\s[13]<Does he really think you don't notice he has his stuffed cat out?>\e"
+						"\0\s[13]\w8\w8\w8\w8\w8\w8<You ask about his cat and if he really likes it that much>\w8\i[12]\w8\n\nI don't know what you're talking about.\e"
+						"\0\s[13]\w8\w8\w8\w8\w8\w8<You tell him he's cute with his stuffed cat under his arm>\w8\s[2]\i[3]\w8\e"
+					}
 		
-				if givecandle >=3
-				{
-					"\_q<He smells good. He must be regularly burning the candles you've given him.>\e"
-				}
+					if givecandle >=3
+					{
+						"\_q<He smells good. He must be regularly burning the candles you've given him.>\e"
+					}
 		
-				if giveblood <= 0
-				{
-				"\0\s[2]\i[6]Not having blood is definitely taking its toll.\e"
-				"\0\s[5]\i[5]I'm so tired of having an inconsistent food source.\e"
-				"\0\s[2]Stupid throat...\w8 it's always hurting.\e"
-				if giveblood <= -30
+					if giveblood <= 0
+					{
+						"\0\s[2]\i[6]Not having blood is definitely taking its toll.\e"
+						"\0\s[5]\i[5]I'm so tired of having an inconsistent food source.\e"
+						"\0\s[2]Stupid throat...\w8 it's always hurting.\e"
+					}
+					if giveblood <= -30
 					{
 						giveblood += 30
 						"\0\s[-1]\w8\w8\w8\w8\w8<He disappeared...>\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\0\s[0]\n\n\w8<Does he look less pale?\w4 He must have gone to feed himself.>\e"
 					}
-				}
 			
-				if scarf == 0
-				{
-					"\0\s[2]\i[7]I'm really chilly.\w8 Truth be told, I've always been one of those people who are cold all the time, though.\e"
-					"\0\s[2]\i[7]<He shivers a little>\e"
-				}
-			
-				if scarf == 1
-				{
-					"\0\s[16]I... really like this scarf.\e"
-				}
-			} //end of grouping if item statements
-	
-			if RAND(5) == 3
-			{ //start random check for fourth chunk
-				if urnice < 200
-				{
-					"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\e"
-					"\0\s[2]How can I trust you?\e"
-				}
-				if urnice >= 200 && meanie == 0 && urnice <=400
-				{
+					if scarf == 0
 					{
-					"\0\s[5]\i[5]So...\w8 you weren't hired by my father?\e"
-		
-					"\0\s[5]\i[5]You mean, I'm not here to die?\e"
-			
-					"\0\s[1]I actually found a cup in decent shape the other night!\e"
-		
-					"\0\s[2]\i[3]Why are you being kind to me?\e"
-			
-					"\0\s[0]\i[4]\n\f[height,10]Just hurry up and do it already.\w4 Stab me in the back...\e"
-			
-					"\0\s[2]\i[5]Can't I at least be left to suffer my existence in peace?\e"
-			
-					"\0\s[5]\i[4]What do you want from me?\e"
-			
-					"\0\s[2]\i[5]Just let me go and stop toying with me.\e"
+						"\0\s[2]\i[7]I'm really chilly.\w8 Truth be told, I've always been one of those people who are cold all the time, though.\e"
+						"\0\s[2]\i[7]<He shivers a little>\e"
 					}
 			
-					"\0\s[5]Last time I went scavenging for necessities I couldn't find anything.\e"
-			
-					"\0\s[4]\i[8]I truly appreciate the things you've given me.\w8 I can never find anything when I go out to scavenge for things myself.\e"
-			
-					"\0\s[5]\i[5]I have nothing to offer you in return for how nice you are.\w8 All I have are the clothes on my back.\w8\s[4]\w8\w8 Unless you want a dirty mattress.\e"
-			
-					"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\e"
-		
+					if scarf == 1
 					{
-						"\0\s[0]\i[5]What's the catch?\n\n"
-		
-						--
-						"\![*]\q[What do you mean,whatcatch]\n/
-						\![*]\q[There's no catch,nocatch]\e"
+						"\0\s[16]I... really like this scarf.\e"
 					}
-				}
+				} //end of grouping if item statements
 	
-				if urnice >= 401 && meanie == 0
-				{
+				if RAND(5) == 3
+				{ //start random check for fourth chunk
+					if urnice < 200
 					{
-						"\0\s[5]\i[3]I wonder\i[1] if you like poetry.\e"
-						"\0\s[2]\i[7]Hm...\w8 What rhymes with orange?\w8 ...\w8\s[1]\i[3] Blorange?\w8\w8\w8\w8\s[2]\i[3]\w8 ... I'm an idiot.\e"
-						"\0\s[3]Please keep being kind.\w8 Please don't...\w8 Please just keep being kind.\e"
-						"\0\s[1]\i[3]Willing ignorance...\w8 'Like a willing ignorance'...\w8\s[2]\i[4]Yes.\w4 That would be a great line for a poem.\e"
-						"\0\s[0]\i[7]You know you're incredibly odd, right?\e"
-						"\0\s[0]\i[6]Why won't you just hurt me already?\w8 I know it's coming!\e"
-						"\0\s[2]\i[6]I know you don't actually like me, so take whatever it is you want and be done.\e"
+						"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\e"
+						"\0\s[2]How can I trust you?\e"
 					}
+					if urnice >= 200 && meanie == 0 && urnice <=400
+					{
+						{
+						"\0\s[5]\i[5]So...\w8 you weren't hired by my father?\e"
+		
+						"\0\s[5]\i[5]You mean, I'm not here to die?\e"
 			
-					"\0\s[0]You remind me of someone.\w8\s[0]\i[5]\w8 Someone I used to know.\w8\s[0]\i[0]\w8 Someone kind.\e"
-					"\0\s[0]\i[9]Ever since I was exiled, things have been really hard...\w8 Thank you for making it a little less hard.\e"
-				}
+						"\0\s[1]I actually found a cup in decent shape the other night!\e"
 		
-				if urnice >= 600 && meanie == 0
-				{
-					if favoritecolor == "None"
-					{
-						"So...\w8 what is your favorite color?\![open,inputbox,Onfavoritecolor,-1]"
-					}
-					if favoriteseason == "None"
-					{
-						"I was curious...\w8 What is your favorite season?\![open,inputbox,Onfavoriteseason,-1]"
-					}
-					"\0\s[0]\i[11]This is the most time I've ever been around a human before.\w8 It's so odd that your ears don't move.\w8 They're so round, too!\e"
-					"\0\s[2]\i[3]You have really kind eyes.\e"
-					"\0\s[0]I miss being able to rock climb like I used to.\e"
-					"\0\s[0]I used to ride on horseback through the forest and the mountains when I was younger.\w4 It was nice.\e"
-					"\0\s[0]\i[9]Thank you again for all the things you've given me.\w4 They've really improved my quality of life.\e"
-				}
-	
-				if urnice >= 700 && meanie == 0
-				{
-					"\0\s[9]\i[6]I couldn't take the heartbreak of losing a friend.\w8 Please stop being so kind to me.\w8 It'll make it easier when you -\w8\s[2]\i[7]\e"
-					"\0\s[0]\i[9]I'm writing a poem about you.\w8 You're lovely material for one.\e"
-					"\0\s[0]\i[9]I hope you don't mind me saying, but I really enjoy spending time with you.\e"
-					"\0\s[16]\i[1]<He's just sitting there happily purring. Is he just happy to be here?>\e"
-					"\0\s[5]You'd really like my doctor friend.\w4 He's very nice like you are; so I know you'd get along.\e"
-					"\0\s[0]I wish I could tell Arthur about you.\w4 He was my best friend back before I was exiled.\w4 He would have liked you.\e"
-					if toldname == 1
-					{
-						"<He's mumbling softly and you barely catch what he says>\n\n\w8\0\s[1]\i[3]%(username) was as compassionate as a dragon was greedy...\e"
-						"<He's mumbling softly and you barely catch what he says>\n\n\w8\0\s[3]%(username) heart burst bright with a golden light...\e"
-					}
-				}
-			} //End Random check
+						"\0\s[2]\i[3]Why are you being kind to me?\e"
 			
-			if RAND(5) == 4
-			{ //Fifth Chunk
-				"\0\s[3]...\e"
-	
-				"\0\s[0]\i[5]Why am I here?\e"
+						"\0\s[0]\i[4]\n\f[height,10]Just hurry up and do it already.\w4 Stab me in the back...\e"
+			
+						"\0\s[2]\i[5]Can't I at least be left to suffer my existence in peace?\e"
+			
+						"\0\s[5]\i[4]What do you want from me?\e"
+			
+						"\0\s[2]\i[5]Just let me go and stop toying with me.\e"
+						}
+			
+						"\0\s[5]Last time I went scavenging for necessities I couldn't find anything.\e"
+			
+						"\0\s[4]\i[8]I truly appreciate the things you've given me.\w8 I can never find anything when I go out to scavenge for things myself.\e"
+			
+						"\0\s[5]\i[5]I have nothing to offer you in return for how nice you are.\w8 All I have are the clothes on my back.\w8\s[4]\w8\w8 Unless you want a dirty mattress.\e"
+			
+						"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\e"
 		
-				"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\e"
-	
-				"\0\s[0]\i[7]You do know what I am, right?\e"
-	
-				"\0\s[0]\i[4]What enjoyment are you getting out of me being here?\e"
-	
-				"\0\s[1]\i[8]It is not polite to stare.\w8\s[0]\i[6] I say that because you keep staring!\e"
+						{
+							"\0\s[0]\i[5]What's the catch?\n\n"
 		
-				"\0\s[6]Agh!\w8\w8\w8\w8\w8\w8\s[2]\i[2] I forgot you were here.\e"
+							--
+							"\![*]\q[What do you mean,whatcatch]\n/
+							\![*]\q[There's no catch,nocatch]\e"
+						}
+					}
+	
+					if urnice >= 401 && meanie == 0
+					{
+						{
+							"\0\s[5]\i[3]I wonder\i[1] if you like poetry.\e"
+							"\0\s[2]\i[7]Hm...\w8 What rhymes with orange?\w8 ...\w8\s[1]\i[3] Blorange?\w8\w8\w8\w8\s[2]\i[3]\w8 ... I'm an idiot.\e"
+							"\0\s[3]Please keep being kind.\w8 Please don't...\w8 Please just keep being kind.\e"
+							"\0\s[1]\i[3]Willing ignorance...\w8 'Like a willing ignorance'...\w8\s[2]\i[4]Yes.\w4 That would be a great line for a poem.\e"
+							"\0\s[0]\i[7]You know you're incredibly odd, right?\e"
+							"\0\s[0]\i[6]Why won't you just hurt me already?\w8 I know it's coming!\e"
+							"\0\s[2]\i[6]I know you don't actually like me, so take whatever it is you want and be done.\e"
+						}
+			
+						"\0\s[0]You remind me of someone.\w8\s[0]\i[5]\w8 Someone I used to know.\w8\s[0]\i[0]\w8 Someone kind.\e"
+						"\0\s[0]\i[9]Ever since I was exiled, things have been really hard...\w8 Thank you for making it a little less hard.\e"
+					}
 		
-				"\0\s[2]...\e"
+					if urnice >= 600 && meanie == 0
+					{
+						if favoritecolor == "None"
+						{
+							"So...\w8 what is your favorite color?\![open,inputbox,Onfavoritecolor,-1]"
+						}
+						if favoriteseason == "None"
+						{
+							"I was curious...\w8 What is your favorite season?\![open,inputbox,Onfavoriteseason,-1]"
+						}
+						"\0\s[0]\i[11]This is the most time I've ever been around a human before.\w8 It's so odd that your ears don't move.\w8 They're so round, too!\e"
+						"\0\s[2]\i[3]You have really kind eyes.\e"
+						"\0\s[0]I miss being able to rock climb like I used to.\e"
+						"\0\s[0]I used to ride on horseback through the forest and the mountains when I was younger.\w4 It was nice.\e"
+						"\0\s[0]\i[9]Thank you again for all the things you've given me.\w4 They've really improved my quality of life.\e"
+					}
 	
-				"\0\s[2]I suppose it's better to be here than...\w8 elsewhere.\e"
+					if urnice >= 700 && meanie == 0
+					{
+						"\0\s[9]\i[6]I couldn't take the heartbreak of losing a friend.\w8 Please stop being so kind to me.\w8 It'll make it easier when you -\w8\s[2]\i[7]\e"
+						"\0\s[0]\i[9]I'm writing a poem about you.\w8 You're lovely material for one.\e"
+						"\0\s[0]\i[9]I hope you don't mind me saying, but I really enjoy spending time with you.\e"
+						"\0\s[16]\i[1]<He's just sitting there happily purring. Is he just 	happy to be here?>\e"
+						"\0\s[5]You'd really like my doctor friend.\w4 He's very nice like you are; so I know you'd get along.\e"
+						"\0\s[0]I wish I could tell Arthur about you.\w4 He was my best friend back before I was exiled.\w4 He would have liked you.\e"
+						if toldname == 1
+						{
+							"<He's mumbling softly and you barely catch what he 	says>\n\n\w8\0\s[1]\i[3]%(username) was as compassionate as a dragon was greedy...\e"
+							"<He's mumbling softly and you barely catch what he says>\n\n\w8\0\s[3]%(username) heart burst bright with a golden light...\e"
+						}
+					}
+				} //End Random check
+			
+				if RAND(5) == 4
+				{ //Fifth Chunk
+					"\0\s[3]...\e"
 	
-				"\0\s[2]\n\f[height,10]It does feel nice to not be shivering.\e"
+					"\0\s[0]\i[5]Why am I here?\e"
+		
+					"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\e"
 	
-				"\0\s[0]\i[8]Mm... Can't fall...\w8 asleep...\w8 here...\e"
+					"\0\s[0]\i[7]You do know what I am, right?\e"
 	
-				"\0\s[2]\i[6]Ugh... my back... hurts...\e"
+					"\0\s[0]\i[4]What enjoyment are you getting out of me being here?\e"
 	
-				"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\e"
-			} // end fifth chunk
-	} //end of else statement to not rummaging or reading
+					"\0\s[1]\i[8]It is not polite to stare.\w8\s[0]\i[6] I say that because you keep staring!\e"
+		
+					"\0\s[6]Agh!\w8\w8\w8\w8\w8\w8\s[2]\i[2] I forgot you were here.\e"
+		
+					"\0\s[2]...\e"
+	
+					"\0\s[2]I suppose it's better to be here than...\w8 elsewhere.\e"
+	
+					"\0\s[2]\n\f[height,10]It does feel nice to not be shivering.\e"
+	
+					"\0\s[0]\i[8]Mm... Can't fall...\w8 asleep...\w8 here...\e"
+	
+					"\0\s[2]\i[6]Ugh... my back... hurts...\e"
+	
+					"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\e"
+				} // end fifth chunk
+			}//end of else to not reading
+		}//end of else statement to not rummaging
+	}//end of else from holding obsidian
 } //to end AI talk
 
 Select.whatcatch
@@ -512,28 +525,42 @@ EndMikireTalk
 
 OnSurfaceRestore
  {
-	if rummaging == 1
+	if holdingobsidian == 1
 	{
-		" " //Nothing here to keep surface from restoring to anything
+		"\0\s[18]\1\s[-1]"
 	}
-	elseif reading == 1
+
+	if holdingobsidian == 0
 	{
-		"\0\s[15]"
-	}
-	elseif urnice <= 300 || meanie >= 5 && reading == 0
-	{
-				"\0\s[0]\i[4]"
-				"\0\s[0]\i[5]"
-				"\0\s[5]\i[4]"
-				"\0\s[5]\i[5]"
-				"\0\s[2]"
-	}
-	elseif urnice > 300 && meanie < 5 && reading == 0
-	{
-				"\0\s[0]"
-				"\0\s[0]\i[5]"
-				"\0\s[2]\i[4]"
-				"\0\s[0]\i[9]"
+		if reading == 1
+		{
+			"\0\s[15]\1\s[-1]"
+		}
+		if reading == 0
+		{
+			if rummaging == 1
+			{
+				"\1\s[-1]" //Nothing here to keep surface from restoring to anything
+			}
+			if rummaging == 0
+			{
+				if urnice <= 300 || meanie >= 5
+				{
+					"\0\s[0]\i[4]\1\s[-1]"
+					"\0\s[0]\i[5]\1\s[-1]"
+					"\0\s[5]\i[4]\1\s[-1]"
+					"\0\s[5]\i[5]\1\s[-1]"
+					"\0\s[2]\1\s[-1]"
+				}
+				if urnice > 300 && meanie < 5 
+				{
+					"\0\s[0]\1\s[-1]"
+					"\0\s[0]\i[5]\1\s[-1]"
+					"\0\s[2]\i[4]\1\s[-1]"
+					"\0\s[0]\i[9]\1\s[-1]"
+				}
+			}
+		}
 	}
  }
 
