@@ -42,20 +42,20 @@ AiTalk
 
 RandomTalk : nonoverlap
 {
-	if holdingobsidian == 1
+	if HoldingObsidian == 1
 	{
 		"\0\s[18]I'm definitely a cat person.\e"
 		"\0\s[18]Hello, Obsidian... I'll pet you as long as you want.\e"
 		"\0\s[18]Hellow, sweet kitty.\e"
 		"\0\s[18]I'd like to get a cat of my own one day.\e"
 	}
-	if holdingobsidian == 0
+	elseif HoldingObsidian == 0
 	{
 		if rummaging == 1
 		{
 			" " //Nothing here to keep surface from restoring to anything
 		}
-		if rummaging == 0
+		elseif rummaging == 0
 		{
 			if reading == 1
 			{
@@ -74,7 +74,8 @@ RandomTalk : nonoverlap
 				"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\e"
 				"\0\s[15]...\e:chain=noreading"
 			}
-			if reading == 0
+			
+			elseif reading == 0
 			{ //to start the not reading or rummaging
 				if RAND(5) == 0
 				{ //First chunk here
@@ -105,7 +106,7 @@ RandomTalk : nonoverlap
 							}
 							when "Dusty"
 							{
-								if MetDusty = 1
+								if MetDusty == 1
 								{
 									"\0\s[2]\i[4]Obsidian is such a cute cat!\e"
 									"\0\s[2]Dusty reminds me of someone I used to know.\w8 It's the way he talks and dresses.\w8 Just like the doctor...\e"
@@ -525,24 +526,24 @@ EndMikireTalk
 
 OnSurfaceRestore
  {
-	if holdingobsidian == 1
+	if HoldingObsidian == 1
 	{
 		"\0\s[18]\1\s[-1]"
 	}
 
-	if holdingobsidian == 0
+	else
 	{
 		if reading == 1
 		{
 			"\0\s[15]\1\s[-1]"
 		}
-		if reading == 0
+		else
 		{
 			if rummaging == 1
 			{
 				"\1\s[-1]" //Nothing here to keep surface from restoring to anything
 			}
-			if rummaging == 0
+			else
 			{
 				if urnice <= 300 || meanie >= 5
 				{

@@ -193,7 +193,7 @@ TalkToDusty //Conversations with Dusty
 	
 	elseif "RiccardoPickupObsidian02" _in_ reference1
 	{
-		holdingobsidian = 1
+		HoldingObsidian = 1
 		reading = 0
 		--
 		res_reference0 = "Dusty"
@@ -210,16 +210,16 @@ TalkToDusty //Conversations with Dusty
 	elseif "RiccardoObsiJumpDown03" _in_ reference1
 	{
 		res_reference0 = ""
-		holdingobsidian = 0
+		HoldingObsidian = 0
 		"\0\s[0]\i[5]Oh...\w8 Goodbye, Obsidian.\e"
 	}
 	
 	elseif "DustyMinimizedRiccardo 0" _in_ reference1 //Dusty was minimized
 	{
 		res_reference0 = ""
-		holdingobsidian = 0
+		HoldingObsidian = 0
 	
-		"\0\s[0]\i[5] <Obsidian disappears into the taskbar with Dusty>\w8\w8\n\nI'll see them later, I guess...\e"
+		"\0\s[0]\i[5] <Obsidian disappears into the taskbar with Dusty>\w8\w8\n\nI'll hopefully see them later, I guess...\e"
 	}
 	
 	elseif "Riccardo,0ObsiJumpDown01" _in_ reference1
@@ -238,16 +238,16 @@ OnObsidianJumpDown
     res_reference0 = "Dusty"
     _XCoord = TOINT(reference0[0])
     _YCoord = TOINT(reference0[3])
-    "\0\s[19]\i[5]\e RiccardoObsiJumpDown02,%(_XCoord),%(_YCoord)\e"
+    "\0\s[19]\i[5]\w8\0\s[0]\i[5]\e RiccardoObsiJumpDown02,%(_XCoord),%(_YCoord)\e"
 }
 
 OnOtherGhostChanged
 {
-	if holdingObsidian == 1
+	if HoldingObsidian == 1
 	{
 		if reference0 == "Dusty"
 		{
-			holdingObsidian = 0
+			HoldingObsidian = 0
 			"\0\s[18]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] I'd love to keep her, but here's Obsidian back.\e"
 		}
 	}
@@ -255,11 +255,11 @@ OnOtherGhostChanged
 
 OnOtherGhostClosed
 {
-	if holdingObsidian == 1
+	if HoldingObsidian == 1
 	{
 		if reference0 == "Dusty"
 		{
-			holdingObsidian = 0
+			HoldingObsidian = 0
 			"\0\s[18]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] I'd love to keep her, but here's Obsidian back.\e"
 		}
 	}

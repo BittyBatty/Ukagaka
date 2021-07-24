@@ -388,7 +388,7 @@ OnUpdate.OnDownloadBegin
  	}
  	else //for files not specified above
  	{
-	"\0\s[-1]<Obtaining Updates>.\e"
+	"\0 <Obtaining Updates>.\e"
 	}
  }
 

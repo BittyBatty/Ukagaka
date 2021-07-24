@@ -234,7 +234,7 @@ OnMouseDoubleClick
  
 MouseDoubleClickSakura
  {
-	if holdingObsidian == 1
+	if HoldingObsidian == 1
 	{
 		"\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]\e"
 	}
