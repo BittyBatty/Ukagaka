@@ -458,8 +458,7 @@ collision2,230,20,290,45,purrpurr
 
 //haunted/scared
 2interval,always
-2pattern0,0,0,stop,4
-2pattern0,1115,0,overlay,0,0
+2pattern0,1115,1,overlay,0,0
 
 //embarrassed
 3interval,never
