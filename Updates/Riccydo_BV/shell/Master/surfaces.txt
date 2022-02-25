@@ -453,36 +453,37 @@ collision2,230,20,290,45,purrpurr
 
 //eyes closed
 1interval,never
-1pattern0,0,0,stop,4
+1pattern0,0,0,stop,2
 1pattern0,1114,0,overlay,0,0
 
 //haunted/scared
-2interval,never
+2interval,always
 2pattern0,0,0,stop,4
 2pattern0,1115,0,overlay,0,0
 
 //embarrassed
 3interval,never
-3pattern0,0,0,stop,4
+3pattern0,0,0,stop,2
 3pattern0,1116,0,overlay,0,0
 
 //nuetral/almost smile
-4interval,always
+4interval,never
+4pattern0,0,0,stop,2
 4pattern0,1117,1,overlay,0,0
 
 //tear in eye/angry
 5interval,never
-5pattern0,0,0,stop,4
+5pattern0,0,0,stop,2
 5pattern0,1118,0,overlay,0,0
 
 //tear in eye/sad
 6interval,never
-6pattern0,0,0,stop,4
+6pattern0,0,0,stop,2
 6pattern0,1119,0,overlay,0,0
 
 //Thoughtful
 7interval,never
-7pattern0,0,0,stop,4
+7pattern0,0,0,stop,2
 7pattern0,1113,0,overlay,0,0
 
 100interval,bind
