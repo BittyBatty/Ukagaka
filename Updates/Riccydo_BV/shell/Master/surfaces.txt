@@ -130,7 +130,7 @@ collision2,230,20,290,40,purrpurr
 2interval,never
 2pattern0,1000,0,overlay,0,0
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -172,6 +172,10 @@ collision2,230,20,290,40,purrpurr
 9interval,never
 9pattern0,0,0,stop,1
 9pattern1,1109,0,overlay,0,0
+
+10interval,never
+10pattern0,0,0,stop,1
+10pattern1,1142,0,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -389,7 +393,7 @@ collision2,230,20,290,40,purrpurr
 2interval,never
 2pattern0,1000,0,overlay,0,0
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -443,7 +447,6 @@ collision2,230,20,290,40,purrpurr
 surface2
 {
 element0,overlay,surface1502.png,0,0
-element1,overlay,surface1115.png,0,0
 
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,45,purrpurr
@@ -464,8 +467,8 @@ collision2,230,20,290,45,purrpurr
 3pattern0,1116,0,overlay,0,0
 
 //nuetral/almost smile
-4interval,never
-4pattern0,1117,0,overlay,0,0
+4interval,always
+4pattern0,1117,1,overlay,0,0
 
 //tear in eye/angry
 5interval,never
@@ -498,17 +501,33 @@ collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
+0interval,always
+0pattern0,1102,1,overlay,0,0
+//0pattern1,1102,9,move,-2,0
+//0pattern2,1102,9,move,-4,0
+//0pattern3,1102,10,move,-6,0
+//0pattern4,1102,50,move,-8,0
+//0pattern5,1102,0,base,0,0
+//0pattern6,1102,9,move,2,0
+//0pattern7,1102,9,move,4,0
+//0pattern8,1102,10,move,6,0
+//0pattern9,1102,50,move,8,0
+
 1interval,always
 1pattern0,1504,0,base,0,0
-1pattern1,1504,9,move,-2,0
-1pattern2,1504,9,move,-4,0
+1pattern1,1504,10,move,-2,0
+1pattern2,1504,10,move,-4,0
 1pattern3,1504,10,move,-6,0
-1pattern4,1504,50,move,-8,0
-1pattern5,1503,0,base,0,0
-1pattern6,1503,9,move,2,0
-1pattern7,1503,9,move,4,0
+1pattern4,1504,10,move,-8,0
+1pattern5,1503,3,base,0,0
+1pattern6,1503,10,move,2,0
+1pattern7,1503,10,move,4,0
 1pattern8,1503,10,move,6,0
-1pattern9,1503,50,move,8,0
+1pattern9,1503,10,move,8,0
+1pattern10,1504,3,base,0,0
+
+2interval,never
+2pattern0,1142,0,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -530,50 +549,57 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 9interval,runonce
-9pattern0,0,15,move,-1,0
-9pattern1,0,5,move,-2,0
-9pattern2,0,7,move,-3,0
-9pattern3,0,10,move,-4,0
-9pattern2,0,15,move,-5,0
+9pattern0,0,1,move,-2,0
+9pattern1,0,2,move,-4,0
+9pattern2,0,3,move,-6,0
+9pattern3,0,4,move,-8,0
+9pattern4,0,5,move,-10,0
 
-//rolling eyes
-1interval,never
-1pattern0,1108,12,overlay,0,0
-1pattern1,1104,12,overlay,0,0
-1pattern2,1105,12,overlay,0,0
-1pattern3,1106,12,overlay,0,0
-1pattern4,1107,12,overlay,0,0
-1pattern5,1108,12,overlay,0,0
-1pattern6,-1,3,overlay,0,0
+0interval,always
+0pattern0,1102,1,overlay,0,0
+
+
 
 //eyes closed
 2interval,never
+2pattern0,0,0,stop,0
 2pattern0,1100,0,overlay,0,0
 
 //annoyed/mad and looking away
 3interval,never
+3pattern0,0,0,stop,0
 3pattern0,1101,0,overlay,0,0
 
 //haunted/scared
 4interval,never
+4pattern0,0,0,stop,0
 4pattern0,1102,0,overlayfast,0,0
 
 //annoyed/mad looking straight
 5interval,never
+5pattern0,0,0,stop,0
 5pattern0,1103,0,overlay,0,0
+
+6interval,never
+6pattern0,1142,0,overlay,0,0
 
 //embarrassed
 8interval,never
+8pattern0,0,0,stop,0
 8pattern0,1109,0,overlay,0,0
+
+10interval,never
+10pattern0,0,0,stop,0
+10pattern1,1142,0,overlay,0,0
 
 100interval,bind + runonce
 100pattern0,0,0,stop,9
 100pattern0,1126,0,base,0,0
-100pattern0,1125,15,move,-1,0
-100pattern1,1125,5,move,-2,0
-100pattern2,1125,7,move,-3,0
-100pattern3,1125,10,move,-4,0
-100pattern2,1125,15,move,-5,0
+100pattern0,1125,1,move,-2,0
+100pattern1,1125,2,move,-4,0
+100pattern2,1125,3,move,-6,0
+100pattern3,1125,4,move,-8,0
+100pattern2,1125,5,move,-10,0
 
 101interval,bind
 101pattern0,2600,0,add,0,0
@@ -582,20 +608,24 @@ collision2,230,20,290,40,purrpurr
 //hand on wheel back
 surface5
 {
-element0,overlay,surface1503.png,0,0
+element0,overlay,surface1510.png,0,0
 
 collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
+0interval,always
+0pattern0,1102,1,overlay,0,0
+
 //Neutral face to always have on him
 1interval,never
+1pattern0,0,0,stop,0
 1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
-2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,0,0,stop,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -605,38 +635,42 @@ collision2,230,20,290,40,purrpurr
 
 //eyes closed
 3interval,never
-3pattern0,0,0,stop,1
+3pattern0,0,0,stop,0
 3pattern0,1100,0,overlay,0,0
 
 //annoyed/mad and looking away
 4interval,never
-4pattern0,0,0,stop,1
+4pattern0,0,0,stop,0
 4pattern0,1101,0,overlay,0,0
 
 //haunted/scared
 5interval,never
-5pattern0,0,0,stop,1
+5pattern0,0,0,stop,0
 5pattern0,1102,0,overlay,0,0
 
 //annoyed/mad looking straight
 6interval,never
-6pattern0,0,0,stop,1
+6pattern0,0,0,stop,0
 6pattern0,1103,0,overlay,0,0
 
 //half closed eyes
 7interval,never
-7pattern0,0,0,stop,1
+7pattern0,0,0,stop,0
 7pattern0,1001,0,overlay,0,0
 
 //closed eyes sleepy
 8interval,never
-8pattern0,0,0,stop,1
+8pattern0,0,0,stop,0
 8pattern0,1002,0,overlay,0,0
 
 //embarrassed
 9interval,never
-9pattern0,0,0,stop,1
+9pattern0,0,0,stop,0
 9pattern1,1109,0,overlay,0,0
+
+10interval,never
+10pattern0,0,0,stop,1
+10pattern1,1142,0,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -661,7 +695,7 @@ collision2,230,20,290,40,purrpurr
 //rolling eyes
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -703,6 +737,10 @@ collision2,230,20,290,40,purrpurr
 9interval,never
 9pattern0,0,0,stop,1
 9pattern1,1109,0,overlay,0,0
+
+10interval,never
+10pattern0,0,0,stop,1
+10pattern1,1142,0,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -807,7 +845,7 @@ collision2,230,20,290,40,purrpurr
 //rolling eyes
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -850,6 +888,10 @@ collision2,230,20,290,40,purrpurr
 9pattern0,0,0,stop,1
 9pattern1,1109,0,overlay,0,0
 
+10interval,never
+10pattern0,0,0,stop,1
+10pattern1,1142,0,overlay,0,0
+
 100interval,bind
 100pattern0,1124,0,add,0,0
 
@@ -873,7 +915,7 @@ collision2,230,20,290,40,purrpurr
 //rolling eyes
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -939,7 +981,7 @@ collision2,230,20,290,40,purrpurr
 //rolling eyes
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -1004,7 +1046,7 @@ collision2,230,20,290,40,purrpurr
 //rolling eyes
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -1050,7 +1092,7 @@ collision2,230,20,290,40,purrpurr
 //lifting mug to face to drink
 10interval,random,8
 10pattern0,-1,50,overlay,0,0
-10pattern1,2503,50,replace,0,0
+10pattern1,2503,100,replace,0,0
 10pattern3,-1,200,overlay,0,0
 
 100interval,bind
@@ -1080,6 +1122,28 @@ collision2,220,20,290,50,purrpurr
 1pattern1,1122,25,overlay,0,0
 1pattern2,1123,25,overlay,0,0
 1pattern3,-1,25,overlay,0,0
+
+2interval,never
+2pattern0,1140,20,overlay,0,0
+2pattern1,1141,20,overlay,0,0
+2pattern2,1140,20,overlay,0,0
+2pattern3,1141,20,overlay,0,0
+2pattern4,1141,20,overlay,0,0
+2pattern5,1140,20,overlay,0,0
+2pattern6,1141,20,overlay,0,0
+2pattern7,1140,20,overlay,0,0
+2pattern8,1141,20,overlay,0,0
+2pattern9,1141,20,overlay,0,0
+2pattern0,1140,20,overlay,0,0
+2pattern1,1141,20,overlay,0,0
+2pattern2,1140,20,overlay,0,0
+2pattern3,1141,20,overlay,0,0
+2pattern4,1141,20,overlay,0,0
+2pattern5,1140,20,overlay,0,0
+2pattern6,1141,20,overlay,0,0
+2pattern7,1140,20,overlay,0,0
+2pattern8,1141,20,overlay,0,0
+2pattern9,1141,20,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -1177,7 +1241,7 @@ collision2,230,20,290,40,purrpurr
 2interval,never
 2pattern0,1000,0,overlay,0,0
 2pattern0,0,0,stop,1
-2pattern0,1108,12,overlay,0,0
+2pattern0,1108,0,overlay,0,0
 2pattern1,1104,12,overlay,0,0
 2pattern2,1105,12,overlay,0,0
 2pattern3,1106,12,overlay,0,0
@@ -1219,6 +1283,17 @@ collision2,230,20,290,40,purrpurr
 9interval,never
 9pattern0,0,0,stop,1
 9pattern1,1109,0,overlay,0,0
+
+100interval,bind
+100pattern0,1124,0,add,0,0
+
+101interval,bind
+101pattern0,2600,0,add,0,0
+}
+
+Surface20
+{
+element0,overlay,surface2509.png,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0

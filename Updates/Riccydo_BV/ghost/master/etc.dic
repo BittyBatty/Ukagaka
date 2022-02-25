@@ -626,7 +626,7 @@ OnDisplayChange
  
 OnBatteryLow
  {
-	"\0 <You have %(reference0) power left.>\e"
+	"\0 You have %(reference0) power left.\w8 What happens when you reach 0?\e"
 	//reference0 here is the amount of battery power. Replace as you like.
  }
  
@@ -635,7 +635,7 @@ OnBatteryLow
  
 OnBatteryCritical
 {
-	"\0 <You battery is really low>\e"
+	"\0 Your battery is really low.\w8 You should do something about that...\e"
 }
  
 

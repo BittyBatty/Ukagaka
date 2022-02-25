@@ -42,9 +42,9 @@ OpenSakuraMenu
 	{
 		reading = 0
 		
-		"\0\s[0]\b2Yes?"
+		"\0\s[20]\b2Yes?"
 		"\0\s[0]\b2How can I help you?"
-		"\0\s[0]\b2What is on your mind?"
+		"\0\s[20]\b2What is on your mind?"
 		"\0\s[0]\i[9]\b2It's always a pleasure to talk to you."
 		--
 		MenuRun
@@ -74,18 +74,20 @@ MenuRun
 	--
 
 	
- 	"\![*]\q[Talk to Me,altalk]\n/
+ 	"\![*]\q[Talk to me,altalk]\n/
 	\![*]\q[Talk to Others,Otherghosts]\n/
 	\![*]\q[Can You Repeat That,OnLastTalk]\n\n/
 	\![*]\q[Chat,chat]\n/
-	\![*]\q[Give,give]\n/
-	\![*]\q[Be Mean,crushhim]\n\n"
+	\![*]\q[Ask,ask]\n/
+	\![*]\q[Check,check]\n/
+	\![*]\q[Give,give]\n\n"
+	//\![*]\q[Be Mean,crushhim]\n\n"
 	
 	--
-	if meanie >= 2
-	{
-		"\![*]\q[Apologize,apologize]\n\n"
-	}
+	//if meanie >= 2
+	//{
+	//	"\![*]\q[Apologize,apologize]\n\n"
+	//}
 	if urnice >= 400 && rummaging == 0
 	{
 		"\![*]\q[Can we scavenge together?,rummage]\n\n"
@@ -117,7 +119,6 @@ Select.apologize
 Select.chat
 {
 	"\![*]\q[You're grumpy,grumpy]\n/
-	\![*]\q[Wheelchair?,chair]\n/
 	\![*]\q[Tell me a story,story]\n/
 	\![*]\q[Soothe,soothe]\n/
 	\![*]\q[Compliment,compliment]\n\n/
@@ -129,7 +130,7 @@ Select.grumpy
 	if urnice <= 200
 	{
 		"\0\s[0]\i[6]I'm sure you'd be 'grumpy', too, if you were me.\e"
-		"\0\s[2]\i[1]So?\e"
+		"\0\s[2]\i[1]And?\e"
 		"\0\s[0]\i[2]Yes.\w8\i[6] I am.\e"
 		"\0\s[0]\i[6]How observant of you.\e"
 	}
@@ -137,7 +138,7 @@ Select.grumpy
 	if urnice >= 201 && urnice <= 400 && meanie <= 4
 	{
 		"\0\s[2]\i[2]Maybe a little, but I didn't get a lot of sleep this past day.\e"
-		"\0\s[0]\i[5]Well, there was a weird noise outside, so I didn't want to sleep.\e"
+		"\0\s[0]\i[5]Well, there was a weird noise outside, so I didn't want to sleep...\w8 So I'm just tired.\w8\w8\w8.. Sorry.\e"
 		
 		if giveblood <= 0
 		{
@@ -176,33 +177,6 @@ Select.grumpy
 	}
 }
 
-Select.chair
-{	
-	if urnice <= 200 || meanie >= 5
-	{
-		"\0\s[2]\i[1]What about it?\e"
-		"\0\s[0]\i[4]Yes. I'm in a wheelchair.\w8 You're so observant.\e"
-		"\0\s[0]\i[2]Good job noticing,\w8\i[4] asshole.\e"
-		"\0\s[2]\i[1]I can't use my legs.\w8 What are you confused about?\e"
-	}
-	
-	if urnice >= 201 && urnice <= 350 && meanie <= 4
-	{
-		"\0\s[0]I was paralyzed from the waist down.\w8 So I use a wheelchair to get around.\w8\s[0]\i[4] It's not exactly complicated.\e"
-		"\0\s[5]\i[7]It's just a wheelchair.\w8 Nothing to ogle at.\e"
-		"\0\s[2]\i[7]My back is messed up.\w8 Hence, the chair.\e"
-		"\0\s[0]\i[2]What else would I use?\e"
-	}
-	
-	if urnice >= 351 && meanie <= 4
-	{
-		"\0\s[2]\i[5]My father made sure I would have to use this stupid thing.\w8 I just hope it's not for the rest of my life.\e"
-		"\0\s[3]It's stolen.\w8 But it was the only way.\e"
-		"\0\s[2]\i[5]I can't believe my father felt so threatened by my existence that he had to paralyze me.\w8 What an asshole.\e"
-		"\0\s[3]You would think a man who has hundreds of years on me would not feel the need to hurt me like he did.\e"
-	}
-}
-
 Select.story
 {
 	urnice += 5
@@ -226,7 +200,7 @@ Select.story
 		
 		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2A young vampire lived alone from his people. There were no others for hundreds of miles around and he took what he wanted from the humans in the area. As the years passed, he fed more and more, taking what he wanted without care.\x\c\b2Well, a year passed and the vampire had killed hundreds of people. The humans were tired of it and organized themselves. During the light of day, they stormed his home and dragged him out into the sun. His charred body was hung up as a reminder to the gluttonous to restrain themselves.\x\![leave,passivemode]"
 		
-		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was a village in the mountains that never had any kind of ill fortune fall upon them. Even when the rest of the country started to fall into depression and famine, this little village was modestly wealthy and everyone was happy. Their fortune did not go unnoticed, however.\x\c\b2The ruler of the land heard about the wealth of the town and sent his son, the prince, to figure out how they were so prosperous. When the son arrived, he asked as many people as he could where the wealth came from. He learned of a legend of a dragon in the mountains that the locals believed watched over the land.\x\c\b2The prince traveled into the mountains and happened upon a cave where a great noise was coming from. When he went inside, he saw a white dragon curled around thousands of dazzling gems. It woke up and looked at him with great blue eyes. 'I've come to take your treasure for the rest of the kingdom,' the prince cried out.\x\c\b2Before the prince's eyes, the dragon suddenly transformed into a beautiful girl with long white hair and the same beautiful blue eyes. 'If you would kill me for my treasure, then do it. I will not stop you.' But the prince could not. Instead, he fell to his knees and wept at her beauty and innocence. 'I'm sorry, my lady,' he told her.\x\c\b2 The dragon girl walked up to him and gently kissed his forehead. 'You want only what is best for your people,' she said. 'But I cannot let the king have my treasure. He killed my family and drove me here to live in secrecy and fear. If he dies, I will marry you and share my wealth with the rest of your kingdom.' The prince left with a heavy heart.\x\c\b2When the prince returned home, he could only look at his father with disgust. In the histories of the kingdom, he found proof that his father had killed the luck dragons of their kingdom and that was when the famine had first truly started, so he challenged his father to a duel.\x\c\b2The day of the duel, the dragon came in her human form to bless the prince with luck. She stood quietly in the crowd of people who watched and it gave the prince courage. The prince and the king fought hard against each other until the prince disarmed his father and held him at tip of sword. 'Don't corrupt your heart with his death,' the dragon suddenly cried out and the prince spared his father.\x\c\b2 The prince married the dragon shortly after and soon, wealth spread back over the kingdom. The famine ended, crops yielding more food than ever, and the people were happy again. And so it was for thousands of year.\x\![leave,passivemode]"
+		"\![enter,passivemode]\0\s[0]Hm...\w8 Well...\w8 Let me see what I can find.\x\w8\_q\s[15]\b2There was a village in the mountains that never had any kind of ill fortune fall upon them. Even when the rest of the country started to fall into depression and famine, this little village was modestly wealthy and everyone was happy. Their fortune did not go unnoticed, however.\x\c\b2The ruler of the land heard about the wealth of the town and sent his son, the prince, to figure out how they were so prosperous. When the son arrived, he asked as many people as he could where the wealth came from. He learned of a legend of a dragon in the mountains that the locals believed watched over the land.\x\c\b2The prince traveled into the mountains and happened upon a cave where a great noise was coming from. When he went inside, he saw a white dragon curled around thousands of dazzling gems. It woke up and looked at him with great blue eyes. 'I've come to take your treasure for the rest of the kingdom,' the prince cried out.\x\c\b2Before the prince's eyes, the dragon suddenly transformed into a beautiful girl with long white hair and the same beautiful blue eyes. 'If you would kill me for my treasure, then do it. I will not stop you.' But the prince could not. Instead, he fell to his knees and wept at her beauty and innocence. 'I'm sorry, my lady,' he told her.\x\c\b2 The dragon girl walked up to him and gently kissed his forehead. 'You want only what is best for your people,' she said. 'But I cannot let the king have my treasure. He killed my family and drove me here to live in secrecy and fear. If he dies, I will marry you and share my wealth with the rest of your kingdom.' The prince left with a heavy heart.\x\c\b2When the prince returned home, he could only look at his father with disgust. In the histories of the kingdom, he found proof that his father had killed the luck dragons of their kingdom and that was when the famine had first truly started, so he challenged his father to a duel.\x\c\b2The day of the duel, the dragon came in her human form to bless the prince with luck. She stood quietly in the crowd of people who watched and it gave the prince courage. The prince and the king fought hard against each other until the prince disarmed his father and held him at tip of sword. 'Don't corrupt your heart with his death,' the dragon suddenly cried out and the prince spared his father.\x\c\b2 The prince married the dragon shortly after and soon, wealth spread back over the kingdom. The famine ended, crops yielding more food than ever, and the people were happy again. And so it was for thousands of years.\x\![leave,passivemode]"
 	}
 }
 
@@ -267,6 +241,208 @@ Select.compliment
 	}
 }
 
+Select.ask
+{
+	"\![*]\q[Your father?,father]\n/
+	\![*]\q[Wheelchair?,chair]\n\n/
+	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+Select.chair
+{	
+	"\0\s[2]\i[5]I didn't even know my kind could be paralyzed.\e"
+	"\0\s[2]I'm lucky I escaped with my life...\e"
+	
+	if urnice <= 200 // meanie >= 5
+	{
+		"\0\s[2]\i[1]What about it?\e"
+		"\0\s[0]\i[4]Yes. I'm in a wheelchair.\w8 You're so observant.\e"
+		"\0\s[0]\i[2]Good job noticing,\w8\i[4] jerk.\e"
+		"\0\s[2]\i[5]I can't walk.\w8 What are you confused about?\e"
+	}
+	
+	if urnice >= 201 && urnice <= 350 //&& meanie <= 4
+	{
+		"\0\s[0]I was paralyzed from the waist down.\w8 So I use a wheelchair to get around.\w8\s[0]\i[4] It's not exactly complicated.\e"
+		"\0\s[5]\i[7]It's just a wheelchair.\w8 Nothing to ogle at.\e"
+		"\0\s[2]\i[7]My back snapped like a twig.\w8 Hence, the chair.\e"
+		"\0\s[0]\i[2]What else would I use?\e"
+	}
+	
+	if urnice >= 351 //&& meanie <= 4
+	{
+		"\0\s[2]\i[2]What's wrong with my chair?\w8 You don't think I'm weak because of it, do you?\e"
+		"\0\s[3]I stole it.\w8 But it was the only way...\e"
+		"\0\s[2]\i[5]You would think a man who has hundreds of years on me would not feel the need to hurt me like he did.\e"
+	}
+}
+
+Select.father
+{
+	if urnice <= 399
+	{
+		"\0\s[5]\i[4]Why would you ask about him?\w8\n\n"
+		--
+		{
+			"<You tell him that he mentioned his father when you first summoned him.>\w8\n\n"
+			--
+			"\0\s[2]\i[2]No...\w8 No I didn't...\e"
+			"\0\s[2]\i[5]I don't know what you're talking about.\e"
+		}
+		{
+			"<You remind him that he asked if you worked for his father.>\w8\n\n"
+			--
+			"\0\s[2]\i[2]I'm still not convinced that you don't...\e"
+			"\0\s[2]\i[2]Well, do you?\e"
+		}
+	}
+	if urnice >= 400
+	{
+    "\0\s[2]\i[2]Why are you asking?\w8 "
+    --
+		{
+			"\n\n<You mention that he seems afraid of his father.>\n\n"
+			--
+			{
+				"Of course I am. "
+				--
+				"\0\s[4]Look at what he's done to me.\w8 I wasn't born this way.\e"
+				"\0\s[2]\i[6]He tried to have me killed.\e"
+				"\0\s[5]He must know I'm still alive.\w8 And he will come for me.\e"
+			}
+			{
+				"You should be, too. "
+				--
+				"\0\s[0]\i[7]He would kill you if he knew you.\e"
+				"\0\s[2]\i[6]If you're seen talking to me...\e"
+				"\0\s[2]No one's safe from him.\e"
+			}
+			{
+				"Am I? Maybe that's because "
+				--
+				"I've never seen love in his eyes.\e"
+				"he's one of the most powerful vampires in the world.\e"
+				"\0\s[3]he's a violent, war-mongering...\w8 villain.\e"
+			}
+		}
+		{
+			"\w8\w8<He sighs>\w8\w8 Wait...\w8 "
+			--
+			{
+				"\0\s[2]\i[7]I guess I should just tell you. "
+				--
+				"My father is a war-lord.\w8 One of the most ruthless in history.\e"
+				"My father's killed hundreds of werewolves.\w8 They fear his very name.\e"
+				"My father knows no mercy.\w8 He kills werewolves for sport.\e"
+			}
+			{
+				"\0\s[2]\i[7]I can't keep it a secret any longer, can I? "
+				--
+				"My father is a king, and built his kingdom on the promise and delivery of war.\e"
+				"My father governs the military-state of Malatia, and is the self-made king of the territory..\e"
+				"My father is known as the short-toothed king for being the youngest king of the great vampire monarchs of the world."
+			}
+			{
+				"\0\s[2]\i[7]I'll tell you, but you can't tell anyone else. "
+				--
+				"My father is King Demetri Tenepri of Malatia.\e"
+				"I'm the heir prince\w8 - er -\w8 exiled prince of King Demetri Tenepri.\e"
+				"I'm King Demetri Tenepri's exiled heir.\e"
+			}
+		}
+		{
+			"It's not as if he affects me, anymore.\w8 "
+			--
+			{
+				"\0\s[3]It's not as if I still have nightmares.\w8 "
+				--
+				"Nightmares of him finding me.\e"
+				"Nightmares of waking up back home.\e"
+				"Nightmares of never seeing home again.\e"     
+			}
+			{
+				"\0\s[1]\i[6]Because he doesn't affect me, now.\w8 "
+				--
+				"I can go anywhere I want! "
+				"I can be whoever I want to be! "
+				"I can live how I want to! "
+				--
+				"He can't stop me.\e"
+			}
+			{
+				"I'll never even see him again.\w8 "
+				--
+				"\0\s[2]\i[6]Or my horse, Taizong.\e"
+				"\0\s[2]\i[6]Or my friend, Dr. Seavers.\e"
+				"\0\s[2]\i[6]Or have to worry about my mother.\e"
+			}
+		}
+	}
+	if urnice >= 700
+	{
+		"\0\s[0]\i[7]Isn't there something better we could talk about?\w8 Like poetry?\w8 Or dragons?\e"
+	}
+}
+
+Select.check
+{
+	"\_q\b2Blood Need: %(giveblood)/240\n\n/
+	Do you want him to get thirsty \q[FAST,fast] or \q[SLOW,slow]? Right now, he gets thirsty %(bloodmode).\n\n/
+	How does he feel about you?\n"
+	
+	--
+	
+	if urnice <= 100
+	{
+		"He doesn't trust you, and is very afraid of you, but maybe you can work on that.\n\n"
+	}
+	
+	elseif urnice > 100 && urnice < 300
+	{
+		"He's wary of you, and wonders when your kindness will come to a stop.\n\n"
+	}
+	
+	elseif urnice >= 300 && urnice < 500
+	{
+		"Reluctantly, he thinks he likes you and that sort of scares him. Especially because he's not sure if your kindness will continue.\n\n"
+	}
+	
+	elseif urnice >= 500 && urnice < 700
+	{
+		"He trusts you and even sort of likes you, but it's still really hard to accept. He's had so many good things in his life taken away.\n\n"
+	}
+	
+	elseif urnice >= 700
+	{
+		"You've been nothing but kind to him and it's paid off. He trusts you entirely and enjoys being in your presence.\n\n"
+	}
+	
+	else
+	{
+		"This text shouldn't appear.\n\n"
+	}
+	
+	--
+	
+	"\![*]\q[Back,BACKTOMENU]"
+}
+
+Select.fast
+{
+	bloodmode = "fast"
+	--
+	"Riccardo's blood need will now decay fast.\n\n/
+	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+Select.slow
+{
+	bloodmode = "slow"
+	--
+	"Riccardo's blood need will now decay slowly.\n\n/
+	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
 Select.give
 {
 	"\0\s[0]\n\n"
@@ -291,6 +467,11 @@ Select.book
 		"\0\s[7]\w8\w8\w8What -\w8\s[12]\i[9]\w8\w8 A book?\w8 Are you sure?\e"
 		"\0\s[7]\w8\w8\w8Are you sure you want to give me -\w8\s[12]\w8\w8 I don't really deserve -\s[12]\i[9] Thank you.\e"
 	}
+	if lotr == 0
+	{
+		lotr = 1
+		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Lord of the Rings'...\w8 I heard about this one.\w8 There is magic involved, right?\w8 I'm sure it's inaccurate, but...\w8 thank you.\e"
+	}
 	elseif givebook >= 2 && meanie <= 4 && givebook <= 5
 	{
 		givebook += 1
@@ -301,12 +482,6 @@ Select.book
 		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Dracula'?\w4 Really?\e"
 		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Dreams and Their Meanings'?\w8 Hm...\w8 Not what I would usually read, but it is appreciated.\e"
 		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Classic Poems and Their Poets'?\w8 Mm... I'll enjoy this one.\e"
-		
-		if harrypotter == 0
-		{
-			harrypotter = 1
-			"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Harry Potter'...\w8 I heard about this one.\w8 There is magic involved, right?\w8 I'm sure it's inaccurate, but...\w8 thank you.\e"
-		}
 	}
 	elseif givebook >= 6 && meanie <= 4
 	{
@@ -390,10 +565,10 @@ Select.candle
 
 Select.blood
 {
-	if giveblood <= 60 && meanie <= 4
+	if giveblood <= 209 //&& meanie <= 4
 	{
 		urnice += 5
-		giveblood += 30
+		giveblood += 60
 		
 		"\0\s[14]\i[9]You're a lifesaver! Thank you!\e"
 		"\0\s[14]\i[9]That smells amazing!\e"
@@ -405,7 +580,7 @@ Select.blood
 		"\0\s[14]\i[9]I don't know how you got a hold of blood, but thank you.\e"
 	}
 	
-	if giveblood >= 75 && meanie <= 4
+	if giveblood >= 210 //&& meanie <= 4
 	{
 		urnice += 1
 		
@@ -1010,7 +1185,7 @@ Select.TalksTill
 Select.TALKMAX
 	{
  		talktime = "30 seconds" //this sets up the envelope properly
-		aitalkinterval = 45 //this changes the actual rate
+		aitalkinterval = 40 //this changes the actual rate
 		
  		"\0\s[0]\i[7]That's a lot of talking.\w8 Lonely are we?\e"
 	}
@@ -1019,7 +1194,7 @@ Select.TALKMAX
 Select.TALKHIGH
 	{
  		talktime = "minute"
-		aitalkinterval = 75
+		aitalkinterval = 70
 		
  		"\0\s[0]\i[7]Mm... Every minute, then.\e"
 	}
@@ -1028,7 +1203,7 @@ Select.TALKHIGH
 Select.TALKNORMAL
 	{
  		talktime = "3 minutes"
-		aitalkinterval = 195
+		aitalkinterval = 190
 		
  		"\0\s[2]\i[1]I'll just shut up for 3 minutes at a time, then.\e"
 	}
@@ -1037,7 +1212,7 @@ Select.TALKNORMAL
 Select.TALKPOOR
 	{
  		talktime = "5 minutes"
-		aitalkinterval = 315
+		aitalkinterval = 310
 		
  		"\0\s[2]\i[1]I'll just shut up for 5 minutes at a time, then.\e"
 	}
@@ -1067,6 +1242,13 @@ Select.CANCEL
 		"\0\s[2]\i[1]Fine.\e"
 		
 		"\0\s[0]\i[2]Whatever.\e"
+		
+		if urnice >= 400
+		{
+			"Oh... You changed your mind?\e"
+			"Didn't need anything, after all?\e"
+			"It's nice to talk to you if you decide you want to talk again.\e"
+		}
  	}
 
 	
@@ -1196,7 +1378,7 @@ Select.testvariable
 Select.Variables
 {
 	//"\0\![bind,Legs,Blanket,0]\e"
-	"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(harrypotter) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
+	"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(lotr) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
 	//givebedding = 0
 	//scarf = 0
 	

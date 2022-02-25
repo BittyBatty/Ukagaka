@@ -35,7 +35,7 @@ OnFirstBoot
 	nowshell = "default_shell" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here. 
 	urnice = 0
 	givebook = 0
-	harrypotter = 0
+	lotr = 0
 	givebedding = 0
 	givecandle = 0
 	giveblood = 0
@@ -49,6 +49,7 @@ OnFirstBoot
 	rummaging = 0 //controls whether the scavenging game is on or off
 	favoriteseason = "None"
 	favoritecolor = "None"
+	bloodmode = "fast"
 	LoopPrevention = 0
 	MetDusty = 0
 	HoldingObsidian = 0
@@ -56,7 +57,7 @@ OnFirstBoot
 	if reference0 == 0 //Don't touch this line.
  	{
 		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
-		"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8 !\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\x\c\s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+		"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
  	}
 	else
  	{
@@ -64,7 +65,7 @@ OnFirstBoot
  		{
 			urnice = 0
 			givebook = 0
-			harrypotter = 0
+			lotr = 0
 			givebedding = 0
 			givecandle = 0
 			giveblood = 0
@@ -82,7 +83,7 @@ OnFirstBoot
 			MetDusty = 0
 			HoldingObsidian = 0
 			
-			"\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8 !\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\x\c\s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+			"\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
 		}
  	}
 }
@@ -141,9 +142,15 @@ OnBoot
 	reading = 0
 	rummaging = 0
 	HoldingObsidian = 0
+	meanie = 0
 	
  	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
 	
+	--
+	if bloodmode == " " || "none"
+	{
+		bloodmode = "fast"
+	}
 	--
 	
 	if givebedding >= 3
@@ -174,14 +181,14 @@ OnBoot
 	
 	if dayslot == userbirthday
 	{
-				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\1\s[10]Happy birthday, %(username).\e"
+				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\0\s[0]Happy birthday, %(username).\e"
 	}
-	//elseif dayslot == "7month 4day"
-	//{
-	//			"\1\s[10]It's the fourth of July.\e"
+	elseif dayslot == "9month 16day"
+	{
+				"\0\s[0]It's... \w8 my birthday today...\e"
 				
 				//Leaving this in case I ever want to put in a specific day dialogue
-	//}
+	}
 	else
 	{
 		"%(normalboottalk)"
@@ -253,43 +260,45 @@ OnClose
 			if HoldingObsidian == 1
 			{
 				HoldingObsidian = 0
-				"\0\s[18]Oh...\w8 I'll give Obsidian back, I guess.\w8\s[-1]\w8\w8 Goodbye!\w8\w8\-\e"
+				"\0\s[18]Oh...\w8 I'll give Obsidian back, I guess.\w8\s[-1]\w8\w8 Goodbye, Dusty! Goodbye, Obsidian!\w8\w8\-\e"
 			}
 			else
 			{
-				"\0\s[1]I can finally go get some reading done.\w8"
-				"\0\s[2]\i[1]So long as I'm dismissed, I'm going try to find somewhere better to live.\w8"
-				"\0\s[5]\i[3]I assume you'll be dragging me back here at your next convenience.\w8 I will see you, then.\w8"
+				"\0\s[0]\i[2]I can finally go get some reading done.\w8"
+				"\0\s[1]\i[7]So long as I'm dismissed, I'm going try to find somewhere better to live.\w8"
+				"\0\s[5]\i[5]I assume you'll be dragging me back here at your next convenience?\w8 I will see you, then.\w8"
 				{
 				if timeslot == "earlymorning"
 					{
-						"\0\s[1]\i[8]Perfect timing for me to read a little before bed.\w8"
+						"\0\s[5]\i[1]Perfect timing for me to read a little before bed.\w8"
 					}
 				elseif timeslot == "morning"
 					{
- 					"\0\s[2]\i[1]I do hope I left the curtains over the window.\w8"
+ 					"\0\s[2]\i[7]I do hope I left the curtains over the window.\w8"
 					}
 				elseif timeslot == "lunch"
 					{
-						"\0\s[2]\i[7]Couldn't you have let me go earlier?\w8"
+						"\0\s[2]\i[1]Couldn't you have let me go earlier?\w8"
 						
-						"\0\s[0]\i[3]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
+						"\0\s[0]\i[4]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
 					}
 				elseif timeslot == "afternoon"
 					{
-						"\0\s[2]\i[7]Couldn't you have let me go earlier?\w8"
+						"\0\s[2]\i[1]Couldn't you have let me go earlier?\w8"
 						
-						"\0\s[0]\i[3]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
+						"\0\s[0]\i[4]I'm going to have to sleep in to make up for the lost time I've been here.\w8"
 					}
 				elseif timeslot == "evening"
 					{
-						"\0\s[0]Couldn't you have let me go earlier?\w8"
+						"\0\s[0]\i[4]Couldn't you have let me go earlier?\w8"
 						
 						"\0\s[0]Time to get my night started, I suppose.\w8 Perhaps a nap beforehand, though.\w8"
 					}
 				elseif timeslot == "latenight"
 					{
 						"\0\s[0]\i[7]Why are you up so late, anyways?\w8"
+						
+						"\0\s[0]\i[7]Hm... I think I have time go out scavenging for something useful.\w8"
 					}
 				else //like above, this is the midnight time slot since it's the last one left.
 					{

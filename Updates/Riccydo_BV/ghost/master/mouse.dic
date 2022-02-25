@@ -56,21 +56,41 @@ MouseMoveSakura
 				
 				if urnice < 200 || meanie >= 5
 				{
-					"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
-					"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
-					"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
-					"\0\s[11]\i[5]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+					if giveblood <= 0
+					{
+						"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
+						"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+						"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+						"\0\s[11]\i[10]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\i[2]\e"
+					}
+					elseif giveblood > 0
+					{
+						"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
+						"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+						"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+						"\0\s[11]\i[5]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+					}
 				}
-				if urnice >= 200 && urnice <= 299
+				elseif urnice >= 200 && urnice <= 299
 				{
 					case flinchamount
 					{
 						when 0-16
 						{
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
-					"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
-					"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
-					"\0\s[11]\i[5]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+							if giveblood <= 0
+							{
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+								"\0\s[11]\i[10]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\i[2]\e"
+							}
+							elseif giveblood > 0
+							{
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\i[5]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+								"\0\s[11]\i[5]Stop...\w8\w8 Stop waving around near me.\w8 That makes me very nervous.\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+							}
 						}
 						when 17-20
 						{
@@ -78,15 +98,24 @@ MouseMoveSakura
 						}
 					}
 				}
-				if urnice >= 300 && urnice <= 499
+				elseif urnice >= 300 && urnice <= 499
 				{
 					case flinchamount
 					{
 						when 0-12
 						{
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							if giveblood <= 0
+							{
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\i[2]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[10]\e"
+							}
+							elseif giveblood > 0
+							{
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							}
 						}
 						when 13-20
 						{
@@ -94,15 +123,24 @@ MouseMoveSakura
 						}
 					}
 				}
-				if urnice >= 500 && urnice <= 599
+				elseif urnice >= 500 && urnice <= 599
 				{
 					case flinchamount
 					{
 						when 0-9
 						{
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							if giveblood <= 0
+							{
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\i[2]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[10]\e"
+							}
+							elseif giveblood > 0
+							{
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							}
 						}
 						when 10-20
 						{
@@ -110,15 +148,24 @@ MouseMoveSakura
 						}
 					}
 				}
-				if urnice >= 600 && urnice <= 699
+				elseif urnice >= 600 && urnice <= 699
 				{
 					case flinchamount
 					{
 						when 0-5
 						{
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
-							"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							if giveblood <= 0
+							{
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\i[2]\e"
+								"\0\s[6]\i[10]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[10]\e"
+							}
+							elseif giveblood > 0
+							{
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[0]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[3]\e"
+								"\0\s[6]\i[5]\w8\w8\w8\w8\w8\w8\w8\0\s[5]\i[5]\e"
+							}
 						}
 						when 6-20
 						{
@@ -126,7 +173,7 @@ MouseMoveSakura
 						}
 					}
 				}
-				if urnice >= 700
+				elseif urnice >= 700
 				{
 					" "
 				}

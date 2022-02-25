@@ -59,11 +59,7 @@ On_sakura.recommendsites
 	"Fursie's Deviantart"
 	--
 	"%ASC(1)https://www.deviantart.com/fursietheflixee/%ASC(2)"
-	--
-	
-	"Fursie's Charahub"
-	--
-	"%ASC(1)https://charahub.com/user/Fluffers/%ASC(2)"
+
 
 	//You don't have to space these out like this between sites, but I thought it'd make it a bit easier to read.
  }

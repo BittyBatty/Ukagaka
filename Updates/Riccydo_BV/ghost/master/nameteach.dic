@@ -55,7 +55,7 @@ OnNameTeach
 {
 	tempname = reference0 //this stores the name value temporarily in reference0
 	
-	if reference0 == "Demetri"//this checks to see if the user input the name "Girl" OR (that's what || means) "girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here. The OR operator there with "Girl" and "girl" is to cover people using lowercase as well. More on operators in the walkthrough page on coding.
+	if reference0 == "Demetri" || reference0 == "Demitri" //this checks to see if the user input the name "Girl" OR (that's what || means) "girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here. The OR operator there with "Girl" and "girl" is to cover people using lowercase as well. More on operators in the walkthrough page on coding.
 	{
 		"\0\s[2]Well, you're going to have to go by something different!\![open,inputbox,OnNameTeach,-1]"
 		//Note here that it's using the same tag as above to reopen the text box to let the user put in another name. You can replace the dialogue with whatever as long as you keep the \![open,inputbox,OnNameTeach,-1] tag.
@@ -67,9 +67,9 @@ OnNameTeach
 	}
 	elseif reference0 == "" || reference0 == " " || reference0 == "   " //This is if the user doesn't put in a name at all, since that'd also get awkward in dialogue. Admittedly if a user REALLY wanted to put a ton of spaces as their name, the OR operators can only go so far, but this situation would mostly come up by accident I'd figure from a user hitting enter too quickly.
 	{
-		username = "Mooncalf" //this sets the user's name to NULL.
+		username = "Short Ears" //this sets the user's name to Short Ears.
 		
-		"\0\s[0]\i[1]Fine.\w8 If you didn't want to tell me your name, you shouldn't have started. I'll just call you 'Mooncalf'.\e"
+		"\0\s[0]\i[1]Fine.\w8 If you didn't want to tell me your name, you shouldn't have started. I'll just call you 'Short Ears'.\e"
 		//You can change this snip to whatever.
 	}
 	else //if the user put in something not specified above, ie a proper name the ghost can use. 
