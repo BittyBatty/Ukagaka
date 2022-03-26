@@ -20,7 +20,14 @@ OpenSakuraMenu
 	{
 		"\b4\![*]\q[Stop scavenging,nomorerummage]\n\n"
 	}
-	if urnice <= 150 && meanie <= 4 && rummaging == 0
+	elseif giveblood <= 0
+	{
+		"\0\s[3]\i[2]"
+		"\0\s[0]\i[10]"
+		--
+		MenuRun
+	}
+	elseif urnice <= 150 && rummaging == 0
 	{
 		{
 		reading = 0
@@ -38,7 +45,7 @@ OpenSakuraMenu
 		--
 		MenuRun
 	}
-	if urnice >= 151 && rummaging == 0
+	elseif urnice >= 151 && rummaging == 0
 	{
 		reading = 0
 		
@@ -142,7 +149,7 @@ Select.grumpy
 		
 		if giveblood <= 0
 		{
-		"\0\s[0]\i[5]I'm just a little thirsty.\e"
+		"\0\s[0]\i[5]I'm just... thirsty.\e"
 		}
 		
 		"\0\s[0]\i[3]I live in an abandoned building, what do you expect?!\e"
@@ -1237,17 +1244,28 @@ Select.TEACHNAME
 //If the user selects cancel in a menu. Replace as you like, or just leave them blank.
 Select.CANCEL
 	{
-		"\0\s[0]\i[6]Leave me alone next time.\e"
-		
-		"\0\s[2]\i[1]Fine.\e"
-		
-		"\0\s[0]\i[2]Whatever.\e"
-		
-		if urnice >= 400
+		if giveblood <= 0
 		{
-			"Oh... You changed your mind?\e"
-			"Didn't need anything, after all?\e"
-			"It's nice to talk to you if you decide you want to talk again.\e"
+			"\0\s[3]\i[2]I thought...\w8 Never mind.\e"
+			"\0\s[0]\i[10]\e"
+		}
+		elseif giveblood > 0
+		{
+			if urnice <= 399
+			{
+				"\0\s[0]\i[6]Leave me alone next time.\e"
+		
+				"\0\s[2]\i[1]Fine.\e"
+		
+				"\0\s[0]\i[2]Whatever.\e"
+			}
+		
+			if urnice >= 400
+			{
+				"Oh... You changed your mind?\e"
+				"Didn't need anything, after all?\e"
+				"It's nice to talk to you if you decide you want to talk again.\e"
+			}
 		}
  	}
 

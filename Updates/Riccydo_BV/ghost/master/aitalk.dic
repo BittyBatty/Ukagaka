@@ -426,7 +426,7 @@ OnMinuteChange
 			giveblood -= 2
 		}
 	}
-	if giveblood == 0
+	elseif giveblood <= 0
 	{
 		giveblood = 0
 	}
@@ -558,9 +558,9 @@ OnSurfaceRestore
 			}
 			else //if rummaging == 0
 			{
-				if giveblood <= -25
+				if giveblood <= 0
 				{
-					"\0\s[3\i[2]"
+					"\0\s[3]\i[2]"
 					"\0\s[0]\i[10]"
 				}
 				else //if giveblood > -25

@@ -1,6 +1,9 @@
 Charset,UTF-8
 install,699091825
+homeurl_found,1
 surfacecount,82
+homeurl,https://raw.githubusercontent.com/FursieTheFlixee/Ukagaka/Master/Updates/Riccydo_BV/
+update_result,OK(0)
 firstboot,699091845
 commitmemorysize,3068557
-lastboot,699091845
+lastboot,701643082

@@ -38,7 +38,7 @@ OnFirstBoot
 	lotr = 0
 	givebedding = 0
 	givecandle = 0
-	giveblood = 0
+	giveblood = 25
 	givekitty = 0
 	meanie = 0
 	kammy = 0
@@ -68,7 +68,7 @@ OnFirstBoot
 			lotr = 0
 			givebedding = 0
 			givecandle = 0
-			giveblood = 0
+			giveblood = 25
 			givekitty = 0
 			meanie = 0
 			kammy = 0
@@ -137,7 +137,6 @@ OnBoot
 	lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
 	passmin = 0
 	passsec = 0
-	giveblood = 0
 	givecandle -= 1
 	reading = 0
 	rummaging = 0
@@ -146,11 +145,11 @@ OnBoot
 	
  	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
 	
-	--
-	if bloodmode == " " || "none"
-	{
-		bloodmode = "fast"
-	}
+	//--
+	//if bloodmode == " " || "none"
+	//{
+	//	bloodmode = "fast"
+	//}
 	--
 	
 	if givebedding >= 3
@@ -218,7 +217,7 @@ normalboottalk
 		{
 		"\0\s[0]\i[4]You really don't care that this is when I'm usually in bed, do you?\e"
 		
-		"\0\s[0\i[4]]Ripped from bed to entertain some sorcerer.\w8 Still, I've been woken for worse reasons.\e"
+		"\0\s[2\i[1]Ripped from bed to entertain some sorcerer.\w8 Still, I've been woken for worse reasons.\e"
 		
 		"\0\s[5]\i[7]<yawn> Sorry.\w8 I'll try to wake up."
 		}
