@@ -1,0 +1,43 @@
+﻿//Only touch words after commas
+
+
+//Don't mess with this.
+
+charset,UTF-8
+
+
+//The name of your ghost is what will be displayed when you are loading your ghost or switching to it, and also how it is referred to in certain functions. 
+
+name,Dr. Arthur Seavers
+type,ghost
+
+
+//This defines which is the main character and which is the side character. 
+
+
+sakura.name,Arthur
+kero.name,None
+
+
+//This is the information about you, the creator of your ghost! Put in your name or whatever alias you want and whatever website you'd like to link to.
+
+
+craftman,BittyBatty
+craftmanurl,https://fursie-does-art.tumblr.com/
+
+
+//This is coding stuff, don't touch it.
+
+sstp.allowunspecifiedsend,0
+shiori,aya5.dll
+
+
+//This next bit defines what icon your ghost will use in your taskbar. Replace "gt_template.ico" with the icon file you're going to be using.
+
+
+icon,DASIcon.ico
+
+
+//If you have a special balloon for your ghost, you can set it here with balloon, which will highlight it in the Change Balloon menu so it'll be easier to find.
+
+balloon,Dr_AS_Balloon
