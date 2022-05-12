@@ -2,14 +2,14 @@ charset,OSNative
 file,ghost/master/DASIcon.ico6a7f9a0296cb55ee942211eae8880291size=100731date=2022-05-06T18:38:08
 file,ghost/master/DAS_aitalk.dic484126d083e042952868442f436878c1size=39500date=2022-05-06T23:04:57
 file,ghost/master/DAS_anchor.dic8710fefeb31c223f44a2dc9a555d3b90size=4981date=2020-11-07T03:08:48
-file,ghost/master/DAS_bootend.dic3bed7a081c0bc0e894e0ebd5d4e4624asize=37786date=2020-11-08T03:47:28
+file,ghost/master/DAS_bootend.dic616f9f47b1a49353b8239e9edf8a023esize=29852date=2022-05-12T00:55:04
 file,ghost/master/DAS_commu.dica8e02d3cd7c9f5136c2049bf8a144512size=6643date=2020-11-07T03:42:18
 file,ghost/master/DAS_etc.dic837e7dcf7d83c3d1d25a6a5385dd7337size=34685date=2020-11-08T02:52:56
 file,ghost/master/DAS_menu.dicb34ee94aca732687987657f0c5858456size=32786date=2020-11-08T03:52:54
 file,ghost/master/DAS_mouse.dic63810aa48fcdb4cacd3c7fa0c90a9e12size=12225date=2020-11-07T04:54:52
-file,ghost/master/DAS_nameteach.dic277cca0bc3a11f79a0291a4076c33163size=9460date=2020-11-07T04:17:50
+file,ghost/master/DAS_nameteach.dica28b67e0008887f1eadb3773e71fd40asize=3067date=2022-05-12T00:52:08
 file,ghost/master/DAS_shiori3.dic8fb773e71fd3b9458fe8767aab140655size=35270date=2017-10-18T16:26:36
-file,ghost/master/DAS_string.dic88ce2b07c4150691139c4fdf37670849size=9673date=2022-05-10T22:21:10
+file,ghost/master/DAS_string.dic78f30ddfbc89747e864ef53c659eec9csize=9555date=2022-05-10T22:11:58
 file,ghost/master/DAS_word.dic6708dd7ef6829f83a1eff66f4122bd43size=9085date=2020-11-07T04:51:26
 file,ghost/master/aya5.dll5f91d5ac918774c5295e47c9cd8b18a5size=671744date=2018-12-02T22:24:32
 file,ghost/master/aya5.txt7bf91499bd2274a6916ef1e622c749fesize=1327date=2022-05-06T18:16:38
