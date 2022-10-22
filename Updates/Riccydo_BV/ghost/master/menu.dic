@@ -104,7 +104,7 @@ MenuRun
 	
 	"\![*]\q[User Settings,configmenu]\n/
 	\![*]\q[Functions,dosomething]\n\n/
-	\![*]\q[Testing,testvariable]\n\n/
+	//\![*]\q[Testing,testvariable]\n\n/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
 }
 
