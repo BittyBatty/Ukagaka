@@ -9,51 +9,6 @@
 
 //There are a lot of crazy tricks you can do with surfaces.txt if you're creative and determined, but you won't have to worry about any of them (although I will include some commented out examples for my own reference). The easiest, easiest way to do this file is simply to replace the images I've already made. There should be around 10 poses for each character defined in surfaces.txt. They break down like this.
 
-//0 - Ric's default Pose. This is made up of a few images.
-	//surface0.png
-	//surface1001.png, half-closed eyes
-	//surface1002.png, closed eyes. 
-//1 - Girl's embarrassed pose.
-	//From here on, each pose is a single still image. This is surface1501.png
-//2 - Girl's surprised pose.
-	//surface1502.png
-//3 - Girl's worried pose.
-	//surface1503.png
-//4 - Girl's sad/disappointed pose.
-	//surface1504.png
-//5 - Girl's smiling pose.
-	//surface1505.png
-//6 - Girl's contented pose.
-	//surface1506.png
-//7 - Girl's angry pose.
-	//surface1507.png
-//8 - Girl's thoughtful pose.
-	//surface1508.png
-//9 - Girl's bored pose.
-	//surface1509.png
-//10 - Triangle's default pose. Like Girl, this pose is broken up into multiple pieces because it has an animation.
-	//surface10.png, his default base frame to layer stuff on.
-	//surface2001.png, his half-closed eyes.
-	//surface2002.png, his closed eyes. These are for his blinking animation.
-//11 - Triangle's embarrassed pose. Like above, these are single still frames.
-	//surface2501.png 
-//12 - Triangle's surprised pose.
-	//surface2502.png
-//13 - Triangle's worried pose.
-	//surface2503.png
-//14 - Triangle's sad/disappointed pose.
-	//surface2504.png
-//15 - Triangle's smiling pose.
-	//surface2505.png
-//16 - Triangle's contented pose.
-	//surface2506.png
-//17 - Triangle's angry pose.
-	//surface2507.png
-//18 - Triangle's thoughtful pose.
-	//surface2508.png
-//19 - Triangle's bored pose.
-	//surface2509.png
-
 //If you look at the image files themselves, you'll see that all the images for Girl are in the 1000 range, and the images for Triangle are in the 2000. ALL YOU NEED TO DO is draw your character with whatever expression you want and save it over the appropriate file. That way, you won't have to adjust any of the coding in surfaces.txt itself, you'll just be replacing the images. You should read through this file anyway though to get an idea of how it works.
 
 //However, there is one snag here! Girl's default pose has blinking eyes and a moving mouth, and for that, you'll need to study the files for that pose very carefully. Note that the different eye frames and mouth frames are separate files and only have the eyes and the mouths in them. You'll have to do the same. All you have to do is select around your eyes, inverse, delete everything, and save it for each eye frame, and likewise for the mouth frames. I talk about this in a bit more detail in the making images section of the walkthrough page. Hopefully it won't be too hard. If worse comes to worse and you just can't get it to work, you can delete the blinking and talking sequences from surface0 if you have to.
@@ -123,8 +78,8 @@ collision2,230,20,290,40,purrpurr
 //***********************************************************************
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -386,8 +341,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -457,8 +412,8 @@ collision2,230,20,290,45,purrpurr
 1pattern0,1114,0,overlay,0,0
 
 //haunted/scared
-2interval,always
-2pattern0,1115,1,overlay,0,0
+2interval,runonce
+2pattern0,1115,0,overlay,0,0
 
 //embarrassed
 3interval,never
@@ -501,8 +456,8 @@ collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
-0interval,always
-0pattern0,1102,1,overlay,0,0
+0interval,runonce
+0pattern0,1102,0,overlay,0,0
 //0pattern1,1102,9,move,-2,0
 //0pattern2,1102,9,move,-4,0
 //0pattern3,1102,10,move,-6,0
@@ -555,8 +510,8 @@ collision2,230,20,290,40,purrpurr
 9pattern3,0,4,move,-8,0
 9pattern4,0,5,move,-10,0
 
-0interval,always
-0pattern0,1102,1,overlay,0,0
+0interval,runonce
+0pattern0,1102,0,overlay,0,0
 
 
 
@@ -614,8 +569,8 @@ collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
-0interval,always
-0pattern0,1102,1,overlay,0,0
+0interval,runonce
+0pattern0,1102,0,overlay,0,0
 
 //Neutral face to always have on him
 1interval,never
@@ -689,8 +644,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -783,8 +738,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,45,purrpurr
 
 //eyes closed
-1interval,always
-1pattern0,1114,1,overlayfast,0,0
+1interval,runonce
+1pattern0,1114,0,overlayfast,0,0
 
 //haunted/scared
 2interval,never
@@ -839,8 +794,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -909,8 +864,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -975,8 +930,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -1040,8 +995,8 @@ collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
 //Neutral face to always have on him
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -1216,8 +1171,8 @@ element1,overlay,surface2507.png,0,0
 2pattern1,1139,60,overlay,0,0
 2pattern2,1138,60,overlay,0,0
 
-3interval,always
-3pattern0,1121,1,overlay,0,0
+3interval,runonce
+3pattern0,1121,0,overlay,0,0
 
 100interval,bind
 100pattern0,1124,0,add,0,0
@@ -1234,8 +1189,8 @@ collision0,233,49,273,84,punchface
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //rolling eyes
 2interval,never
@@ -1322,8 +1277,8 @@ collision4,100,120,145,180,dock
 0pattern0,3101,40,overlayfast,0,0
 0pattern1,3102,40,overlayfast,0,0
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //eyes closed
 2interval,never
@@ -1373,8 +1328,8 @@ collision2,20,114,78,126,searchtwo
 collision3,65,84,136,100,searchthree
 collision5,10,165,75,180,back
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //eyes closed
 2interval,never
@@ -1423,8 +1378,8 @@ collision1,177,101,216,116,searchone
 collision2,68,98,99,118,searchtwo
 collision5,10,165,75,180,back
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //eyes closed
 2interval,never
@@ -1478,8 +1433,8 @@ collision5,10,165,75,180,back
 0pattern1,3103,60,overlayfast,0,0
 0pattern2,3104,60,overlayfast,0,0
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //eyes closed
 2interval,never
@@ -1528,8 +1483,8 @@ collision1,40,64,69,67,searchone
 collision2,86,82,110,95,searchtwo
 collision5,10,165,75,180,back
 
-1interval,always
-1pattern0,1000,1,overlay,0,0
+1interval,runonce
+1pattern0,1000,0,overlay,0,0
 
 //eyes closed
 2interval,never

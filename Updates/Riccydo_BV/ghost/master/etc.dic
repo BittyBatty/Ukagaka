@@ -24,7 +24,7 @@ Onitemornot
 	
 	case item
 	{
-		when 0-80
+		when 0-60
 		{
 			"\b4That's a shame. You didn't find anything.\e"
 			"\b4<There's nothing there.>\e"
@@ -32,7 +32,7 @@ Onitemornot
 			"\b4It's okay if we're not finding anything. I still enjoy spending time with you.\e"
 			"\b4<You want it so bad, but sometimes we don't get the things we want. There's nothing here.>\e"
 		}
-		when 81-95
+		when 61-85
 		{
 			"\b4You found a %(jewelry)! It would look lovely on you. \w8"
 			"\b4You found %(nature)!\w8 Very nice. \w8"
@@ -44,14 +44,14 @@ Onitemornot
 			"I would keep that if I were you.\e"
 			"\n\n<You tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
 		}
-		when 96-100
+		when 86-100
 		{
 			"\b4Oh! You found %(coolthings)!\w8\n\n <You can tell he'd love to have that, so you tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
 			
-			if scarf = 0
+			if scarf == 0
 			{
 				scarf = 1
-				"<You found a green scarf! Riccardo complains about being cold a lot, so you give it to him.>\0\i[5]You want me to have this?\w8 You're too kind...\w8 Really.\i[8]\e"
+				"<You found a green scarf! Riccardo complains about being cold a lot, so you give it to him.>\w8\w8\n\n\s[0]\i[9]You want me to have this?\w8 You're too kind...\w8 Really.\0\s[0]\i[9]\![bind,Neck,Scarf,1]\e"
 			}
 		}
 	}

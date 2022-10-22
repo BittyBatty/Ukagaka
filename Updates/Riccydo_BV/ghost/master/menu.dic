@@ -104,7 +104,7 @@ MenuRun
 	
 	"\![*]\q[User Settings,configmenu]\n/
 	\![*]\q[Functions,dosomething]\n\n/
-	//\![*]\q[Testing,testvariable]\n\n/
+	\![*]\q[Testing,testvariable]\n\n/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
 }
 
@@ -393,35 +393,66 @@ Select.father
 
 Select.check
 {
-	"\_q\b2Blood Need: %(giveblood)/240\n\n/
+	"\_q\b2Blood Need: %(bloodpercent)%\n\n/
 	Do you want him to get thirsty \q[FAST,fast] or \q[SLOW,slow]? Right now, he gets thirsty %(bloodmode).\n\n/
-	How does he feel about you?\n"
+	\q[How does he feel about you?,feelings]\n\n"
 	
 	--
 	
+	"\![*]\q[Back,BACKTOMENU]"
+}
+
+Select.feelings
+{
 	if urnice <= 100
 	{
-		"He doesn't trust you, and is very afraid of you, but maybe you can work on that.\n\n"
+		"\_q<He doesn't trust you, and is very afraid of you, but maybe you can work on that.>\n"
+		--
+		"<Need a hint? Look to see if you can give him any more items.>\n\n"
+		"<Need a hint? Have you checked if he needs blood in a while?>\n\n"
+		"<Need a hint? He likes to be soothed and complimented.>\n\n"
+		"<Need a hint? Making him flinch does not hurt your relationship with him.>\n\n"
 	}
 	
 	elseif urnice > 100 && urnice < 300
 	{
-		"He's wary of you, and wonders when your kindness will come to a stop.\n\n"
+		"\_q<He's wary of you, and wonders when your kindness will come to an end.>\n"
+		--
+		"<Need a hint? Look to see if you can give him any more items.>\n\n"
+		"<Need a hint? Have you checked if he needs blood in a while?>\n\n"
+		"<Need a hint? Try asking him about his cat>\n\n"
+		"<Need a hint? When you send him away, he uses items, and you can often give him more of certain things when you bring him back.>\n\n"
+		"<Need a hint? He likes to be soothed and complimented.>\n\n"
+		"<Need a hint? Making him flinch does not hurt your relationship with him.>\n\n"
 	}
 	
 	elseif urnice >= 300 && urnice < 500
 	{
-		"Reluctantly, he thinks he likes you and that sort of scares him. Especially because he's not sure if your kindness will continue.\n\n"
+		"\_q<Reluctantly, he thinks he likes you and that sort of scares him. Especially because he's not sure if your kindness will continue.>\n"
+		--
+		"<Need a hint? Look to see if you can give him any more items.>\n\n"
+		"<Need a hint? Have you checked if he needs blood in a while?>\n\n"
+		"<Need a hint? Try asking him about his cat>\n\n"
+		"<Need a hint? When you send him away, he uses items, and you can often give him more of certain things when you bring him back.>\n\n"
+		"<Need a hint? He likes to be soothed and complimented.>\n\n"
+		"<Need a hint? Making him flinch does not hurt your relationship with him.>\n\n"
 	}
 	
 	elseif urnice >= 500 && urnice < 700
 	{
-		"He trusts you and even sort of likes you, but it's still really hard to accept. He's had so many good things in his life taken away.\n\n"
+		"\_q<He trusts you and even sort of likes you, but it's still really hard to accept. He's had so many good things in his life taken away.>\n\n"
+		--
+		"<Need a hint? Look to see if you can give him any more items.>\n\n"
+		"<Need a hint? Have you checked if he needs blood in a while?>\n\n"
+		"<Need a hint? Try asking him about his cat>\n\n"
+		"<Need a hint? When you send him away, he uses items, and you can often give him more of certain things when you bring him back.>\n\n"
+		"<Need a hint? He likes to be soothed and complimented.>\n\n"
+		"<Need a hint? Making him flinch does not hurt your relationship with him.>\n\n"
 	}
 	
 	elseif urnice >= 700
 	{
-		"You've been nothing but kind to him and it's paid off. He trusts you entirely and enjoys being in your presence.\n\n"
+		"\_q<You've been nothing but kind to him and it's paid off. He trusts you entirely and enjoys being in your presence.>\n\n"
 	}
 	
 	else
@@ -431,7 +462,7 @@ Select.check
 	
 	--
 	
-	"\![*]\q[Back,BACKTOMENU]"
+	"\![*]\q[Back,check]"
 }
 
 Select.fast
@@ -448,6 +479,11 @@ Select.slow
 	--
 	"Riccardo's blood need will now decay slowly.\n\n/
 	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+bloodpercent
+{
+	giveblood * 100 / 300
 }
 
 Select.give
@@ -572,33 +608,41 @@ Select.candle
 
 Select.blood
 {
-	if giveblood <= 209 //&& meanie <= 4
-	{
-		urnice += 5
-		giveblood += 60
-		
-		"\0\s[14]\i[9]You're a lifesaver! Thank you!\e"
-		"\0\s[14]\i[9]That smells amazing!\e"
-		"\0\s[14]\i[9]That is exactly what I need right now.\e"
-		"\0\s[0]\i[9]Please, give that here.\w8\s[14]\e"
-		"\0\s[14]\i[9]Thank you so much.\e"
-		"\0\s[14]\i[9]I didn't even realize how thirsty I was.\e"
-		"\0\s[14]\i[9]You're really too considerate.\e"
-		"\0\s[14]\i[9]I don't know how you got a hold of blood, but thank you.\e"
-	}
-	
-	if giveblood >= 210 //&& meanie <= 4
-	{
-		urnice += 1
-		
-		"\0\s[11]\i[3]No thank you.\w8 I couldn't drink anymore.\e"
-		"\0\s[11]\i[3]My stomach is full, thank you.\e"
-		"\0\s[0]I'll take that for home, if you do not mind.\e"
-	}
-	
 	if meanie >= 5
 	{
 		"\0\s[9]\_q<He won't accept blood from you.>\e"
+	}
+	else
+	{
+		if giveblood >= 270 //&& meanie <= 4
+		{
+			urnice += 1
+			if giveblood > 300
+			{
+				"\0\s[9]\i[3]I'm so full I feel I might vomit, so no thank you.\e"
+				"\0\s[9]\i[3]If I have anymore, I might explode.\e"
+			}
+			else
+			{
+				"\0\s[11]\i[3]No thank you.\w8 I couldn't drink anymore.\e"
+				"\0\s[11]\i[3]My stomach is full, thank you.\e"
+				"\0\s[0]I'll take that for home, if you do not mind.\e"
+			}
+		}
+		else
+		{
+			urnice += 5
+			giveblood += 60
+		
+			"\0\s[14]\i[9]You're a lifesaver! Thank you!\e"
+			"\0\s[14]\i[9]That smells amazing!\e"
+			"\0\s[14]\i[9]That is exactly what I need right now.\e"
+			"\0\s[0]\i[9]Please, give that here.\w8\s[14]\e"
+			"\0\s[14]\i[9]Thank you so much.\e"
+			"\0\s[14]\i[9]I didn't even realize how thirsty I was.\e"
+			"\0\s[14]\i[9]You're really too considerate.\e"
+			"\0\s[14]\i[9]I don't know how you got a hold of blood, but thank you.\e"
+		}
 	}
 }
 
@@ -620,26 +664,30 @@ Select.kitty
 		}
 		elseif givekitty == 1
 		{
+			if kammy == 1
 			{
-				"<You ask about the stuffed cat you gave him>\n\n"
-		
-				--
-				"\w8\0\s[0]\i[9]What about her - it?\e"
-				"\w8\0\s[0]\i[9]I still have her - it, yes.\e"
-				"\w8\0\s[2]\i[3]She's - It's doing well.\e"
-				"\w8\0\s[2]\i[3]She's - It's doing well.\w4 I always wanted a cat, you know?\w4 She's not real, but she's still nice to have.\e"
-			}
-			{
-				if kammy == 0
-				{
-				kammy = 1
-				
-				"<You ask if he gave the cat a name>\n\n\w8\w8\0\s[2]\i[3]Maybe.\w8\w8\w8\w8\w8 Asami.\e"
-				}
-			
-				elseif kammy == 1
-				{
+				urnice += 1
 				"<You ask if he sleeps with Asami>\n\n\w8\w8\0\s[1]\i[6]No!\w8\w8 \0\s[2]\i[3]Maybe!\w8\w8\0\s[1]\i[9] Only sometimes!\w8\w8 \0\s[2]Shut up!\e"
+				"<You ask about Asami>\n\n\w8\w8\0\s[1]\i[6]I was considering if she needs a collar or a bow, actually.\w8 I just need to scavenge something up for her.\e"
+				"<You ask about Asami>\n\n\w8\w8\0\s[1]\i[6]She makes sleeping a little easier...\w8 Less lonely.\e"
+			}
+			else
+			{
+				if urnice >= 200
+				{
+					"<You ask if he gave the cat a name>\n\n\w8\w8\0\s[2]\i[3]Maybe.\w8\w8\w8\w8\w8 Asami.\e"
+					kammy = 1
+				}
+				else
+				{
+					urnice += 1
+					"<You ask about the stuffed cat you gave him>\n\n"
+		
+					--
+					"\w8\0\s[0]\i[9]What about her - it?\e"
+					"\w8\0\s[0]\i[9]I still have her - it, yes.\e"
+					"\w8\0\s[2]\i[3]She's - It's doing well.\e"
+					"\w8\0\s[2]\i[3]She's - It's doing well.\w4 I always wanted a cat, you know?\w4 She's not real, but she's still nice to have.\e"
 				}
 			}
 		}
@@ -1377,10 +1425,11 @@ OnChoiceTimeout
 
 //It is ALWAYS A GOOD IDEA to test your dialogue! If you won't check it with the test variable, at least test it with Script Input! It'll save you so much trouble!
 
-
 Select.testvariable
 {
+	//"%(bloodpercent)%\n\n"
 	"\0\s[0]\n\n"
+	//"<You found a green scarf! Riccardo complains about being cold a lot, so you give it to him.>\w8\w8\n\n\s[0]\i[9]You want me to have this?\w8 You're too kind...\w8 Really.\0\s[0]\i[9]\![bind,Neck,Scarf,1]\e"
 	
 	--
 	"\![*]\q[Rummaging,rummage]\n/
@@ -1395,6 +1444,7 @@ Select.testvariable
 
 Select.Variables
 {
+	kammy = 0
 	//"\0\![bind,Legs,Blanket,0]\e"
 	"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(lotr) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
 	//givebedding = 0

@@ -183,7 +183,7 @@ RandomTalk : nonoverlap
 							"\_q<He smells good. He must be regularly burning the candles you've given him.>\w8\e"
 						}
 		
-						if giveblood <= 20
+						if giveblood <= 60
 						{
 							"\0\s[2]\i[6]Not having blood is definitely taking its toll.\w8\e"
 							"\0\s[5]\i[5]I'm so tired of having an inconsistent food source.\w8\e"

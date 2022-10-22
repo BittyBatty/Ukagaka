@@ -5,5 +5,6 @@ surfacecount,82
 homeurl,https://raw.githubusercontent.com/FursieTheFlixee/Ukagaka/Master/Updates/Riccydo_BV/
 update_result,OK(0)
 firstboot,699091845
-commitmemorysize,3068557
-lastboot,701643082
+update_time,706173532
+commitmemorysize,3068489
+lastboot,719741902

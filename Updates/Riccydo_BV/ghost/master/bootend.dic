@@ -38,7 +38,7 @@ OnFirstBoot
 	lotr = 0
 	givebedding = 0
 	givecandle = 0
-	giveblood = 25
+	giveblood = 60
 	givekitty = 0
 	meanie = 0
 	kammy = 0
@@ -68,7 +68,7 @@ OnFirstBoot
 			lotr = 0
 			givebedding = 0
 			givecandle = 0
-			giveblood = 25
+			giveblood = 60
 			givekitty = 0
 			meanie = 0
 			kammy = 0
@@ -145,11 +145,11 @@ OnBoot
 	
  	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
 	
-	//--
-	//if bloodmode == " " || "none"
-	//{
-	//	bloodmode = "fast"
-	//}
+	--
+	if bloodmode == " " || bloodmode == "none"
+	{
+		bloodmode = "fast"
+	}
 	--
 	
 	if givebedding >= 3
