@@ -1,7 +1,4 @@
-﻿//*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
-
-//--A Note about Functions--
+﻿//--A Note about Functions--
 //A function that begins with On, such as OnFirstBoot here, can be called from anywhere in any .dic file by using \![raise, INSERTNAME]. A function that does NOT, however, can only be called within that .dic file, I believe. You can create your own On functions all over the place if you want, there's just a difference between OnDoodlebop and Doodlebop, if you get me. See the walkthrough page about coding for more about creating functions.
 //***********************************************************************
 
@@ -34,6 +31,7 @@ OnFirstBoot
 	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
 	nowshell = "default_shell" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here. 
 	urnice = 0
+	lapblanket = 0
 	givebook = 0
 	lotr = 0
 	givebedding = 0
@@ -53,11 +51,16 @@ OnFirstBoot
 	LoopPrevention = 0
 	MetDusty = 0
 	HoldingObsidian = 0
+	searchspot = 0
+	allsearches = 0
+	flinchy = 0
+	pridescarf = 0
+	prideblanket = 0
 	
 	if reference0 == 0 //Don't touch this line.
  	{
 		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
-		"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+		"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![bind,Legs,PrideBlanket,0]\![bind,Neck,PrideScarf,0]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\c<You explain that you brought him here just to talk to him>\n\n\w8\s[2]\i[5]I don't believe you.\w8 You must be a sorcerer hired by my father.\x"
  	}
 	else
  	{
@@ -66,6 +69,7 @@ OnFirstBoot
 			urnice = 0
 			givebook = 0
 			lotr = 0
+			lapblanket = 0
 			givebedding = 0
 			givecandle = 0
 			giveblood = 60
@@ -82,8 +86,13 @@ OnFirstBoot
 			LoopPrevention = 0
 			MetDusty = 0
 			HoldingObsidian = 0
+			searchspot = 0
+			allsearches = 0
+			flinchy = 0
+			pridescarf = 0
+			prideblanket = 0
 			
-			"\![enter,passivemode]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\![leave,passivemode]"
+			"\![bind,Legs,Blanket,0]\![bind,Neck,Scarf,0]\![bind,Legs,PrideBlanket,0]\![bind,Neck,PrideScarf,0]\0\s[6]\i[5]Wh-what?\w8 Where am I?\w8 Who are you?\w8\s[11]\i[5]\w8\w8 Just stay away!\w8 Did my father hire you?\w8 Because I don't want any trouble.\w8 Tell him you finished me off.\w8 Please.\w8 I won't be any trouble.\w8 \s[2]\i[6]Just let me go.\w8 Just...\w8 let me go.\![set,otherghosttalk,before]\x\c<You explain that you brought him here just to talk to him>\n\n\w8\s[2]\i[5]I don't believe you.\w8 You must be a sorcerer hired by my father.\x"
 		}
  	}
 }
@@ -142,6 +151,9 @@ OnBoot
 	rummaging = 0
 	HoldingObsidian = 0
 	meanie = 0
+	searchspot = 0
+	allsearches = 0
+	flinchy = 0
 	
  	"\0\s[0]\![set,otherghosttalk,before]\1\s[-1]"	//This sets them up in their neutral pose for now. The otherghosttalk lets him talk to ghosts
 	
@@ -151,36 +163,19 @@ OnBoot
 		bloodmode = "fast"
 	}
 	--
-	
-	if givebedding >= 3
-	{
-		"\0\![bind,Legs,Blanket,1]"
-	}
-	
-	elseif givebedding < 3
-	{
-		"\0\![bind,Legs,Blanket,0]"
-	}
-	
-	--
-	
-	if scarf == 1
-	{
-		"\0\![bind,Neck,Scarf,1]"
-	}
-	
-	elseif scarf == 0
-	{
-		"\0\![bind,Neck,Scarf,0]"
-	}
-
-	--
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot //You should remember these functions from above! They determine the date and time. Basically, it's using the functions GetDaySlot and GetTimeSlot to determine the two values for dayslot/timeslot that it will use in the following if statements. Those who read the coding page of the walkthrough and are interested in using your own functions, pay very close attention to this and study how it works!
 	
 	if dayslot == userbirthday
 	{
-				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\0\s[0]Happy birthday, %(username).\e"
+			if urnice <=100
+			{
+				"\0\s[2]Happy birthday.\w8 I guess.\e"
+			}
+			else
+			{
+				"\0\s[0]Happy birthday!\w8 I always used to get a new book on my birthday.\w8 You should get a new book today, too!\e"
+			}
 	}
 	elseif dayslot == "9month 16day"
 	{
@@ -196,7 +191,6 @@ OnBoot
 
 normalboottalk
 {
-	
 	{
 	"\0\s[2]\i[3]You're lucky it's comfortable here.\e"
 	"\0\s[0]\i[9]You again?\w8 What do you want now?\e"
@@ -469,39 +463,16 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 		{
 			if reference2 == 1 //This checks if you're putting it on.
 			{
-			"\0\s[0]You put my clothing item on me.\w8\1\s[19]lol like zar would ever bother with clothes for a ghost.\w8\0\s[9]\n\n[half]Shut up dude you're going to get us in trouble.\e"
+			"\0\s[0]You shouldn't be able to put my blanket on me manually.\w8 That's my blanket.\w8 And I want it on.\e"
 			}
 			else // This checks if you're taking it off.
 			{
-			"\0\s[0]You took the clothing item off.\e"
+			"\0\s[0]If you get my blanket off of me, I'll be very unhappy\w8 BittyBatty will be, too.\w8 You shouldn't be able to take it off me.\e"
 			}
 		}		
 	}
 else //if reference0 isn't the main character, then it has to be the side character.
 	{
-	if reference1 == "some kind of clothing for triangle??" //The name of the item of clothing in the descript.txt file in your shell folder.
-		{
-			if reference2 == 1 //If you put it on
-			{
-			"\1\s[10]I'm wearing some kind of clothing.\w8\0\s[8]Maybe a hat?\e"
-			}
-			else //When you take it off.
-			{
-			"\1\s[10]You took off some kind of clothing.\e"
-			}
-		}
-	elseif reference1 == "i'm gonna say a propeller beanie" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
-		{
-			if reference2 == 1 //if you're putting it on
-			{
-			"\1\s[10]You put a hat on me.\w8\0\s[6]lol.\w8\1\n\n[half]\s[11]Shaddap.\e"
-			}
-			else //when you take it off
-			{
-			"\1\s[10]You took off the hat.\e"
-			}
-		}
+		"\0\s[0]This definitely should never appear. Let BittyBatty know the dressup else dialogue showed up.\e"
 	}
 }
-
-//If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.

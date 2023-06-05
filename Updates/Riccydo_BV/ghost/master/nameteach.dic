@@ -76,7 +76,7 @@ OnNameTeach
 	{
 		username = tempname
 		
-		"\0\s[2]I really didn't ask.\n\n\w8\w8 %(NameDone)\e"
+		"\0\s[2]... Alright\n\n\w8\w8 %(NameDone)\e"
 		
 	}
 }

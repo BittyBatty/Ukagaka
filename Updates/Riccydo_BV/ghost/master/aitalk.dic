@@ -30,15 +30,6 @@ AiTalk
 
 //--RandomTalk 
  //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
- 
-//*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
-
-//ALL your random dialogue NEEDS to be in RandomTalk. You can't link to other functions or something from within RandomTalk, or a separate pool of convos in another .dic file, as far as I can tell. So, how do you then set up certain pools of dialogue that only happen when certain settings are in place (for example, when there are three characters on the screen instead of two) and won't happen when they are false? Basically, you just need to be creative with your if statements. You can nest a ton of ifs and elses in RandomTalk, and if you keep them straight, you can make a lot of dialogue here customized to whatever situation you can come up with. BUT again, you can't call other dialogue into here! I go more into how to set up a "mode" like that in the coding page of the walkthrough site.
-//I GUESS you could set up more dialogue in an envelope perhaps (see word.dic) or another .dic file and then call it in here using envelopes, but that seems a bit redundant. Maybe someone else can think of a use for that though.
-
-//The closest you can get to linking to outside dialogue is via chains, but I'll talk more about chains when we get to them. Being creative with chains can open up a lot of opportunities for you, such as presenting the user with choices every now and then, which I'm pretty sure you can't do within RandomTalk. Maybe you can, I usually do it via chains though. I'll have to experiment with this later.
-//***********************************************************************
 
 RandomTalk : nonoverlap
 {
@@ -139,7 +130,7 @@ RandomTalk : nonoverlap
 	
 					{ //Second chunk
 	
-							"\0\s[3]It's unnatural for you to keep calling me here...\w8\e"
+							"\0\s[3]It's unnatural for you to keep calling me here...\w8 I don't understand how you're doing it.\e"
 	
 							"\0\s[4]...\w8\e"
 	
@@ -153,7 +144,6 @@ RandomTalk : nonoverlap
 					{ //third chunk; lots of if conditions in here 
 						if toldname == 1
 						{
-							"\0\s[2]You can't possibly like me being here, %(username).\w8\e"
 							"\0\s[2]\i[1]You are very strange, %(username).\w8\e"
 						}
 						
@@ -168,7 +158,7 @@ RandomTalk : nonoverlap
 							"\0\s[2]\i[7]I wonder what it would be like to be an elf.\w8\e"
 							"\0\s[0]\i[9]I read that Lord of the Rings book you gave me.\w8 And then I went to the library and read the rest of the trilogy.\w8 It was really good.\w8 It made me... \w8 hopeful again.\e"
 							"\0\s[0]Good has to triumph over evil.\w8 It always does, right?\w8 Just like in Lord of the Rings.?\w8 Even small creatures like hobbits can change the world\e"
-							"\0\s[0]I would like to know a wizard like Gandalf...\w8 Or maybe even be a wizard.\w8\e"
+							"\0\s[0]I would like to know a wizard like Gandalf...\w8 Or maybe even be a wizard.\w8\s[20]Wait...\w8 You're like a wizard, aren't you?\e"
 						}
 	
 						if givekitty == 1
@@ -212,7 +202,7 @@ RandomTalk : nonoverlap
 							"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\w8\e"
 							"\0\s[2]How can I trust you?\w8\e"
 						}
-						if urnice >= 200 && meanie == 0 && urnice <=400
+						if urnice >= 200 && urnice <=400
 						{
 							{
 							"\0\s[5]\i[5]So...\w8 you weren't hired by my father?\w8\e"
@@ -241,7 +231,7 @@ RandomTalk : nonoverlap
 							"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\w8\e"
 						}
 	
-						if urnice >= 401 && meanie == 0
+						if urnice >= 401
 						{
 								"\0\s[5]\i[3]I wonder\i[1] if you like poetry.\w8\e"
 								"\0\s[2]\i[7]Hm...\w8 What rhymes with orange?\w8 ...\w8\s[1]\i[3] Blorange?\w8\w8\w8\w8\s[2]\i[3]\w8 ... I'm an idiot.\w8\e"
@@ -250,28 +240,38 @@ RandomTalk : nonoverlap
 								"\0\s[0]\i[7]You know you're incredibly odd, right?\e"
 								"\0\s[0]\i[6]Why won't you just hurt me already?\w8 I know it's coming!\w8\e"
 								"\0\s[2]\i[6]I know you don't actually like me, so take whatever it is you want and be done.\w8\e"
-							"\0\s[0]You remind me of someone.\w8\s[0]\i[5]\w8 Someone I used to know.\w8\s[0]\i[0]\w8 Someone kind.\w8\e"
-							"\0\s[0]\i[9]Ever since I was exiled, things have been really hard...\w8 Thank you for making it a little less hard.\w8\e"
+								"\0\s[0]You remind me of someone.\w8\s[0]\i[5]\w8 Someone I used to know.\w8\s[0]\i[0]\w8 Someone kind.\w8\e"
+								"\0\s[0]\i[9]Ever since I was exiled, things have been really hard...\w8 Thank you for making it a little less hard.\w8\e"
+								"\0\s[5]Last time I went scavenging for necessities I couldn't find anything.\w8\e"
+			
+								"\0\s[4]\i[8]I truly appreciate the things you've given me.\w8 I can never find anything when I go out to scavenge for things myself.\w8\e"
+			
+								"\0\s[5]\i[5]I have nothing to offer you in return for how nice you are.\w8 All I have are the clothes on my back.\w8\s[4]\w8\w8 Unless you want a dirty mattress.\w8\e"
+			
+								"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\w8\e"
 						}
 		
-						if urnice >= 600 && meanie == 0
+						if urnice >= 600
 						{
 							if favoritecolor == "None"
 							{
 								"So...\w8 what is your favorite color?\![open,inputbox,Onfavoritecolor,-1]"
 							}
-							if favoriteseason == "None"
+							elseif favoriteseason == "None"
 							{
 								"I was curious...\w8 What is your favorite season?\![open,inputbox,Onfavoriteseason,-1]"
 							}
-							"\0\s[0]\i[11]This is the most time I've ever been around a human before.\w8 It's so odd that your ears don't move.\w8 They're so round, too!\w8\e"
-							"\0\s[2]\i[3]You have really kind eyes.\w8\e"
-							"\0\s[0]I miss being able to rock climb like I used to.\w8\e"
-							"\0\s[0]I used to ride on horseback through the forest and the mountains when I was younger.\w4 It was nice.\w8\e"
-							"\0\s[0]\i[9]Thank you again for all the things you've given me.\w4 They've really improved my quality of life.\w8\e"
+							else
+							{
+								"\0\s[20]This is the most time I've ever been around a human before.\w8 It's so odd that your ears don't move.\w8 They're so round, too!\w8\e"
+								"\0\s[2]\i[3]You have really kind eyes.\w8\e"
+								"\0\s[0]I miss being able to rock climb like I used to.\w8\e"
+								"\0\s[0]I used to ride on horseback through the forest and the mountains when I was younger.\w4 It was nice.\w8\e"
+								"\0\s[0]\i[9]Thank you again for all the things you've given me.\w4 They've really improved my quality of life.\w8\e"
+							}
 						}
 	
-						if urnice >= 700 && meanie == 0
+						if urnice >= 700
 						{
 							"\0\s[9]\i[6]I couldn't take the heartbreak of losing a friend.\w8 Please stop being so kind to me.\w8 It'll make it easier when you -\w8\s[2]\i[7]\w8\e"
 							"\0\s[0]\i[9]I'm writing a poem about you.\w8 You're lovely material for one.\w8\e"
@@ -360,7 +360,7 @@ favoriteseason = reference0
 	
 	elseif reference0 == "fall" || reference0 == "FALL" || reference0 == "Fall" || reference0 == "autumn" || reference0 == "AUTUMN" || reference0 == "Autumn"
 	{
-		"\0\s[0]i[7]Autumn is...\w8 Nice.\w8 Too cold for my liking, however.\w8\e"
+		"\0\s[0]\i[7]Autumn is...\w8 Nice.\w8 Too cold for my liking, however.\w8\e"
 	}
 	
 	elseif reference0 == "summer" || reference0 == "SUMMER" || reference0 == "Summer"
@@ -433,6 +433,8 @@ OnMinuteChange
 	--
  	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
 	{
+		allsearches = 0
+		
  		if hour == 12 //And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
 		{
  			//"\0\s[0]It's noon.\e"

@@ -35,7 +35,7 @@ On_homeurl
 
 On_recommendrootbutton.caption
  {
-	"Where is Fursie"
+	"Where is BittyBatty"
 }
 
 
@@ -46,17 +46,17 @@ On_sakura.recommendsites
  {
 	//Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
 	
-	"Fursie's Tumblr"
+	"BittyBatty's Twitter"
 	--
-	"%ASC(1)https://fursie-does-art.tumblr.com/%ASC(2)"
-	--
-	
-	"Fursie on Wattpad"
-	--
-	"%ASC(1)https://www.wattpad.com/user/fursietheflixee/%ASC(2)"
+	"%ASC(1)https://twitter.com/bittybatties/%ASC(2)"
 	--
 	
-	"Fursie's Deviantart"
+	"BittyBatty's Website"
+	--
+	"%ASC(1)https://bittybatty.github.io/index.html/%ASC(2)"
+	--
+	
+	"BittyBatty's Deviantart"
 	--
 	"%ASC(1)https://www.deviantart.com/fursietheflixee/%ASC(2)"
 

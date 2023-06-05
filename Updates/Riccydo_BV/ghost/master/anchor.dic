@@ -3,12 +3,6 @@
 //This .dic file is for setting up anchor words, which are links to set conversations attached to certain words automatically. It also deals with OnTranslate, which is a fairly unique function. All text goes through OnTranslate first before it displays on your ghost, which is how it knows to turn certain words into links. Before you try it yourself, I've already tried adding automatic \w8 pauses after periods and that totally breaks everything.
 //Why should I care about anchor words, you ask? Or what can I use them for? Well, you can set up anchor words to easy explanations for things your ghost might talk about that might confuse your user. People they know, places they've been, pop culture references the user might not get, information about you the creator or the world the characters from, items in an item menu, basically any number of things. Anchor words can be a handy repository of information! Or just an easy way to set up some cheap jokes. The power is yours!
 
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-//This file is very short, so don't worry! And if you aren't planning on using anchor words, you just have to delete a few things and you'll be done!
-
 
 //--OnTranslate
 

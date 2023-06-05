@@ -1,15 +1,4 @@
-﻿//---------------------------Menus--------------------------
-//This .dic file is primarily concerned with the double-click menus for each of your ghosts. If you don't want to have menus for your characters, you'd just have to delete the OnMouseDoubleClick functions near the end of mouse.dic and then ignore this file, as none of it will be called I believe. Menus can be cool though, since you can put stuff in them and create new functions if you know what you're doing. For example, I've added a lot of games and interactions and little linked icons to my Hunter Smoker ghost to keep track of their feelings and such. Much of that is pretty complicated though (and kind of messy, cough), so I won't go into it here, but I covered some of the concepts in the coding page of the walkthrough, and enterprising ghost makers can study the menu.dic file I set up for Hunter/Smoker and see how I put it together.
-//Anyway, menu.dic also contains the settings for a config menu that will let your user change their name or pronouns if they want, as well as the talk rate of the ghost, all of which are useful things for your ghost to do. So think hard about whether or not you want to skip this file or not.
-
-//The complexity of this file depends on how customized you want your menus. If you just want to leave them as they are, then all you'll have to do is replace dialogue appropriately. You can always add stuff to their menus later if you get the urge. Otherwise, if you have plans in mind, you'll need to study what's going on in here carefully and pay attention to how things are set up! You can do a lot of unique stuff in this file if you're creative.
-
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-
-//--OpenSakuraMenu
+﻿//--OpenSakuraMenu
 //This is a bit of intro dialogue before the main character opens their menu. You can see below that there are three pieces of separate dialogue listed before it goes to MenuRun. The character will randomly choose one of those pieces of dialogue before opening the rest of their menu. You can customize this with individual greetings for the character, such as "Yes, %(username)?" or "Need something, %(username)?" or things like that. Note that none of the lines end with \e!
 //The \b2 tag tells the ghost to use their big balloon for this dialogue. If your menu has a lot of stuff, this'll probably look better than the small one.
 
@@ -56,14 +45,6 @@ OpenSakuraMenu
 		--
 		MenuRun
 	}
-	elseif meanie >= 5
-	{
-		reading = 0
-		
-		"\0\s[2]\i[1]\b2Ugh! What?"
-		--
-		MenuRun
-	}
 }
 
 //--MenuRun
@@ -88,13 +69,15 @@ MenuRun
 	\![*]\q[Ask,ask]\n/
 	\![*]\q[Check,check]\n/
 	\![*]\q[Give,give]\n\n"
-	//\![*]\q[Be Mean,crushhim]\n\n"
 	
 	--
-	//if meanie >= 2
-	//{
-	//	"\![*]\q[Apologize,apologize]\n\n"
-	//}
+	if lapblanket == 1 || prideblanket == 1 || scarf == 1 || pridescarf == 1
+	{
+		"\![*]\q[Customize his Cozy Things,customcozies]\n\n"
+	}
+	
+	--
+	
 	if urnice >= 400 && rummaging == 0
 	{
 		"\![*]\q[Can we scavenge together?,rummage]\n\n"
@@ -103,7 +86,7 @@ MenuRun
 	--
 	
 	"\![*]\q[User Settings,configmenu]\n/
-	\![*]\q[Functions,dosomething]\n\n/
+	//\![*]\q[Functions,dosomething]\n\n/
 	//\![*]\q[Testing,testvariable]\n\n/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
 }
@@ -113,23 +96,32 @@ Select.Otherghosts
 	OnStartTalking
 }
 
-Select.apologize
-{
-	meanie -= 1
-	
-	"<You tell him you're sorry for being needlessly rude>\w8\0\s[2]\i[5]\w8\n\nYou better be sorry. There's no reason to act like that!\e"
-	"<You say you didn't mean to offend him>\w8\s[2]\i[5]\w8\n\nYou didn't just offend me.\w8\i[6] You really bothered me.\e"
-	"<You apologize for being cruel to him>\w8\s[2]\i[5]\w8\n\nWhatever.\w8 Just don't do it again.\e"
-}
-	
-
 Select.chat
 {
+	if flinchy >= 1
+	{
+		"\![*]\q[Apologize,sorry]\n"
+	}
+	--
+		
 	"\![*]\q[You're grumpy,grumpy]\n/
 	\![*]\q[Tell me a story,story]\n/
 	\![*]\q[Soothe,soothe]\n/
 	\![*]\q[Compliment,compliment]\n\n/
 	\![*]\q[Back,BACKTOMENU]\e/"
+}
+
+Select.sorry
+{
+	flinchy = 0
+	urnice += 10
+	--
+	"<You apologize for making him jump.\w8 You tell him you don't like that you scared him>\n\n\w8"
+	--
+	"\0\s[0]\i[5]...\w8 Why...\w8 What are...\w8 I don't...\w8\0\s[2]What?\e"
+	"\0\s[0]\i[5]You're...\w8 apologizing?\e"
+	"\0\s[2]\i[6]I-It's okay.\e"
+	
 }
 
 Select.grumpy
@@ -395,7 +387,7 @@ Select.check
 {
 	"\_q\b2Blood Need: %(bloodpercent)%\n\n/
 	Do you want him to get thirsty \q[FAST,fast] or \q[SLOW,slow]? Right now, he gets thirsty %(bloodmode).\n\n/
-	\q[How does he feel about you?,feelings]\n\n"
+	\![*]\q[How does he feel about you?,feelings]\n\n"
 	
 	--
 	
@@ -502,7 +494,7 @@ Select.give
 
 Select.book
 {
-	if givebook <= 1 && meanie <= 4
+	if givebook <= 1
 	{
 		givebook += 1
 		urnice += 5
@@ -515,7 +507,7 @@ Select.book
 		lotr = 1
 		"\0\s[7]\w8\w8\w8\s[12]\w8\w8'Lord of the Rings'...\w8 I heard about this one.\w8 There is magic involved, right?\w8 I'm sure it's inaccurate, but...\w8 thank you.\e"
 	}
-	elseif givebook >= 2 && meanie <= 4 && givebook <= 5
+	elseif givebook >= 2 && givebook <= 5
 	{
 		givebook += 1
 		urnice += 1
@@ -532,37 +524,64 @@ Select.book
 		"\0\_q<He's content with what you've given him. No need to give more.>\e"
 		"\0\_q<Woah there. He's got plenty now.>\e"
 	}
-	elseif meanie >= 5
+	else
 	{
-		"\0\s[9]\_q<He doesn't want anything from you.>"
+		"\0\s[9]\_q<This shouldn't appear>"
 	}
 }
 
 Select.bedding
 {
-	if givebedding < 3 && meanie <= 4
+	if givebedding < 3
 	{
 		givebedding += 1
 		urnice += 2
-		
-		"\0\s[0]\i[9]\_q<You give him a thick, fuzzy blanket. It quickly disappears into his dimensional box to be used at home.>\e"
-		"\0\s[0]\i[9]\_q<You give him a homemade quilt. It quickly disappears into his dimensional box to be used at home.>\e"
-		"\0\s[0]\i[9]\_q<You give him a fluffy pillow. It quickly disappears into his dimensional box to be used at home.>\e"
-		"\0\s[0]\i[9]\_q<You give him a plush body pillow. It quickly disappears into his dimensional box to be used at home.>\e"
+		--
+		if urnice <= 100
+		{
+			"\0\s[0]\i[4]What are you trying to do by giving me things?\n\n"
+		}
+		else
+		{
+			"\0\s[0]More bedding?\w8 Yes, please!\n\n"
+		}
+		--
+		"\0\s[0]\i[9]\_q<You give him a thick, fuzzy blanket.>\n\n"
+		"\0\s[0]\i[9]\_q<You give him a homemade quilt.>\n\n"
+		"\0\s[0]\i[9]\_q<You give him a fluffy pillow.>\n\n"
+		"\0\s[0]\i[9]\_q<You give him a plush body pillow.>\n\n"
+		--
+		"That's good for nest-\w8\s[0]\i[5] Good for sleeping in!\e"
+		"I'll sleep much more comfortably!\e"
+		"That is very cozy!\e"
 	}
 	
-	if givebedding >= 3 && meanie <= 4
+	else //if givebedding >= 3
 	{
 		urnice += 1
+		if lapblanket == 0
+		{
+			lapblanket = 1
+			--
+			"\0\s[0]\i[9]\![bind,Legs,Blanket,1]<You give him a very soft, blue blanket.>\n\n\w8\w8I'll just keep this one here with me...\w8 Thank you.\e"
+		}
+		else
+		{
+			if month == 6 && prideblanket == 0
+			{
+				prideblanket = 1
+				--
+				"<You give him a rainbow heart pride blanket!>\0\s[20]\n\n\w8I've been seeing a lot of rainbow things lately.\w8 When I'm scavenging for things, in store windows, and people walking around.\w8 It seems to have something to do with being proud of something.\w8 \0\s[2]\i[7]I guess I can be proud.\w8 Thank you.\e"
+			}
+			else
+			{
+				"\0\s[0]\i[9] I really appreciate all of the blankets you gave me.\w8 I especially like this one on my lap, though..\w8 It's very soft.\e"
+			
+				"\0\s[0]\i[9]The blankets you gave me have helped so much.\w8 I've been sleeping so much more comfortably.\e"
 		
-		"\0\s[0]\i[9]The blankets you gave me has helped so much.\w8 I've been sleeping so much more comfortably.\e"
-		
-		"\0\s[1]\i[9]You'll be happy to know your blanket and pillow donations have made sleeping wonderfully comfortable.\w8 I'm not so cold while I sleep.\w8 Thank you.\e"
-	}
-	
-	if meanie >= 5
-	{
-		"\0\s[9]\_q<He doesn't want anything from you.>"
+				"\0\s[1]\i[9]You'll be happy to know your blanket and pillow donations have made sleeping wonderfully comfortable.\w8 I'm not so cold while I sleep.\w8 Thank you.\e"
+			}
+		}
 	}
 }
 
@@ -572,11 +591,22 @@ Select.candle
 	{
 		givecandle = 0
 	}
-	--
-	if givecandle <= 5 && meanie <= 4
+	
+	elseif givecandle <= 5
 	{
 		givecandle += 1
 		urnice += 2
+		
+		--
+		if urnice <= 100
+		{
+			"\0\s[0]\i[4]What are you trying to do by giving me things?\n\n"
+		}
+		else
+		{
+			"\0\s[0]Another candle?\w8 Yes, please!\n\n"
+		}
+		--
 		
 		"\0\s[0]\i[9]\_q<You give him a candle that smells like apple pie. It disappears into his dimensional box to be used at home>\e"
 		"\0\s[0]\i[9]\_q<You give him a candle that smells like cinnamon. It disappears into his dimensional box to be used at home>\e"
@@ -591,7 +621,7 @@ Select.candle
 		"\0\s[0]\i[9]\_q<You give him a candle that smells like coconut. It disappears into his dimensional box to be used at home>\e"
 	}
 	
-	if givecandle >= 6 && meanie <= 1
+	elseif givecandle >= 6
 	{
 		urnice += 1
 		
@@ -600,17 +630,24 @@ Select.candle
 		"<You've given him a lot of candles. Don't worry. It's enough.>\e"
 	}
 	
-	if meanie >= 5
+	else
 	{
-		"\0\s[9]\_q<He doesn't want anything from you.>\e"
+		"\0\s[9]\_q<This shouldn't appear>\e"
 	}
 }
 
 Select.blood
 {
-	if meanie >= 5
+	if urnice <= 100
 	{
-		"\0\s[9]\_q<He won't accept blood from you.>\e"
+		"\0\s[2]You want to give me...\w8 blood?\w8 Is this a trick?\n\n"
+		--
+		"<You assure him it's not a trick.>\n\n"
+		"<You tell him you're worried he looks hungry.>\n\n"
+		"<You tell him you just want him to be healthy.>\n\n"
+		--
+		"Well...\w8 Thank you.\0\s[14]\e"
+		"No one's fussed over me like this since...\w8 Nevermind...\0\s[14]\e"
 	}
 	else
 	{
@@ -694,87 +731,60 @@ Select.kitty
 	}
 }
 	
-
-Select.crushhim
+Select.customcozies
 {
-	"\0\_q<BEWARE FOR ONCE YOU ARE UNKIND IN ANY WAY, YOU CANNOT TAKE IT BACK.>\n\n"
-	
+	"\_q\0\s[0]\i[9]I love all the cozy things you've given me.\n\n"
 	--
-	if meanie >=5
-	{
-	"\![*]\q[You're not loveable,notloveable]\n/
-	\![*]\q[You'll never be happy,neverhappy]\n/
-	\![*]\q[You are nothing,urnothing]\n\n"
+	if lapblanket == 1
+	{ 	
+		"\![*]\q[Blue Blanket,blueb]\n"
 	}
-	
 	--
-	"\![*]\q[Insult,insult]\n/
-	\![*]\q[Shove,shove]\n/
-	\![*]\q[Argue,argue]\n/
-	\![*]\q[Criticize,critic]\n\n/
-	\![*]\q[Back,BACKTOMENU]\e"
-}
-	
-Select.notloveable
-{
-	meanie += 5
-	
-	"\0<You tell him he's not worthy of anyone loving him. He doesn't deserve to be loved. He is hateful and mean and no one will ever love him.>\n\n\w8\w8\s[2]\i[5]\w8\w8You don't know that!\w8 You don't know anything!\e"
-}
-
-Select.neverhappy
-{
-	meanie += 5
-	
-	"\0<You tell him he'll never be happy. He's a miserable person and always will be.>\n\n\w8\w8\s[2]\i[6]\w8\w8I... I...\w8 You're right.\e"
+	if prideblanket == 1
+	{ 	
+		"\![*]\q[Pride Blanket,prideb]\n"
+	}
+	--
+	if scarf == 1
+	{ 	
+		"\![*]\q[Green Scarf,greens]\n"
+	}
+	--
+	if pridescarf == 1
+	{ 	
+		"\![*]\q[Pride Scarf,prides]\n\n"
+	}
+	--
+	"\![*]\q[Back,BACKTOMENU]\e/"
 }
 
-Select.urnothing
+Select.blueb
 {
-	meanie += 5
 	
-	"\0<You tell him he is nothing>\s[6]\i[4]\w8\w8\w8\w8\w8\w8\s[2]\i[6]\n\n I'm not!\w8 I'm more than that! I -\s[2]\i[6]\w8\w8\w8 No.\w8\w8\w8\w8\w8 You're right.\w8\w8\w8\w8\w8 I am nothing.\w8 Not a person. Not normal. Not anything but his tool and now I'm not even that.\w8 I -\s[5]\i[5]\w8\w8\w8\s[-1]\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\x\e"
+	"\0\![bind,Legs,Blanket,1] \0\![bind,Legs,PrideBlanket,0]\s[0]\i[1]This blue blanket is very soft and warm.\n\n"
+	--
+	"\![*]\q[Customize More,customcozies]\e/"
 }
 
-Select.insult
+Select.prideb
 {
-	meanie += 1
-	
-	"\0<You tell him he's ugly>\s[0]\i[2]That's really juvenile.\e"
-	"\0<You tell him he's dressed like a waiter>\s[0]\i[2]Well, you're dressed like a slob.\e"
-	"\0<You tell him he's a beetle-headed, flap-ear'd knave>\s[0]\i[2]Well, you're a canker blossom.\e"
-	"\0<You tell him he's fusty nut with no kernel>\s[0]\i[2]Well, you're a cream faced loom.\e"
-	"\0<You call him a crippled freak>\s[0]\i[5].\w4 You're very unkind...\e"
-	"\0<You tell him he's bad at writing poems>\s[0]\i[2]How would you even know?\e"
+	"\0\![bind,Legs,Blanket,0] \0\![bind,Legs,PrideBlanket,1]\s[0]\i[1]I like the heart on this blanket.\n\n"
+		--
+	"\![*]\q[Customize More,customcozies]\e/"
 }
 
-Select.shove
+Select.greens
 {
-	meanie += 4
-	
-		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[2]\i[5]\e"
-		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[0]\i[4]You're a major asshole."
-		"\0\s[6]\i[5]...\w8\w8\w8\w8\s[0]\i[4]Fucking moron."
+	"\0\![bind,neck,Scarf,1] \0\![bind,neck,PrideScarf,0]\s[0]\i[1]It was a good day when we found this scarf.\n\n"
+		--
+	"\![*]\q[Customize More,customcozies]\e/"
 }
 
-Select.argue
+Select.prides
 {
-	meanie += 1
-	
-		"\0<You say poetry is a stupid art form>\n\n\w8\w8\s[0]\i[6]It is not!\w8 You are obviously an imbecile if you cannot understand it!\n\n\w8\w8<You say only the weak write poetry>\n\n\w8\w8\s[2]\i[1]You're stupid.\e"
-	
-		"\0<You say reading is pointless>\n\n\w8\w8\s[0]\i[6]It is not!\w8 You're pointless, actually.\w8 The mind is dull and weak without the care given to it by reading.\n\n\w8\w8<You say he just reads because he can't do anything else>\n\n\w8\w8\s[1]\i[5]...\w8\w8\w8\w8\s[2]\i[5]\e"
-		
-		"\0<You tell him he's a nerd for writing poetry>\n\n\w8\w8\s[0]\i[6]I am not!\w8 If I am... well, nerds have to exist or you wouldn't have music.\n\n\w8\w8<You threaten to shove him in a locker>\n\n\w8\w8\s[2]\i[1]You're just a bully, aren't you?\e"
-}
-
-Select.critic
-{
-	meanie += 1
-	
-		"\0\s[0]<You tell him his hair isn't neat enough>\s[2]\i[1] It's fine. Thank you very much.\e"
-		"\0<You tell him his clothes are wrinkled and it's offensive to decent people>\s[0]\i[2]Hm...\w8 You're a slob the majority of the time, so shut the fuck up.\e"
-		"\0<You say his attitude sucks>\w8\s[0]\i[2]Oh because yours is soooooo much better.\e"
+	"\0\![bind,neck,Scarf,0] \0\![bind,neck,PrideScarf,1]I like how colorful this scarf is.\n\n"
+		--
+	"\![*]\q[Customize More,customcozies]\e/"
 }
 
 Select.rummage
@@ -803,14 +813,16 @@ norummage
 mayberummage
 {
 	"\0\s[2]\i[3]Is it that you want to do something with me?\w8 I'm flattered, but...\w8 Maybe one day.\e"
+	"\0\s[2]\i[3]I appreciate that you want to help me find things, but I'm just not sure...\e"
+	"\0\s[2]\i[3]I don't understand why you'd want to dig around in lost and forgotten things with me.\e"
 }
 
 yesrummage
 {
 	rummaging = 1
 	
-	"Yes.\w8 We can absolutely do that.\c\0\s[40]\b4<This area looks mostly abandoned, weeds overgrown everywhere. It's set apart from any heavily populated area and is an easy place to live secretively if needed.>"
-	"Yes.\w8 We can absolutely do that.\c\0\s[40]\b4<Despite its location adjacent to the river, this area Riccardo has found to live in has low traffic. People seem to have abandoned this place.>"
+	"Yes.\w8 We can absolutely do that.\w8 It will be dark, though.\w8 I can only go out at night.\x\c\0\s[40]\b4<This area looks mostly abandoned, weeds overgrown everywhere. It's set apart from any heavily populated area and is an easy place to live secretively if needed.>"
+	"Yes.\w8 Help me find things!\w8 But the sun will be down so it will be dark.\x\c\0\s[40]\b4<Despite its location adjacent to the river, this area Riccardo has found to live in has low traffic. People seem to have abandoned this place.>"
 	--
 	OnRummaging
 }
@@ -829,7 +841,7 @@ Select.nomorerummage
 //Advanced users, note that this is formatted as Select.linkedfunction? Remember how it went \q[Displayed Name,linkedfunction] above? When a user clicks an option that doesn't begin with On, they'll be linked to Select.linkedfunction. Pay close attention as we go through and you'll see this in action.
 Select.altalk
 {
-	AiTalk
+		AiTalk
 }
 
 //Leave this alone
@@ -930,7 +942,7 @@ TalkConfig
 	--
 	"\f[bold,1]Your pronouns:\f[bold,0] %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
 	--
-	//"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
+	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
 	//--
 	"\f[bold,1]Talk Rate:\f[bold,0] - every %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
 	--		
@@ -1021,7 +1033,7 @@ Select.TEACHBDAY
 	{
 		dayslot = GetDaySlot //This is setting up in case today is the user's birthday.
 		
-		"\0\s[2]<You tell him your birthday month with a number value>\![open,inputbox,OnUserBornMonth,-1]\e"
+		"\0\s[2]<You tell him your birthday month with a number value of 1 through 12>\![open,inputbox,OnUserBornMonth,-1]\e"
 		
 		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information. Note that the month HAS to be put in in number format as well, so you might want to have your ghost mention that.
 		
@@ -1199,12 +1211,18 @@ birthchecked
 {
 	if userbirthday == dayslot //if today is the user's birthday
 		{
-			"\0\s[2]\[1]Happy birthday.\w8 I guess.\e"
-			//replace this dialogue with whatever you like
+			if urnice <=100
+			{
+				"\0\s[2]Happy birthday.\w8 I guess.\e"
+			}
+			else
+			{
+				"\0\s[0]Happy birthday!\w8 I always used to get a new book on my birthday.\w8 You should get a new book today, too!\e"
+			}
 		}
-	elseif userbirthday == "12month 25day"
+	elseif userbirthday == "9month 16day"
 		{
-			//"\0\s[0]The user was born on Christmas.\w8\1\s[10]Happy birthday, %(username). \w5\s[15]AND JESUS!\w8\0\s[9]\n\n[half]We're supposed to be a blank template, knock it off before we get in trouble.\e"
+			"\0\s[5]That's my birthday, too.\e"
 			//As you can see, you can set up an elseif statement to check if the user's birthday is any day you want! More on elseif statements in bootend.dic. In this case, there's specialized dialogue if the user was born on Christmas. You can replace this with whatever you like, or change the date you're checking as well, like to one of your character's birthdays if you want. You can also delete this elseif if you don't care.
 		}
 	else //if the birthday is not listed above.
@@ -1420,10 +1438,7 @@ OnChoiceTimeout
  }
 
 //--Test Variable --------------------------------------------------------
-//I briefly mentioned the test variable in bootend.dic and possibly in etc.dic as well, I'm not sure. What exactly is the test variable? Basically, it's a place you can plug in anything you want to test out. What this means is that you can write some ghost dialogue, then copy and paste it into the test variable dialogue snippet down there, reload your ghost, then choose "test variable" from your second character's menu. Check your dialogue to see if it looks right and if it does, put it back in aitalk, or edit it until it looks right and put it back. While you can use Script Input to test most of your ghost's dialogue, there are some lines it just can't do, and it can't help you test choices. But the test variable can! The dialogue/choices from OnFirstBoot are a prime candidate for testing with this variable.
-//You can also use this to test functions as I mentioned above by adding \![raise,function] at the end of it, although you can do this with Script Input as well. Advanced Users, the test variable is also great for testing out any new stuff you may add to your ghost, like mode settings, item values, functions, raising or lowering numbers, what have you.
 
-//It is ALWAYS A GOOD IDEA to test your dialogue! If you won't check it with the test variable, at least test it with Script Input! It'll save you so much trouble!
 
 Select.testvariable
 {
@@ -1439,15 +1454,22 @@ Select.testvariable
 	\![*]\q[Four hundred,FourH]\n/
 	\![*]\q[Five hundred,FiveH]\n/
 	\![*]\q[Variables,Variables]\n\n/
+	\![*]\q[Scarf,scarftest]\n\n/
  	\![*]\q[Nevermind,CANCEL]\e"
+}
+
+Select.scarftest
+{
+	"\![bind,Neck,Scarf,1]"
 }
 
 Select.Variables
 {
 	kammy = 0
 	//"\0\![bind,Legs,Blanket,0]\e"
-	"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(lotr) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
-	//givebedding = 0
+	//"\_q Kammy %(kammy) \nNice %(urnice) Books %(givebook)\nHP %(lotr) Bedding %(givebedding)\nCandles %(givecandle) Blood %(giveblood)\nKitty %(givekitty) Mean %(meanie)\nGave Name %(toldname) Reading %(reading)\nPets %(pets)\x"
+	givebedding = 0
+	lapblanket = 0
 	//scarf = 0
 	
 	//"\0\Scarf %(scarf) and Blanket %(givebedding)\e"

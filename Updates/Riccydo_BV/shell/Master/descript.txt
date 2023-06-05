@@ -13,8 +13,8 @@ seriko.alignmenttodesktop,free
 charset,UTF-8
 type,shell
 name,Riccardo Default Shell
-craftman,FursieTheFlixee
-craftmanurl,https://fursie-does-art.tumblr.com/
+craftman,BittyBatty
+craftmanurl,https://bittybatty.github.io/
 
 
 //Balloon Co-ordinates
@@ -99,14 +99,24 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 
 	sakura.bindgroup101.name,Neck,Scarf
 	sakura.bindgroup101.default,0
+	
+	sakura.bindgroup102.name,Legs,PrideBlanket
+	sakura.bindgroup102.default,0
+	
+	sakura.bindgroup103.name,Neck,PrideScarf
+	sakura.bindgroup103.default,0
 
 
 //Dress-Up Menu Organization
-//This sets up how the clothing appears in the dress-up menu. You can see the main character only has one item, while the second has two split by a dash. Note that it uses the same numbers defined above for each item.
+//The "hidden" at the end prevents these options from showing up in the dressup menu
 
-	sakura.menuitem0,hidden
+	sakura.menuitem100,hidden
 
-	sakura.menuitem1,hidden
+	sakura.menuitem101,hidden
+	
+	sakura.menuitem102,hidden
+
+	sakura.menuitem103,hidden
 //
 //
 

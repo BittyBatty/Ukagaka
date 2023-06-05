@@ -1,14 +1,16 @@
 Charset,UTF-8
 __system_settings_version__,2
 balloon,C:\Users\tinyt\Documents\Ghost Stuff\SSP\balloon\ricc_balloon\
-scriptbox.left,945
+scriptbox.left,960
 shiori.debugnotify,0
-Char.VirtualDesktop,0b2cc941-04f0-4607-90ba-c0226523addf
-Char0.center,1379
-scriptbox.top,301
+SurfaceTest.visible,1
+Char.VirtualDesktop,8e5cc414-e640-433b-ba83-0e4011b7e55f
+Char0.center,1362
+scriptbox.top,127
 shell,shell\Master\
 FirstBoot,booted
 Char1.center,1087
 shell.ischanged.2,1
-update.lastexec,706173532
+update.lastexec,719744287
+DeveloperPalette.visible,1
 __system_written_flag_do_not_remove__,written

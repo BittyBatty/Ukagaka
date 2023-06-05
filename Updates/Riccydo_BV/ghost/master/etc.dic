@@ -26,32 +26,80 @@ Onitemornot
 	{
 		when 0-60
 		{
-			"\b4That's a shame. You didn't find anything.\e"
-			"\b4<There's nothing there.>\e"
-			"\b4<You look and look, but don't find anything.>\e"
-			"\b4It's okay if we're not finding anything. I still enjoy spending time with you.\e"
-			"\b4<You want it so bad, but sometimes we don't get the things we want. There's nothing here.>\e"
+			if allsearches >= 20
+			{
+				"\b4\i[4]I think we got everything we can scavenge for now.\e"
+			}
+			elseif searchspot >= 5
+			{
+				"\b4Let's try a different place, now.\e"
+			}
+			else
+			{
+				searchspot += 1
+				allsearches += 1
+				"\b4That's a shame. You didn't find anything.\e"
+				"\b4<There's nothing there.>\e"
+				"\b4<You look and look, but don't find anything.>\e"
+				"\b4It's okay if we're not finding anything. I still enjoy spending time with you.\e"
+				"\b4<You want it so bad, but sometimes we don't get the things we want. There's nothing here.>\e"
+			}
 		}
 		when 61-85
 		{
-			"\b4You found a %(jewelry)! It would look lovely on you. \w8"
-			"\b4You found %(nature)!\w8 Very nice. \w8"
-			"\b4You found %(comfythings)!\w8 I wish it were in better shape.\w8"
-			"\b4You found %(nature).\w8 I wonder how that got here.\w8"
+			if allsearches >= 20
+			{
+				"\b4\i[4]I think we got everything we can scavenge for now.\e"
+			}
+			elseif searchspot >= 5
+			{
+				"\b4Let's try a different place, now.\e"
+			}
+			else
+			{
+				searchspot += 1
+				allsearches += 1
+				"\b4You found a %(jewelry)! It would look lovely on you. \w8"
+				"\b4You found %(nature)!\w8 Very nice. \w8"
+				"\b4You found %(comfythings)!\w8 I wish it were in better shape.\w8"
+				"\b4You found %(nature).\w8 I wonder how that got here.\w8"
 			
-			--
-			"You can keep that if you'd like.\e"
-			"I would keep that if I were you.\e"
-			"\n\n<You tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
+				--
+				"You can keep that if you'd like.\e"
+				"I would keep that if I were you.\e"
+				"\n\n<You tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
+			}
 		}
 		when 86-100
 		{
-			"\b4Oh! You found %(coolthings)!\w8\n\n <You can tell he'd love to have that, so you tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
-			
-			if scarf == 0
+			if allsearches >= 20
 			{
-				scarf = 1
-				"<You found a green scarf! Riccardo complains about being cold a lot, so you give it to him.>\w8\w8\n\n\s[0]\i[9]You want me to have this?\w8 You're too kind...\w8 Really.\0\s[0]\i[9]\![bind,Neck,Scarf,1]\e"
+				"\b4\i[4]I think we got everything we can scavenge for now.\e"
+			}
+			elseif searchspot >= 5
+			{
+				"\b4Let's try a different place, now.\e"
+			}
+			else
+			{
+				searchspot += 1
+				allsearches += 1
+				if scarf == 0
+				{
+					scarf = 1
+					
+					"\b4<You found a green scarf! Riccardo complains about being cold a lot, so you give it to him.>\w8\w8\n\n\i[8]You want me to have this?\w8 You're too kind...\w8 Really.\0\i[9]\![bind,Neck,Scarf,1]\e"
+				}
+				elseif pridescarf == 0 && month == 6
+				{
+					pridescarf = 1
+					
+					"\b4<You found a rainbow scarf! Riccardo should have more pride things, so you give it to him.>\w8\w8\n\n\0\i[8]A rainbow scarf?\w8 It looks warm.\w8 Thank you.\e"
+				}
+				else
+				{
+					"\b4Oh! You found %(coolthings)!\w8\n\n <You can tell he'd love to have that, so you tell him you want him to have it>\w8\0\i[8]\w8\n\nReally?\w8 I...\w8 Thank you.\e"
+				}
 			}
 		}
 	}
@@ -115,7 +163,8 @@ Select.SetWallpaper_Cancel
  
 OnInstallBegin
  {
-	"\0\s[0]\i[1]I guess I'll just figure out what to do with this thing you've thrown at me.\e"
+	"\0\s[0]\i[2]I guess I'll just figure out what to do with this thing you've thrown at me.\e"
+	"\0\s[0]\i[5]Did you somehow teach me magic to do things for you?\e"
  }
 
  //---- OnInstallComplete -------------------------------------------------------
@@ -207,7 +256,7 @@ OnVanishSelecting
 
 OnVanishSelected
 {
-	"\0\s[2]\i[1]Mm... Can't say I'm not surprised.\w8 Goodbye forever, %(username).\e"
+	"\0\s[2]\i[1]<He sighs.\w8 You can't tell if it's relief or disappointment.>\e"
 }
 
 
@@ -544,7 +593,7 @@ OnNarCreating
  
 OnNarCreated
  {
-	"\0\s[2]Here's your stupid '%(reference0)'.\e"
+	"\0\s[2]\i[1]Here's your '%(reference0)'.\w8 \e"
 	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
  }
 

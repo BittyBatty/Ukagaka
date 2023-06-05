@@ -1,63 +1,9 @@
 /---------------------------Surfaces.txt--------------------------
-//Blegh alright here we go. Surfaces.txt is the backbone of the shell you make for your ghost. Making the images isn't enough, a ghost needs something to tell it where those images go and how to display them, and that's where surfaces.txt comes in.
-
-//Images are brought together into a thing I generally refer to as a pose, but what is defined in the shell and this text file as a Surface. Each Surface can contain any number of images in it doing any number of things. These Surfaces are what is being called when you use the \s[] tag when writing dialogue. For example, you could create a pose with three images under Surface5, and then in dialogue, you would call that pose made of three images with \s[5]. That's the basic jist of how this file works.
-//I wrote up some pages about making images and surfaces.txt on the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) so I highly recommend you read those as well.
-
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-//There are a lot of crazy tricks you can do with surfaces.txt if you're creative and determined, but you won't have to worry about any of them (although I will include some commented out examples for my own reference). The easiest, easiest way to do this file is simply to replace the images I've already made. There should be around 10 poses for each character defined in surfaces.txt. They break down like this.
-
-//If you look at the image files themselves, you'll see that all the images for Girl are in the 1000 range, and the images for Triangle are in the 2000. ALL YOU NEED TO DO is draw your character with whatever expression you want and save it over the appropriate file. That way, you won't have to adjust any of the coding in surfaces.txt itself, you'll just be replacing the images. You should read through this file anyway though to get an idea of how it works.
-
-//However, there is one snag here! Girl's default pose has blinking eyes and a moving mouth, and for that, you'll need to study the files for that pose very carefully. Note that the different eye frames and mouth frames are separate files and only have the eyes and the mouths in them. You'll have to do the same. All you have to do is select around your eyes, inverse, delete everything, and save it for each eye frame, and likewise for the mouth frames. I talk about this in a bit more detail in the making images section of the walkthrough page. Hopefully it won't be too hard. If worse comes to worse and you just can't get it to work, you can delete the blinking and talking sequences from surface0 if you have to.
-//(Basically, what surfaces.txt does is overlay the mouth or eye frames on top of your base image to make the animation. That's why all you want in that overlaid frame is the eyes or the mouth.)
-//Likewise, if you want to add blinking eyes and a moving mouth to your other poses, you'll have to do the same thing as with the default pose - make individual frames for the eyes and mouth, copy and paste the code for the blinking/mouth sections in surface0 to the other surface you want to add them to, and replace the file numbers where appropriate.
-
-//You can change the size of the images if you want to draw a much bigger character than I did! If you do that though, MAKE SURE ALL YOUR IMAGES FOR THAT CHARACTER ARE THE SAME SIZE. So if Girl's image dimensions are 400x400, and you draw a Main Character that's 800x800, MAKE SURE ALL the images for your main character are also 800x800! This applies to the side character too, ALL the images for your side character should be the same dimensions! If your side character is 250x250, all side character images should be 250x250!
-//The main character and the side character DON'T have to be the same size though, so you can have a tiny sidekick and a huge dude if you want, like... I dunno, Gillian Seed and Metal Gear Mk. II for example, or Torin and Boggle. The image dimensions just need to be consistent throughout for each character, because believe me, it will make things MUCH, MUCH easier for you from this point on if you do that.
-
-//SAVE ALL IMAGES FOR YOUR MAIN CHARACTER IN THE 1000-1999 RANGE, AND SAVE ALL IMAGES FOR YOUR SECOND CHARACTER IN THE 2000-2999 RANGE. Not to get into the exact reason why right now but just trust me, this will save you a headache in the long run. I'm looking at you, self reading this in the future. 
-
-//ONE MORE NOTE - If you are planning on doing a single person ghost without a sidekick character at all, all you have to do is save a blank png over all the files for the secondary character, ESPECIALLY Surface10.png. Then just don't write any dialogue for the secondary character in the .dic files. Problem solved.
-//More advanced users can even rewrite the poses in this file originally intended for the secondary character, 11-19, for their main character instead if you need to and save main character poses over the second character ones, AS LONG AS Surface10.png is blank.
-
-
-//Alright, now let's get into the coding.
-
-
-//--surface.append-------------------------------------------------------------------
-//This function is primarily for advanced users, so you can skip it if it seems too scary to you. Otherwise, read on. It may be useful.
-
-//Surface.append basically applies the coding within the brackets to the poses specified in the number range. Specifically in this case it applies to collisions. If the collision areas for your ghost don't change very much from pose to pose, then you can set them here for multiple surfaces at once and save yourself some time.
-//I'm not actually going to use surface.append since Girl and Triangle move around too much for their collisions to be that consistent between poses, but it's something could potentially come in handy for advanced users or ghost makers who have very stationary ghosts, so I'll leave it here and just append it to surfaces that don't exist so it won't get in the way. If you want to use this, study this example and see how it can apply to your own ghost.
-
-//surface.append500-590 //this is appending this code to Surface500 through Surface590.
-//There are actually a few special ways you can refine this! For example, surface.append500-590,205 would append the code to Surface500 to Surface590, as well as Surface205. 
-//surface.append500-590,205,!507-509 it would do the same, except it would skip Surfaces507 through 509.
-//you can have multiple surface.appends as well, if you want to append one set of code to one range of surfaces and another to another. For example, one set of collisions to your main character and one to your side character.
-//{
-//collision0,15,16,111,48,Face
-//collision1,40,50,102,84,Point
-
-//I talk about collisions a bit more in detail just below when we go into surface0, so I won't get too much into the exact nature of a collision up here. Because this is under surface.append, that means that these collisions are being set for every surface between the number range specified, in this case every Surface from 500 to 590.
-
-//--bind-------------------------------------------------------------------------------
-
-//Bind is an interval function only used for dress-up items, therefore if your ghost has no dress-up items, you will not need to bind anything and can safely disregard this. See the walkthrough page about clothing for more details about bind. I'll comment these out since the template won't have clothing items.
-
-//51interval,bind
-//51pattern0,999,2,bind,0,0
-
-//One final note on bind, note that it is also under surface.append along with the collisions up there. Meaning that this clothing would bind across those multiple surfaces just like the collisions. You can set up bind individually for a pose I think, but I honestly haven't messed around with it very much.
-//}
-
 
 //--The Main Character's Poses---------------------------------------------------------
 
 surface0
-//surface0 is the basic default pose for your main character. I'll include a few examples of things you can do in this pose, but you won't have to use any of them if you don't want to. They're mostly for (my) reference and advanced users for the most part.
+//default pose
 {
 element0,overlay,surface0.png,0,0
 
@@ -137,6 +83,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 
 
 //You can think of an "interval" as a set block defining an animation, like a blink in this case, and you'll notice each interval is followed by a number of lines starting with "pattern". The pattern lines are the frames that make up the animation. I've seen this described once like interval is a paragraph, and pattern are the lines of the paragraph.
@@ -328,8 +280,6 @@ collision2,230,20,290,40,purrpurr
 //***********************************************************************
 }
 
-//Wow, that was a lot of really complicated text. But don't worry, from this part on, the surfaces will be very very short and simple! That's because this template is set up to use stationary images for poses instead of animated ones like surface0 above. Because the other surfaces won't have blinking eyes or moving mouths or anything like that, all you have to do is put in the right file number and they'll be done. And if you're just replacing my images, you probably won't have to do anything!
-//This isn't to say you can't ADD blinking and talking frames to these surfaces if you want to. It's easy! All you have to do is copy the right code chunks from surface0 and paste them in here, then replace the file numbers as you need. And you'd have to draw the frames of course.
 
 //Finger Up to Declare something
 surface1
@@ -396,6 +346,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Arms crossed
@@ -414,6 +370,7 @@ collision2,230,20,290,45,purrpurr
 //haunted/scared
 2interval,runonce
 2pattern0,1115,0,overlay,0,0
+2pattern1,0,0,start,150
 
 //embarrassed
 3interval,never
@@ -423,7 +380,7 @@ collision2,230,20,290,45,purrpurr
 //nuetral/almost smile
 4interval,never
 4pattern0,0,0,stop,2
-4pattern0,1117,1,overlay,0,0
+4pattern0,1117,0,overlay,0,0
 
 //tear in eye/angry
 5interval,never
@@ -434,17 +391,28 @@ collision2,230,20,290,45,purrpurr
 6interval,never
 6pattern0,0,0,stop,2
 6pattern0,1119,0,overlay,0,0
+6pattern1,0,0,start,150
 
 //Thoughtful
 7interval,never
 7pattern0,0,0,stop,2
 7pattern0,1113,0,overlay,0,0
+7pattern1,0,0,start,150
 
 100interval,bind
 100pattern0,1124,0,add,0,0
 
 101interval,bind
 101pattern0,2601,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1161,0,add,0,0
+
+150interval,never
+150pattern0,1143,0,overlay,0,0
 }
 
 //Hands on wheels/moving
@@ -489,6 +457,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 
 //Can't do other intervals. They don't layer well over the moving one above
 }
@@ -558,6 +532,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //hand on wheel back
@@ -632,6 +612,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //flinching away pose
@@ -702,6 +688,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2606,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1166,0,add,0,0
 }
 
 //Book
@@ -712,8 +704,17 @@ element1,overlay,surface1110.png,0,0
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
+100interval,bind
+100pattern0,11241,0,add,0,0
+
 101interval,bind
 101pattern0,2606,0,add,0,0
+
+102interval,bind
+102pattern0,1151,0,add,0,0
+
+103interval,bind
+103pattern0,1166,0,add,0,0
 }
 
 //Cat
@@ -724,8 +725,17 @@ element1,overlay,surface1111.png,0,0
 collision1,0,100,400,200,flinchy
 collision2,230,20,290,40,purrpurr
 
+100interval,bind
+100pattern0,11242,0,add,0,0
+
 101interval,bind
 101pattern0,2606,0,add,0,0
+
+102interval,bind
+102pattern0,1152,0,add,0,0
+
+103interval,bind
+103pattern0,1166,0,add,0,0
 }
 
 //Turned away, hands up
@@ -739,43 +749,55 @@ collision2,230,20,290,45,purrpurr
 
 //eyes closed
 1interval,runonce
-1pattern0,1114,0,overlayfast,0,0
+1pattern0,1114,0,overlay,0,0
 
 //haunted/scared
 2interval,never
 2pattern0,0,0,stop,1
-2pattern0,1115,0,overlayfast,0,0
+2pattern0,1115,0,overlay,0,0
+2pattern1,0,0,start,150
 
 //embarrassed
 3interval,never
 3pattern0,0,0,stop,1
-3pattern0,1116,0,overlayfast,0,0
+3pattern0,1116,0,overlay,0,0
 
 //nuetral/almost smile
 4interval,never
 4pattern0,0,0,stop,1
-4pattern0,1117,0,overlayfast,0,0
+4pattern0,1117,0,overlay,0,0
 
 //tear in eye/angry
 5interval,never
 5pattern0,0,0,stop,1
-5pattern0,1118,0,overlayfast,0,0
+5pattern0,1118,0,overlay,0,0
 
 //tear in eye/sad
 6interval,never
 6pattern0,0,0,stop,1
-6pattern0,1119,0,overlayfast,0,0
+6pattern0,1119,0,overlay,0,0
+6pattern1,0,0,start,150
 
 //Thoughtful
 7interval,never
-7pattern0,0,0,stop,4
+7pattern0,0,0,stop,1
 7pattern0,1113,0,overlay,0,0
+7pattern1,0,0,start,150
 
 100interval,bind
 100pattern0,1124,0,add,0,0
 
 101interval,bind
 101pattern0,2605,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1165,0,add,0,0
+
+150interval,never
+150pattern0,1143,0,overlay,0,0
 }
 
 //Don't mess with. Keeps second character turned off
@@ -852,6 +874,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2604,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1164,0,add,0,0
 }
 
 //Holding up book
@@ -918,6 +946,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Holding cat plush
@@ -980,10 +1014,16 @@ collision2,230,20,290,40,purrpurr
 9pattern1,1109,0,overlay,0,0
 
 100interval,bind
-100pattern0,1124,0,add,0,0
+100pattern0,11242,0,add,0,0
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1152,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Holding Mug
@@ -1055,6 +1095,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //reading book
@@ -1105,6 +1151,12 @@ collision2,220,20,290,50,purrpurr
 
 101interval,bind
 101pattern0,2602,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1162,0,add,0,0
 }
 
 //Purring
@@ -1131,6 +1183,12 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Reading, looking sideways pose
@@ -1146,6 +1204,15 @@ collision2,230,20,290,45,purrpurr
 
 101interval,bind
 101pattern0,2601,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1161,0,add,0,0
+
+150interval,always
+150pattern0,1143,1,overlay,0,0
 }
 
 //Petting Obsidian
@@ -1179,8 +1246,15 @@ element1,overlay,surface2507.png,0,0
 
 101interval,bind
 101pattern0,2601,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1161,0,add,0,0
 }
 
+//Obsidian Jumping Down
 Surface19
 {
 element0,overlay,surface2508.png,0,0
@@ -1244,8 +1318,15 @@ collision2,230,20,290,40,purrpurr
 
 101interval,bind
 101pattern0,2600,0,add,0,0
+
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
+//head tilt
 Surface20
 {
 element0,overlay,surface2509.png,0,0
@@ -1254,13 +1335,13 @@ element0,overlay,surface2509.png,0,0
 100pattern0,1124,0,add,0,0
 
 101interval,bind
-101pattern0,2600,0,add,0,0
-}
+101pattern0,2608,0,add,0,0
 
-//Adding Blanket Hopefully
-surface30
-{
-element1,overlay,surface1124.png,0,0
+102interval,bind
+102pattern0,1150,0,add,0,0
+
+103interval,bind
+103pattern0,1167,0,add,0,0
 }
 
 //First Minigame page
@@ -1315,7 +1396,11 @@ collision4,100,120,145,180,dock
 8pattern0,0,0,stop,1
 8pattern0,1109,0,overlay,0,0
 
+101interval,bind
+101pattern0,2600,0,add,0,0
 
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Alleyway
@@ -1366,7 +1451,11 @@ collision5,10,165,75,180,back
 8pattern0,0,0,stop,1
 8pattern0,1109,0,overlay,0,0
 
+101interval,bind
+101pattern0,2600,0,add,0,0
 
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Junkyard
@@ -1416,7 +1505,11 @@ collision5,10,165,75,180,back
 8pattern0,0,0,stop,1
 8pattern0,1109,0,overlay,0,0
 
+101interval,bind
+101pattern0,2600,0,add,0,0
 
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Docks
@@ -1471,7 +1564,11 @@ collision5,10,165,75,180,back
 8pattern0,0,0,stop,1
 8pattern0,1109,0,overlay,0,0
 
+101interval,bind
+101pattern0,2600,0,add,0,0
 
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
 
 //Cornerstore
@@ -1521,11 +1618,12 @@ collision5,10,165,75,180,back
 8pattern0,0,0,stop,1
 8pattern0,1109,0,overlay,0,0
 
+101interval,bind
+101pattern0,2600,0,add,0,0
 
+103interval,bind
+103pattern0,1160,0,add,0,0
 }
-
-//And that's it! We're done! You can move on to some other aspect of your ghost now. But before we go, there are a few more little things you may want to think about.
-
 
 //--Unique Collision cursors------------------
 
@@ -1582,8 +1680,3 @@ collision5,10,165,75,180,back
 
 //---
 
-//Now, if you don't think this is enough Surfaces and want to add more, all you have to do is copy and paste a chunk of Surface code, give it a new number, and then do whatever you want with it. You can define Surfaces all the way up to 999 without running into problems, so go crazy with them if you want! Some of my ghosts have a ridiculous amount of Surfaces because I have no self-control.
-//Of course, to add new poses, you need to draw new frames for those poses. And I say again, make sure all your frames for a character are the same size if you can! It's so much easier to just put 0,0 than find specific coordinates. Unless you've run into the replace problem with mouths, in which case there's not much you can do about that.
-//Once you add a new pose, save your surfaces.txt file and reload your shell using the Development Panel Reload option, or by just reloading your ghost entirely via Utilities - Reload Ghost. You can use Surface Test in the Development Panel to check your new Surface and see if it works and looks right! I always recommend testing your Surfaces, and it's usually pretty easy and simple. If it doesn't look right, tweak surfaces.txt, save, and try again.
-
-//The length of this file is limited only by your imagination!

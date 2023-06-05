@@ -90,27 +90,6 @@ usersfolder
 	"%(username)'s secret folder"
 }
 
-
-//Now, this next envelope is unique. I'm just going to leave it the way that cindysuke wrote it, but look carefully. This list has TWO values, separated by a comma. You can see the first is the Korean word, and the second is the definition of the word. This is used for a bit of dialogue cindysuke wrote where their ghost would teach the user a word in Korean. 
-//You can set up double envelopes like this too by following this format! However, it does require a bit of fancier coding in aitalk to get it to work right. I'll leave an example of it in aitalk so you can study it.
-
-lessonkor
-{
-	"사과(sa-gua),apple"
-	"노동(no-dong),labor"
-	"손가락(son-ga-rak),finger"
-	"마르크스(ma-r-k-s),Marx"
-	"자본주의(ja-bon-ju-yi),capitalism"
-}
-
-//You can also format your envelopes like this as one line separated by semicolons, but personally I think the spaced lists above look nicer. It's up to you however you want to set them up.
-
-blanklistparagraph
-{
-	"List paragraph 1"; "List paragraph 2"; "List paragraph 3"; "List paragraph 4"; "List paragraph 5";
-}
-
-
  //**** Don't touch this ***************************************************************
  //This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
  
