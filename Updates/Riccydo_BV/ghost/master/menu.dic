@@ -640,6 +640,7 @@ Select.blood
 {
 	if urnice <= 100
 	{
+		giveblood += 60
 		"\0\s[2]You want to give me...\w8 blood?\w8 Is this a trick?\n\n"
 		--
 		"<You assure him it's not a trick.>\n\n"
@@ -653,6 +654,7 @@ Select.blood
 	{
 		if giveblood >= 270 //&& meanie <= 4
 		{
+			giveblood += 60
 			urnice += 1
 			if giveblood > 300
 			{
