@@ -485,7 +485,7 @@ Select.give
 	--
 	
 	"\![*]\q[Book,book]\n/
-	\![*]\q[Bedding,bedding]\n/
+	\![*]\q[Blanket,bedding]\n/
 	\![*]\q[Scented Candle,candle]\n/
 	\![*]\q[Blood,blood]\n/
 	\![*]\q[Stuffed Cat,kitty]\n\n/
