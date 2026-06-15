@@ -14,7 +14,7 @@ file,ghost/master/descript.txtc51e2ab4347d88008ae1168f2961f286size=2519date=2
 file,ghost/master/etc.dic60761e1f46f89cc43f381e57bd362809size=32457date=2023-06-04T17:27:38
 file,ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-01T17:00:04
 file,ghost/master/mciaudior.dllb1082bccd2aac2017f7936baf2d967b3size=29696date=2003-03-13T13:23:26
-file,ghost/master/menu.dic827a00d64aa589a599eb28e649595079size=55673date=2026-06-15T17:55:32
+file,ghost/master/menu.dic264d88a2c4ebafca62b3785657b6be42size=55673date=2026-06-15T18:51:33
 file,ghost/master/mouse.dic27335c7e8a7501fa3bc203fa29b7dcf3size=16748date=2023-06-04T03:32:21
 file,ghost/master/nameteach.dic6848d130111a1f6ba1fb49917abb6a68size=7426date=2023-06-04T19:14:31
 file,ghost/master/saori_cpuid.dlld13370aee8e579fe2517d789dba7c45esize=225280date=2004-04-17T16:47:18
