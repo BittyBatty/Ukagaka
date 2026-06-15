@@ -53,7 +53,7 @@ RandomTalk : nonoverlap
 				"\0\s[17]Interesting...\w8\s[15]\w8\e"
 				"\0\s[15]Thank you again for the books.\w8\e"
 				"\0\s[17]Really?\w8\s[15]\w8\e"
-				"\0\s[17]Hm...\w8\e"
+				"\0\s[17]Hmmmm...\w8\e"
 				"\0\s[17]Heh...\w8\w8\s[15]\w8\e"
 				"\0\s[15]\_q<You're glad to see the books you gave him are getting some use.>\w8\e"
 				"\0\s[15]\i[2]\e"
