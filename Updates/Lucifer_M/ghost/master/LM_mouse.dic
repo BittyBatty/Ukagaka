@@ -1,0 +1,140 @@
+﻿//---------------------------Mouse Functions--------------------------
+//As you've probably guessed, this .dic file has to do with mouse functions. This includes the petting feature and what happens when you double click your ghost.
+
+//And if you're interested in only petting or double clicking one character, all you have to do is delete the chunks of code for the other character you want to be uninvolved.
+
+//--OnMouseMove
+//This is a bunch of code determining who the mouse is over. Don't touch any of it.
+
+OnMouseMove
+ {
+		//---- reference3 determines the character in question
+		if reference3 == 0 //if the character is 0, aka the main character
+		{
+			//---- it will run the mouse functions for that character
+			MouseMoveSakura
+		}
+		else //if the character isn't 0, then it must be the side character.
+		{
+			//---- this will run the mouse functions for the side character.
+			MouseMoveKero
+		}
+ }
+
+ //--MouseMoveSakura
+ //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
+ 
+MouseMoveSakura
+ {
+	if reference4 != "" //ignore
+ 	{
+ 		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
+ 		if stroke >= 40 //if the stroke count is above a certain number, the petting dialogue will kick in. You can change this number to make the petting take longer or shorter.
+		{
+ 			stroke = 0 //resetting the stroke count
+			if reference4 == "Head" // This is where you'd put in the name of your collision. As mentioned in surfaces.txt, you can add as many collisions to a pose as you want, as long as you make sure to add them all in here
+ 			{
+				//Petting Dialogue
+				"\0\s[0]This is some petting dialogue.\e"
+				"\0\s[0]This is some more petting dialogue.\e"
+				"\0\s[0]This is another bit of petting dialogue.\e"
+ 			}
+ 			elseif reference4 == "Face" //Another collision
+ 			{
+ 				"\0\s[0]This is petting dialogue for my face.\e"
+ 				"\0\s[0]This is more petting dialogue for my face.\e"
+ 				"\0\s[0]This is another bit of petting dialogue for my face. Well, stroking would probably be more accurate.\e"
+ 			}
+			
+ 		}
+	}
+ 	else
+	{
+ 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
+		stroke = 0
+ 	}
+}
+
+ //---- MouseMoveKero -----------------------------------------------------------------
+ //MouseMoveKero is exactly like the above, except set up for your second character. 
+ 
+MouseMoveKero
+ {
+	if reference4 != ""
+ 	{
+ 		stroke++
+ 		if stroke >= 20
+		{
+			stroke = 0
+			if reference4 == "Shadow" //Put in the name of your collision area you set up for your secondary character here.
+ 			{
+				if shadowdiscovered == 0
+				{
+					"\1\s[-1]\e"
+				}
+				else
+				{
+					"\1\s[-1]\e"
+				}
+ 			}
+			else
+			{
+				" "
+			}	
+ 		}
+	}
+ 	else
+	{
+ 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
+		stroke = 0
+ 	}
+}
+
+//---- OnMouseDoubleClick -------------------------------------------------------
+//This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
+
+OnMouseDoubleClick
+ {
+	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
+	if reference5 == 0 //checks which button is being used for the click
+	{
+	 	if reference3 == 0 //if the character is 0, aka your main character
+		{
+		MouseDoubleClickSakura
+		}
+		else
+		{
+ 		MouseDoubleClickKero
+		}
+	}
+ }
+ 
+MouseDoubleClickSakura
+ {
+ 	if reference4 == "Head" || reference4 == "Face" //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost.
+	{
+		"\0\s[0]This is the hitting dialogue.\e"
+ 	}
+	else
+ 	{
+		//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+ 		OpenSakuraMenu
+	}
+ }
+
+ 
+ //---- MouseDoubleClickKero -----------------------------------------------------------
+ //This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
+ 
+ 
+MouseDoubleClickKero
+ {
+ 	if reference4 == "Shadow" 
+	{
+		"\b1\_q\xYou should tell Lucifer what you saw! %(Shadow)\1\s[-1]\e"
+ 	}
+	else //Otherwise if you click anywhere else 
+ 	{
+		OpenKeroMenu //This will open his menu set up in menu.dic.
+	}
+ }

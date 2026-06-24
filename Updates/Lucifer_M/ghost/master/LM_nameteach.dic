@@ -1,0 +1,76 @@
+﻿//---------------------------The User's Name--------------------------
+//This .dic file has to do with setting the user's name and suffix/prefix (optional). You may recall some of the functions mentioned here from bootend.dic. 
+
+OnTeachName	
+{
+	if reference0 == "TEACHNAME" //ignore this
+		{
+		"\0\s[0]The user wants to change their name. What do you want it to be?\![open,inputbox,OnNameTeach,-1]\e"
+		//Note that this line ends with \![open,inputbox,OnNameTeach,-1]. Make sure you don't delete that tag! 
+		}
+	else
+		{
+		//This else statement is empty; An empty else will simply cause your ghost not to do anything.
+		}
+}
+
+
+//--OnNameTeach
+//This is where the user inputs their name and the ghost analyzes it.
+
+OnNameTeach
+{
+	tempname = reference0 //this stores the name value from reference0 in tempname
+	
+	
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+	
+	//Note that the names you will be checking for should be in all lowercase.
+	
+	if reference0 == "lucifer" //this checks to see if the user input any variation of the name "Lucifer". 
+	{
+		"\0\s[2]But that's my name!\w8\0\s[1]\i[2] Pick a different one!\![open,inputbox,OnNameTeach,-1]"
+		//Note here that it's using the same tag as above to reopen the text box to let the user put in another name. The \![open,inputbox,OnNameTeach,-1] tag.
+	}
+	elseif reference0 == "charlie" 
+	{
+		"\0\s[5]That's my daughter's name!\w8\0\s[3] Wait. There can only be one Char-Char.\![open,inputbox,OnNameTeach,-1]"
+	}
+	elseif reference0 == "alastor" 
+	{
+		"\0\s[1]\i[2]I can only have one of thoooose in my life.\w8 Try again.\![open,inputbox,OnNameTeach,-1]"
+	}
+	elseif reference0 == "" //This is if the user doesn't put in a name at all, since that'd also get awkward in dialogue.
+	{
+		username = "Uhhh... Who?" //this sets the user's name to the joke.
+		
+		--
+		NameDone
+	}
+	else //if the user put in something not specified above, ie a proper name the ghost can use. 
+	{
+		username = tempname
+		--
+		NameDone
+	}
+}
+//--NameDone
+//This is the final bit of dialogue your ghosts will have when the user changes their name. There is a special section here for when the user first boots the ghost, if you uncommented that in bootend.dic.
+
+NameDone
+{
+	if firstboot == 1 //this checks for the flag that was set during the firstboot sequence
+	{
+		firstboot = 0 //this turns the flag off
+		
+		//This dialogue will display the first time the user puts in their name.
+		"\0\s[6]Well, anywho, whatever your name is, I guess I'll be sticking around here.\w8 I always trust a rubber duck when they bring me somewhere!\e"
+	}
+	else
+	{
+		"\0\s[6]Nice to meet ya...\w8 Uh...\w8... um....\0\s[0]\i[82] Who are you again?\e"
+	}	
+}

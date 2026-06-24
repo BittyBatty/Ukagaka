@@ -1,0 +1,565 @@
+//---------------------------Surfaces.txt--------------------------
+
+//MAKE SURE ALL YOUR IMAGES FOR THAT CHARACTER ARE THE SAME SIZE. 
+
+//ONE MORE NOTE - If you are planning on doing a single person ghost without a sidekick character at all, you can also just delete all the pngs for Triangle but DON'T delete Surface10.png though.
+
+//--The Main Character's Poses---------------------------------------------------------
+
+surface0
+//surface0 is the basic default pose for your main character. 
+{
+	//COLLISIONS
+//collision0,57,22,112,46,Head
+//collision1,65,50,105,91,Face
+
+//Collisions define "hot spots" on your ghost where the user can pet or double click them (as defined in mouse.dic). 
+
+//The four numbers after that are x/y coordinates. Specifically, the first two numbers are the x/y coordinates of the TOP LEFT corner of your hotspot. The third and fourth numbers are the coordinates of the BOTTOM RIGHT corner of the hotspot. Essentially, this is outlining a rectangle.
+
+//The other option is to draw a rectangle on top of your image in whatever art program you're using, then manually finding the coordinates for the top left and bottom right corners. 
+
+//After that, you have to name the area you highlighted. In collision0's case, the area is named "Head". If you go into mouse.dic, you'll see that this name is referenced when the mouse is over that area or interacting with it.
+
+//Collisions only apply to the Surface they're in, 
+
+//DEFINING THE ELEMENT
+
+//element0,overlay,surface0.png,0,0
+
+//I thought this for a long time, but defining an element is not actually necessary for your shell! It creates some extra work for SSP actually if you're not naming your files correctly. SSP will look through your shell files, see that you have one called surface0.png, go "oh, that's the surface" and AUTOMATICALLY put it as the image for Surface0 in surfaces.txt. So SSP will automatically assign a Surface in the surfaces.txt file for each file in your shell folder that fits the naming format. Does that make sense?
+
+//So you don't need to declare your image as an element as long as it's in the surface[number] format. If you have files named face1.png and body1.png though, as an example, you can declare those as elements to make a surface! Like so
+
+// surface69
+// {
+	// element0,overlay,body1.png,0,0
+	// element0,overlay,face1.png,0,0
+// }
+
+element0,overlay,surface0.png,0,0
+
+// Then surface69 would be a combination of those two files! So this is a situation where you'd want to declare elements. 
+
+
+//--Blinking---------------------------------------------------------------------------
+
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,0402,5,overlayfast,0,0
+79pattern2,0401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0
+
+
+//If you want to know more about the exact mechanics of how these lines of animation work, I'd recommend reading the page on the walkthrough site about SERIKO coding.
+
+//One of the key differences between old and new spec is the format used for animations like this in your shell! In new spec, these blocks have "animation" appended to them, like this:
+
+// animation0.interval,random,4
+// animation0.pattern0,-1,10,overlay,0,0
+// animation0.pattern1,1002,5,overlayfast,0,0
+// animation0.pattern2,1001,10,overlayfast,0,0
+// animation0.pattern3,-1,3,overlay,0,0
+
+//In the old one, the one used in this file, it's just interval and pattern without animation in front. Either way, blocks like these make up animations! 
+
+//Anyway, each line in a block of code like this has a defined length/method (the interval) and then has a number of lines starting with "pattern". The pattern lines are the ones that make up the animation! You can think of them like frames in a cartoon if that helps.
+
+//Each interval/pattern block has a number - in this case, it's 0, so it's 0interval and 0pattern (or animation0.interval and animation0.pattern in the new def). Patterns have a second number though, identifying what frame it is. So, 0pattern1, 0pattern2, 0pattern3, and so on. After [#]pattern[#] is the filename you're using for that frame, like surface1002, or surface1001. After that is the delay on the frame before it - 5. The word after that is the animation method you're using for the frame, in this case a mix of overlay and overlayfast, and the last two numbers are the x/y coordinates of the images - 0,0.
+//Other animation methods besides overlay and overlayfast are base, move, and replace. More on those on the SERIKO page on the walkthrough, but I'll get into them a little later on in this file.
+
+
+//--Talking-----------------------------------------------------------------------------
+//This block deals with your ghost's mouth moving as it speaks to you. 
+
+//You can see some unique things about this block. The interval is set to talk,4, which means it'll run for every four characters or so that appear in the balloon. 
+
+//You can add numbers to those brackets or take them away if you want, so you could do things like [2.3.4.5] or [2.3] or whatever.
+
+1interval,talk,4
+1pattern0,0,0,stop,66
+1pattern1,0,0,alternativestart,[2.3.4]
+
+2interval,never
+2pattern0,0221,10,overlay,0,0
+2pattern1,0221,13,overlay,0,0
+2pattern2,-1,10,overlay,0,0
+
+3interval,never
+3pattern0,0220,14,overlay,0,0
+3pattern1,-1,10,overlay,0,0
+
+4interval,never
+4pattern0,0221,14,overlay,0,0
+4pattern1,-1,10,overlay,0,0
+
+5interval,never
+5pattern0,0,0,parallelstart,[62,66]
+
+66interval,talk,4
+66pattern0,0,0,stop,1
+66pattern1,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,0223,10,overlay,0,0
+67pattern1,0223,13,overlay,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,0222,14,overlay,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,0223,14,overlay,0,0
+69pattern1,-1,10,overlay,0,0
+
+//Keeping his tail attached to him
+50interval,runonce
+50pattern0,0100,0,interpolate,0,0
+
+51interval,random,5
+51pattern0,0,0,stop,50
+51pattern1,0101,0,interpolate,0,0
+51pattern2,0100,100,interpolate,0,0
+51pattern3,0,100,start,50
+
+//Mouth
+60interval,never
+60pattern0,0,0,stop,61
+60pattern1,0200,0,overlay,0,0
+
+61interval,runonce
+61pattern0,0201,0,overlay,0,0
+
+62interval,never
+62pattern0,0,100,stop,61
+62pattern1,0202,0,overlay,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,0400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,0300,0,overlay,0,0
+
+81interval,never
+81pattern0,0,0,parallelstop,[80.83]
+81pattern1,0301,0,overlay,0,0
+
+82interval,never
+82pattern0,0,0,parallelstop,[80.83]
+82pattern1,0302,0,overlay,0,0
+
+83interval,random,75
+83pattern0,0,0,stop,80
+83pattern1,0302,0,overlay,0,0
+83pattern2,0300,500,overlay,0,0
+83pattern3,0,0,start,80
+}
+
+//Lucy Crossed Arms and Hunched
+surface1
+{
+//grumpy
+2interval,never
+2pattern0,0,0,parallelstart,[61.81.52]
+	
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,1402,5,overlayfast,0,0
+79pattern2,1401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0	
+
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,1221,10,overlayfast,0,0
+67pattern1,1221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,1220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,1221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0
+	
+//Tail
+50interval,runonce
+50pattern0,0,0,stop,51
+50pattern1,1100,0,overlay,0,0
+
+51interval,always
+51pattern1,1101,0,interpolate,0,0
+51pattern2,1102,50,interpolate,0,0
+51pattern3,1101,50,interpolate,0,0
+
+52interval,never
+52pattern0,0,0,stop,50
+52pattern1,0,0,start,51
+
+//Mouth
+60interval,runonce
+60pattern0,1200,0,overlay,0,0
+
+61interval,never
+61pattern0,0,0,stop,60
+61pattern1,1201,0,overlayfast,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,1400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,1300,0,overlay,0,0
+
+81interval,never
+81pattern0,0,0,stop,80
+81pattern1,1301,0,overlay,0,0
+}
+
+//Lucy Surprised
+surface2
+{
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,2402,5,overlayfast,0,0
+79pattern2,2401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0		
+	
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,2221,10,overlayfast,0,0
+67pattern1,2221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,2220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,2221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0	
+	
+//Tail
+50interval,runonce
+50pattern0,2100,0,interpolate,0,0
+
+//Mouth
+60interval,runonce
+60pattern0,2200,0,overlay,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,2400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,2300,0,overlay,0,0
+}
+
+//Lucy Thinking
+surface3
+{
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,3402,5,overlayfast,0,0
+79pattern2,3401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0		
+	
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,3221,10,overlayfast,0,0
+67pattern1,3221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,3220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,3221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0	
+	
+//Tail
+50interval,runonce
+50pattern0,3100,0,interpolate,0,0
+
+//Mouth
+60interval,runonce
+60pattern0,3200,0,overlay,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,3400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,3300,0,overlay,0,0
+}
+
+//Lucy Sheepish
+surface4
+{
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,4402,5,overlayfast,0,0
+79pattern2,4401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0		
+	
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,4221,10,overlayfast,0,0
+67pattern1,4221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,4220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,4221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0		
+	
+//Tail
+50interval,runonce
+50pattern0,4100,0,interpolate,0,0
+
+//Mouth
+60interval,runonce
+60pattern0,4200,0,overlay,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,4400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,4300,0,overlay,0,0
+}
+
+//Lucy Ecstatic
+surface5
+{
+//Face is part of surface5.png to make bounce work	
+	
+//bounce
+2interval,never
+2pattern0,5001,10,replace,0,0
+2pattern1,5002,10,replace,0,0
+2pattern2,5001,10,replace,0,0
+2pattern3,5002,10,replace,0,0
+2pattern4,5001,10,replace,0,0
+2pattern5,5002,10,replace,0,0
+2pattern6,5001,10,replace,0,0
+2pattern7,5002,10,replace,0,0
+2pattern8,5001,10,replace,0,0
+2pattern9,5002,10,replace,0,0
+2pattern10,5001,10,replace,0,0
+2pattern11,5002,10,replace,0,0
+2pattern12,5001,10,replace,0,0
+2pattern13,5002,10,replace,0,0
+
+3interval,never
+3pattern0,0,0,parallelstop,[1.79]
+3pattern1,0,0,parallelstart,[2.50]
+	
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,5402,5,overlayfast,0,0
+79pattern2,5401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0		
+	
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,5221,10,overlayfast,0,0
+67pattern1,5221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,5220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,5221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0		
+	
+//Tail
+50interval,always
+50pattern0,0,0,stop,2
+50pattern1,5100,0,interpolate,0,0
+50pattern2,5101,5,interpolate,0,0
+50pattern3,5102,7,interpolate,0,0
+50pattern4,5103,10,interpolate,0,0
+50pattern5,5104,15,interpolate,0,0
+50pattern6,5103,5,interpolate,0,0
+50pattern7,5102,7,interpolate,0,0
+50pattern8,5101,10,interpolate,0,0
+}
+
+//Main Character Contented pose
+surface6
+{
+//blinking
+79interval,random,4
+79pattern0,-1,10,overlay,0,0
+79pattern1,6402,5,overlayfast,0,0
+79pattern2,6401,10,overlayfast,0,0
+79pattern3,-1,3,overlay,0,0		
+	
+//talking
+1interval,talk,4
+1pattern0,0,0,alternativestart,[67.68.69]
+
+67interval,never
+67pattern0,6221,10,overlayfast,0,0
+67pattern1,6221,13,overlayfast,0,0
+67pattern2,-1,10,overlay,0,0
+
+68interval,never
+68pattern0,6220,14,overlayfast,0,0
+68pattern1,-1,10,overlay,0,0
+
+69interval,never
+69pattern0,6221,14,overlayfast,0,0
+69pattern1,-1,10,overlay,0,0		
+	
+//Tail
+50interval,runonce
+50pattern0,6100,0,interpolate,0,0
+
+//Mouth
+60interval,runonce
+60pattern0,6200,0,overlay,0,0
+
+//Eyes
+70interval,runonce
+70pattern0,6400,0,overlay,0,0
+
+//Brows
+80interval,runonce
+80pattern0,6300,0,overlay,0,0
+}
+
+//Main Character Angry pose
+surface7
+{
+
+}
+
+//Main Character Thoughtful Pose
+surface8
+{
+//Lift up
+0interval,runonce
+0pattern0,0,15,move,0,-15
+0pattern1,0,5,move,0,-30
+0pattern2,0,7,move,0,-45
+0pattern3,0,10,move,0,-60
+0pattern4,0,15,move,0,-75
+}
+
+//Main Character Bored pose
+surface9
+{
+
+}
+
+surface10
+{
+element0,overlay,surface10.png,0,0 //Keeps second character off
+}
+
+//Just shadow's head
+surface11
+{
+1interval,never
+1pattern0,11,0,replace,0,0
+1pattern1,11101,15,replace,0,0
+1pattern2,11102,35,replace,0,0
+1pattern3,12,20,replace,0,0
+}
+
+//Shadow's full form
+surface12
+{
+collision0,97,10,210,390,Shadow
+}
+
+//--surface.append-------------------------------------------------------------------
+
+//Surface.append basically applies the coding within the brackets to the poses specified in the number range. Specifically in this case it applies to collisions. If the collision areas for your ghost don't change very much from pose to pose, then you can set them here for multiple surfaces at once.
+
+surface.append500-590 
+//this is appending this code to Surface500 through Surface590.
+//There are actually a few special ways you can refine this! For example, surface.append500-590,205 would append the code to Surface500 to Surface590, as well as Surface205. 
+//surface.append500-590,205,!507-509 it would do the same, except it would skip Surfaces507 through 509.
+//you can have multiple surface.appends as well, if you want to append one set of code to one range of surfaces and another to another. 
+{
+collision0,15,16,111,48,Face
+collision1,40,50,102,84,Point
+
+//Because this is under surface.append, that means that these collisions are being set for every surface between the number range specified, in this case every Surface from 500 to 590. Make sure to put surface.append at the end of your file, so it can append the values to surfaces that exist.
+
+//--bind-------------------------------------------------------------------------------
+
+//Bind is an interval function only used for dress-up items, therefore if your ghost has no dress-up items, you will not need to bind anything and can safely disregard this. 
+
+//51interval,bind
+//51pattern0,999,2,add,0,0
+
+//One final note on bind, note that it is also under surface.append along with the collisions up there. Meaning that this clothing would bind across those multiple surfaces just like the collisions. 
+
+//You can use surface.append to technically apply anything across multiple poses
+}
+
+
+//--Unique Collision cursors------------------
+
+//sakura.cursor 
+//{ 
+//mouseup0,Head,system:hand 
+//mousedown0,Head,system:finger 
+//mouseup1,Face,system:hand 
+//mousedown1,Face,system:grip 
+//} 
+
+//What this does is change the mouse cursor. When hovering, it's mouseup, when you click, it's mouse down.
+//The system cursors you can use for this are "arrow", "cross", "no", "hand", "grip", "finger", "wait", "text", "move", and "help". You can probably guess at what they look like. Feel free to use whatever cursor you think would best match your collision.
+
+//To set this up for the secondary character, just change sakura to kero, as usual.
+
+
+//--Tooltips------------------
+
+//Maybe you'd like a tooltip to pop up when your user is hovering over a hitbox on your ghost. 
+
+//sakura.tooltips 
+//{ 
+//Head,This is Girl's head. 
+//Face,This is Girl's face.  
+//}
+
+//Like above, replace sakura with kero for the secondary character.

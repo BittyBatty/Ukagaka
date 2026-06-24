@@ -1,0 +1,11 @@
+﻿//This file tells SSP and possibly other ghost programs how to install your ghost when a user drags and drops the .nar file on an existing ghost. Directory meaning Folder name, Name meaning SSP's displayed name
+
+charset,UTF-8
+type,ghost
+name,Lucifer
+directory,Lucifer_M
+
+
+//This tells the program what balloon your ghost will be using. 
+
+balloon.directory,LucyBalloon

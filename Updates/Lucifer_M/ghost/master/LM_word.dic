@@ -1,0 +1,229 @@
+﻿//---------------------------Word Lists and Functions--------------------------
+//Basically, what this file does is set up some things that I colloquially call envelopes, but are more so functions that can be called in dialogue with a percent sign and parentheses. %(MyFunction) for example.
+
+Shadow
+{
+	shadowdiscovered = 1
+}
+
+Horns
+{
+	HasHorns = 1
+	HasAntlers = 0
+	HasEars = 0
+	HasHair = 0
+}
+
+Antlers
+{
+	HasHorns = 0
+	HasAntlers = 1
+	HasEars = 0
+	HasHair = 0
+}
+
+Ears
+{
+	HasHorns = 0
+	HasAntlers = 0
+	HasEars = 1
+	HasHair = 0
+}
+
+Hair
+{
+	HasHorns = 0
+	HasAntlers = 0
+	HasEars = 0
+	HasHair = 1
+}
+
+Tail
+{
+	HasTail = 1
+	HasWings = 0
+	HasTandW = 0
+	HasClothes = 0
+}
+	
+Wings	
+{
+	HasTail = 0
+	HasWings = 1
+	HasTandW = 0
+	HasClothes = 0
+}
+	
+TandW	
+{
+	HasTail = 0
+	HasWings = 0
+	HasTandW = 1
+	HasClothes = 0
+}
+	
+Clothes	
+{
+	HasTail = 0
+	HasWings = 0
+	HasTandW = 0
+	HasClothes = 1
+}
+
+WhatUserLooksLike
+{
+	"You have %(HeadAppears) and %(BodyAppears)."
+}
+
+HeadAppears
+{
+	if HasHorns == 1
+		{
+			"horns"
+		}
+	elseif HasAntlers == 1
+		{
+			"antlers"
+		}
+	elseif HasEars == 1
+		{
+			"ears"
+		}
+	elseif HasHair == 1
+		{
+			"hair"
+		}
+	else
+		{
+			"a bald head"
+		}
+}
+
+BodyAppears
+{
+	if HasTail == 1
+		{
+			"a tail"
+		}
+	elseif HasWings == 1
+		{
+			"wings"
+		}
+	elseif HasTandW == 1
+		{
+			"a tail and wings"
+		}
+	elseif HasClothes == 1
+		{
+			"just some clothes"
+		}
+	else
+		{
+			"a bald body"
+		}
+}
+
+//Not only that, but you can put a function IN a function. Here's another example.
+
+internalfunction
+{
+	"Internal Function Dialogue 1 - %(examplefunction)"
+	"%(username)'s computer"
+	"Here is a blanklist object - %(blanklist)."
+}
+
+		//*********************Advanced User Info*******************************
+	  //Because these are basically their own functions, you can do other things with them as well as display dialogue. You can add if/else checks, run other functions, have pools of alternate dialogue... the possibilities are really endless.
+	  
+	  //One particularly useful thing you can do is change a value directly through a function, like %(nowmode = 'Asleep') or %(betrayed = 1).  For example...
+	  
+	  //"Thank you, %(username), that was really nice of you. %(Feelings += 1)\e"
+	  
+	  //So this would display the dialogue as well as change the value. Then you can call this in dialogue if you need to to change the value without having to do a bunch of fiddly business.
+	  
+	  //Another use for these is to shortcut certain long lines of SakuraScript you don't want to have to keep typing. 
+	  
+	  //Another way to use these is to store multiple poses for SurfaceRestore in aitalk.dic. Gaster for example has several neutral idle poses, but also several poses for when he's scared. So I can make a function like
+	
+	//scared
+	//{
+	//"\0\s[9]\i[3]\i[104]\i[39]"
+	//"\0\s[100]\i[2]\i[40]\i[104]"
+	//"\0\s[100]\i[2]\i[40]\i[106]"
+	//}
+	
+	//And have him randomly pick one whenever I use %(scared) in dialogue. This can be an easy way to vary certain poses without having to manually put them in one at a time, and have some variety when your ghost goes back to its neutral pose in SurfaceRestore.
+		
+	  //***********************************************************************
+
+duckweapons
+{
+	"gun-wings"
+	"laser beam eyes"
+	"a knife beak"
+	"a top hat...\w8\w8 of doom"
+	"bomb bowties"
+}
+
+blanklist2
+{
+	"List object 1"
+	"List object 2"
+	"List object 3"
+	"List object 4"
+	"List object 5"
+	"List object 6"
+	"List object 7"
+	"List object 8"
+}
+
+blanklist3
+{
+	"List object 1"
+	"List object 2"
+	"List object 3"
+	"List object 4"
+}
+
+blanklist4
+{
+	"List object 1"
+	"List object 2"
+}
+
+//You can use this in dialogue to pretend like your ghost is looking through your user's files!
+
+usersfolder
+{
+	"%(username)'s Recycle Bin"
+	"%(username)'s Document folder"
+	"%(username)'s secret folder"
+}
+
+
+//This is actually technically an array. Note that it has a word, a comma, then another word. This is essentially a list being stored in this function. You can call one of the values by using brackets around the number of the list entry. So, the first value (the Korean word) would be %(lessonkor[0]) since all arrays start at 0. The second value (the definition) would be %(lessonkor[1]). If you have a longer array, like "word,word,word,word,word", you can keep calling values by changing the numbers, like %(lessonkor[5]) or %(lessonkor[10]). Arrays can be very powerful and useful for storing a lot of information in a condensed space.
+
+lessonkor
+{
+	"사과(sa-gua),apple"
+	"노동(no-dong),labor"
+	"손가락(son-ga-rak),finger"
+	"마르크스(ma-r-k-s),Marx"
+	"자본주의(ja-bon-ju-yi),capitalism"
+}
+
+//You can also format your word lists like this as one line separated by semicolons
+
+blanklistparagraph
+{
+	"List paragraph 1"; "List paragraph 2"; "List paragraph 3"; "List paragraph 4"; "List paragraph 5";
+}
+
+
+ //**** Don't touch this ***************************************************************
+ //This is code stuff
+ 
+ On_\person
+{
+ 	person
+}
