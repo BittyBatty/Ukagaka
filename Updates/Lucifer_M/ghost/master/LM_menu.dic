@@ -34,7 +34,7 @@ MenuRun : all
 	--
  	"\![*]\q[Say something,OnAiTalk]\n\n[half]"
 	--
-	"\![*]\q[Testing Variables,testing]\n\n"
+	//"\![*]\q[Testing Variables,testing]\n\n"
 	if shadowdiscovered == 1 && ToldAboutShadow == 0
 	{
 		"\![*]\q[Tell Him About the Shadow,tellaboutshadow]\n\n"
