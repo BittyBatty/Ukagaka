@@ -6,6 +6,16 @@ Shadow
 	shadowdiscovered = 1
 }
 
+UserTattledOnShadow
+{
+	ToldAboutShadow = 1
+}
+
+BegoneShadow
+{
+	DispelledShadow += 1
+}
+
 Horns
 {
 	HasHorns = 1

@@ -60,7 +60,7 @@ OnLastTalk
 
 Select.tellaboutshadow
 {
-	"\t\*\0\s[2]\w8\w8WHAT?!\w8 That tacky piece of shit found me here?\w8\0\s[1]\i[2] But I was so careful!\w8\s[3] Saaaaaaay you've been a big help to me...\s[6] Do you think you can scare that shadow off next time you see it?%(ToldAboutShadow = 1)\x\e"
+	"\t\*\0\s[2]\w8\w8WHAT?!\w8 That tacky piece of shit found me here?\w8\0\s[1]\i[2] But I was so careful!\w8\s[3] Saaaaaaay you've been a big help to me...\s[6] Do you think you can scare that shadow off next time you see it?%(UserTattledOnShadow)\x\e"
 }
 
 Select.testing
