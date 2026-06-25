@@ -116,12 +116,20 @@ RandomTalk : nonoverlap_pool
 	
 	"\0\s[3]Hmmmmmmmmmmmmm...\e:chain=achain"
 	
-	"\1\s[11]\e:chain=anotherchain"
-	
 	
 	//--If statements
 	
-	if nowshell == "master" //This checks to see what shell they're currently using. 
+	if ToldAboutShadow == 0
+	{
+		"\1\s[11]\e:chain=anotherchain"
+	}
+	
+	if ToldAboutShadow == 1
+	{
+		"\1\s[11]\w8\w8\w8\w8\w8\s[11]\i[1]\1\s[12]\e:chain=ShadowCreep"
+	}
+	
+	if nowshell == "Lucifer" //This checks to see what shell they're currently using. 
 	{
 		"\0\s[6]I still look snazzy even without my coat and hat, don't I?\e"
 	}
@@ -209,6 +217,10 @@ anotherchain
 	"\1\s[-1]\e:chain=end"
 }}CHAIN
 
+ShadowCreep
+{{CHAIN
+	"\1\s[-1]\e:chain=end"
+}}CHAIN
 
 //Keeps track of if an hour has passed. Just ignore this.
 HourCheck

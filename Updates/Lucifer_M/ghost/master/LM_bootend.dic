@@ -66,11 +66,13 @@ OnFirstBoot : all
 	
 	ToldAboutShadow = 0
 	
+	DispelledShadow = 0
+	
 	if reference0 == 0 //Don't touch this line.
  	{
 		//Note also the use of the \x and \c tags. 
 		
-		"\t\1\s[-1]\0\s[9]This teleporting duck is sure to help Charlie next time -\w8 Woah-oh!\0\s[2]\w8 Where am I?\w8 \0\s[6] Guess the old teleporting duck isn't working right, yet.\w8 You must be a new sinner here in the hotel, right?\w8\0\s[3] What am I looking at here?\w8\n\n\x"
+		"\t\*\0\s[-1]\b2\f[height,18]Welcome New Sinner\f[height,default]\n\nThank you for downloading the Lucifer Ukagaka.\n\nJust like the media that this fan creation comes from, this ghost is \f[bold,true]not intended for minors.\f[bold,false] By clicking to continue, you agree you are 18+.\x\c\t\*\0\s[-1]\b2\f[height,18]User Controls\f[height,default]\n\nThis is a mouse based program.\n\n\f[bold,true]Left click\f[bold,false] for certain interactions.\n\f[bold,true]Double click\f[bold,false] to pull up Lucifer's menu.\n\f[bold,true]Right click\f[bold,false] for SSP's menu.\n\f[bold,true]Click, hold, and drag\f[bold,false] to move Lucifer, his balloon, and etc.\n\nThis ghost recognizes and interacts with cursor movement over certain objects.\x\c\0\s[9]This teleporting duck is sure to help Charlie next time -\w8\w8\0\s[9]\i[71]\w8.\s[9]\w8.\s[9]\i[71]\w8.\s[9]\w8\s[9]\i[71]\w8\0\s[2] Woah-oh!\w8 Where am I?\w8 \0\s[6] Guess the old teleporting duck isn't working right, yet.\w8 You must be a new sinner here in the hotel, right?\w8\x\c\0\s[0]\i[5]Good news for you, you luuuucky sinner.\w8 I need a place no one will look for me to think and work!\w8\0\s[1]\i[2] Especially that good for nothing bellhop who's been watching me too close lately.\0\s[0]\i[5]\w8Anyyyyyyywaaaaaaay...\w8 You've got this big spacious, spacey space.\w8 And no one will look for me here.\w8 If you really want to redeem yourself, you'll help me, right?\x\c\0\s[3] Saaaaaaaaaay...\w8 My eyes go weird sometimes...\w8 What am I looking at here?\w8\n\n\x"
 		--
 		Appearance
  	}
@@ -199,7 +201,7 @@ Select.GiveClothes
 NameInput
 {
 	
-	"\t\0\s[0] \![open,inputbox,OnNameTeach,-1]\e"
+	"\t\*\0\s[0] \![open,inputbox,OnNameTeach,-1]\x\e"
 	
 	//At the end of this dialogue there's a tag saying "\![open,inputbox,OnNameTeach,-1]". It basically leads to the naming function defined in nameteach.dic
 }

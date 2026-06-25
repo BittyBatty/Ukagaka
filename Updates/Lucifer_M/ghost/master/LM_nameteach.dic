@@ -67,7 +67,7 @@ NameDone
 		firstboot = 0 //this turns the flag off
 		
 		//This dialogue will display the first time the user puts in their name.
-		"\0\s[6]Well, anywho, whatever your name is, I guess I'll be sticking around here.\w8 I always trust a rubber duck when they bring me somewhere!\e"
+		"\t\*\0\s[6]Well, anywho, whatever your name is, I guess I'll be sticking around here.\w8 I always trust a rubber duck when they bring me somewhere!\e"
 	}
 	else
 	{
