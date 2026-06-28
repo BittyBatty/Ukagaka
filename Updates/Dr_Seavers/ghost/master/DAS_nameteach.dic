@@ -1,0 +1,86 @@
+﻿OnTeachName	
+{
+	if reference0 == "TEACHNAME" //ignore this
+		{
+		"\0\s[0]\i[8]Oh!\w8 You want to be called something else?\w8\0\s[0]\i[9] Alright!\w8 What can I call you, now?\![open,inputbox,OnNameTeach,-1]\e"
+		}
+	else
+		{
+			//This else statement is empty
+		}
+}
+
+OnNameTeach
+{
+	tempname = reference0 //this stores the name value from reference0 in tempname
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+	
+	//Those extra TOLOWER/REPLACE things up there basically clean up the user's input so you don't have to check for Girl, GIRL, girl, GiRl, etc. It'll make it much easier to check for any specific name, since you won't have to account for any edge cases. Note that the names you will be checking for should be in all lowercase
+	
+		if reference0 == "riccardo"  
+		{
+			username = tempname
+			--
+			if Admitharm == 0
+			{
+				"\0\s[0]\i[8]I know another Riccardo.\w8 He's very dear to me, so the name must be for special people.%(NameDone)\e"
+			}
+			elseif Admitharm == 1
+			{
+			"\0\s[2]\i[7]Ah...\w8 I'm sorry.\w8\0\s[5]\i[3] I'm surprised to hear that's 	your name is all. %(NameDone)\e"
+			}
+			else
+			{
+				//empty
+			}
+		}
+		elseif reference0 == "arthur"
+		{
+			username = tempname
+			
+			"\0\s[3]Oh!\w8 We share a name!\w8 Fascinating! %(NameDone)\e"
+		}
+		elseif reference0 == "" //This is if the user doesn't put in a name at all
+		{
+			username = "Sorcerer" //this sets the user's name to Sorcerer
+			
+			"\0\s[8]Oh.\w8 Do you not want to say?\w8\0\s[0]\i[7]I'll continue calling you Sorcerer, then. %(NameDone)\e"
+		}
+		else //if the user put in anything else
+		{
+			username = tempname
+			
+			"%(NameDone)\e"
+		}
+	
+}
+
+//--NameDone
+//This is the final bit of dialogue your ghosts will have when the user changes their name. There is a special section here for when the user first boots the ghost.
+
+NameDone
+{
+	if firstboot == 1 //this checks for the flag that was set during the firstboot sequence
+	{
+		if Admitharm == 0
+		{
+			"\0\s[0]\i[9]It's a pleasure to meet you, %(username).\w8\0\s[0]Now, are you male or female or...\w8 Well, I suppose the proper question is what pronouns do you use?\![raise,OnPronounTeach]"
+		}
+		elseif Admitharm == 1
+		{
+			"\0\s[1]\i[7]I see...\w8 You may be considering harming me, but you're still innocent as of now.\w8 I'll continue to show you respect as long as you abstain.\w8 So, %(username), are you male or female or -\w8 Hm...\w8 I suppose the proper question is, actually, what pronouns should I use for you?\![raise,OnPronounTeach]"
+		}
+		else
+		{
+			//empty
+		}
+	}
+	else
+	{
+	"\0\s[0]\i[9]I'll now call you %(username).\e"
+	//Rewrite this as you like. Note the %(username) tag here, as you should be well familiar with by now from the walkthrough and the other .dic files. That will display the name the user just created.
+	}
+}

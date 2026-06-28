@@ -1,0 +1,609 @@
+﻿//--AiTalk
+//Leave this alone.
+//Advanced users, this is mostly setting up whether or not dialogue is in a chain before it displays. Again, you can leave it alone unless you want to screw around with chains for some strange reason.
+
+AiTalk
+ {
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+ //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
+
+RandomTalk : nonoverlap
+{
+	if HoldingObsidian == 1 
+	{
+		"\0\s[18]I'm definitely a cat person.\w8\e"
+		"\0\s[18]Hello, Obsidian... I'll pet you as long as you want.\w8\e"
+		"\0\s[18]Hello, sweet kitty.\w8\e"
+		"\0\s[18]I'd like to get a cat of my own one day.\w8\e"
+	}
+	elseif HoldingObsidian == 0 
+	{
+		if rummaging == 1
+		{
+			" " //Nothing here to keep surface from restoring to anything
+		}
+		elseif rummaging == 0
+		{
+			if reading == 1 
+			{
+				"\0\s[17]Interesting...\w8\s[15]\w8\e"
+				"\0\s[15]Thank you again for the books.\w8\e"
+				"\0\s[17]Really?\w8\s[15]\w8\e"
+				"\0\s[17]Hmmmm...\w8\e"
+				"\0\s[17]Heh...\w8\w8\s[15]\w8\e"
+				"\0\s[15]\_q<You're glad to see the books you gave him are getting some use.>\w8\e"
+				"\0\s[15]\i[2]\e"
+				"\0\s[15]\i[2]\e"
+				"\0\s[15]\_q<He continues to read.>\w8\e"
+				"\0\s[15]\_q<You wonder what he is reading about this time.>\w8\e"
+				"\0\s[15]\_q<He used to read a lot like this... Hours and hours every night. You've brought him a lot of joy by giving him back this comfort.>\w8\e"
+				"\0\s[15]\i[2]\_q<Sometimes you can see his lips moving a tad while he reads.>\w8\e"
+				"\0\s[15]\_q<There is a deep adoration in his eyes when he reads as if he's in love with every word.>\w8\e"
+				"\0\s[15]...\e:chain=noreading"
+			}
+			
+			
+			elseif reading == 0
+			{ //to start the not reading or rummaging
+				if giveblood <= 0
+				{
+					"\0\s[0]\i[10] I'm so thirsty...\e"
+					"\0\s[3]\i[2] I didn't realize how easy I had it before...\w8 I never had to think about where my blood would come from.\e"
+					"\0\s[0]\i[10]Do you think I could...\w8 never mind.\e"
+					"\0\s[3\i[2] Excuse me?\w8 Could I...\w8 Um...\w8 \s[0]\i[10] I guess, it's not actually important.\e"
+					"\0\s[0]\i[10] My head...\w8 hurts...\e"
+				}
+				
+				elseif giveblood >= 0
+				{
+					{ //First chunk here
+						if ghostexcount > 0
+						{ //if there are multiple ghosts out
+							ghostname = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+							--
+							checkname = "%(ghostexlist[ghostname])" // This grabs the reference name of the ghost to check against known names.
+							--
+							case checkname
+							{ //case check
+								when "Gaster" //reference1 name
+								{
+									"\0\_q<He seems fascinated by Gaster.>\w8\e"
+									"\0\s[2]I wonder if he would know anything about vampires...\w8 A doctor would be useful to talk to...\w8 Even if he is a skeleton.\w8\e"
+								}
+								when "Azura" //Sakura name, I think?
+								{
+									"\0\s[0]Is the girl over there part dragon?\w8\e"
+									"\0\s[0]The girl with wings...\w8 Do you think she would answer some of my questions...\w8 about dragons?\w8\e"
+									"\0\s[0]i[9]Would you mind talking to the winged girl for me?\w8 She looks like she's part dragon and I do so love dragons.\w8\e"
+								}
+								when "Cat"
+								{
+									"\0\s[2]\i[4]Hi, kitty.\w8 You're a cute kitty.\w8\e"
+									"\0\s[2]\i[4]I wonder what the cat's name is.\w8\e"
+									"\0\s[2]\i[4]I love cats.\w8 Will the cat be here from now on?\w8\e"
+								}
+								when "Dusty"
+								{
+									if MetDusty == 1
+									{
+										"\0\s[2]\i[4]Obsidian is such a cute cat!\w8\e"
+										"\0\s[2]Dusty reminds me of someone I used to know.\w8 It's the way he talks and dresses.\w8 Just like the doctor...\w8\e"
+										"\0\s[16]<All of Obsidian's purring seems to have made him want to purr back>\w8\e"
+									}
+									else
+									{
+										"\0\s[2]\i[4]I wonder what the cat's name is.\e"
+										"\0\s[2]A skeleton?\w8\e"
+									}
+								}							
+								others
+								{
+									"\![raise,OnAiTalk]"
+								}
+							} //end case check
+						} // end of multiple ghosts check
+					} //end First chunk
+	
+					{ //Second chunk
+	
+							"\0\s[3]It's unnatural for you to keep calling me here...\w8 I don't understand how you're doing it.\e"
+	
+							"\0\s[4]...\w8\e"
+	
+							"\0\s[4]\w8\w8\w8\w8...\i[5]\w8\w8\w8\w8\s[3]\w8\e"
+	
+							"\0\s[0]\i[7]I'm just going to rest my eyes.\w8\e"
+	
+							"\0\s[0]\i[3]It smells nice here.\w8\e"
+					} //end Second chunk
+	
+					{ //third chunk; lots of if conditions in here 
+						if toldname == 1
+						{
+							"\0\s[2]\i[1]You are very strange, %(username).\w8\e"
+						}
+						
+						if givebook <= 4
+						{
+							"\0\s[5]\i[3]I could use a good book to read right now.\w8\e"
+							"\0\s[2]\i[6]I miss my library.\w8\e"
+						}
+	
+						if lotr == 1 && urnice >= 200
+						{
+							"\0\s[2]\i[7]I wonder what it would be like to be an elf.\w8\e"
+							"\0\s[0]\i[9]I read that Lord of the Rings book you gave me.\w8 And then I went to the library and read the rest of the trilogy.\w8 It was really good.\w8 It made me... \w8 hopeful again.\e"
+							"\0\s[0]Good has to triumph over evil.\w8 It always does, right?\w8 Just like in Lord of the Rings.?\w8 Even small creatures like hobbits can change the world\e"
+							"\0\s[0]I would like to know a wizard like Gandalf...\w8 Or maybe even be a wizard.\w8\s[20]Wait...\w8 You're like a wizard, aren't you?\e"
+						}
+	
+						if givekitty == 1
+						{
+							"\0\s[13]<Does he really think you don't notice he has his stuffed cat out?>\w8\e"
+							"\0\s[13]\w8\w8\w8\w8\w8\w8<You ask about his cat and if he really likes it that much>\w8\i[3]\w8\n\nI don't know what you're talking about.\w8\e"
+							"\0\s[13]\w8\w8\w8\w8\w8\w8<You tell him he's cute with his stuffed cat under his arm>\w8\s[2]\i[3]\w8\e"
+						}
+		
+						if givecandle >=3
+						{
+							"\_q<He smells good. He must be regularly burning the candles you've given him.>\w8\e"
+						}
+		
+						if giveblood <= 60
+						{
+							"\0\s[2]\i[6]Not having blood is definitely taking its toll.\w8\e"
+							"\0\s[5]\i[5]I'm so tired of having an inconsistent food source.\w8\e"
+							"\0\s[2]Stupid throat...\w8 it's always hurting.\w8\e"
+						}
+			
+						if scarf == 0
+						{
+							"\0\s[2]\i[7]I'm really chilly.\w8 Truth be told, I've always been one of those people who are cold all the time, though.\e"
+							"\0\s[2]\i[7]<He shivers a little>\w8\e"
+						}
+			
+						if scarf == 1
+						{
+							"\0\s[16]I... really like this scarf.\w8\e"
+						}
+					} //end of grouping if item statements
+						if givebook >= 3
+						{
+							"\![raise,OnReading]"
+						}
+						
+					 //fourth chunk
+						if urnice < 200
+						{
+							"\0\s[2]You look comfortable.\w8 I wish I had somewhere more comfortable to live.\w8\e"
+							"\0\s[2]How can I trust you?\w8\e"
+						}
+						if urnice >= 200 && urnice <=400
+						{
+							{
+							"\0\s[5]\i[5]So...\w8 you weren't hired by my father?\w8\e"
+		
+							"\0\s[5]\i[5]You mean, I'm not here to die?\w8\e"
+			
+							"\0\s[1]I actually found a cup in decent shape the other night!\w8\e"
+		
+							"\0\s[2]\i[3]Why are you being kind to me?\w8\e"
+			
+							"\0\s[0]\i[4]\n\f[height,10]Just hurry up and do it already.\w4 Stab me in the back...\w8\e"
+			
+							"\0\s[2]\i[5]Can't I at least be left to suffer my existence in peace?\w8\e"
+			
+							"\0\s[5]\i[4]What do you want from me?\w8\e"
+			
+							"\0\s[2]\i[5]Just let me go and stop toying with me.\w8\e"
+							}
+			
+							"\0\s[5]Last time I went scavenging for necessities I couldn't find anything.\w8\e"
+			
+							"\0\s[4]\i[8]I truly appreciate the things you've given me.\w8 I can never find anything when I go out to scavenge for things myself.\w8\e"
+			
+							"\0\s[5]\i[5]I have nothing to offer you in return for how nice you are.\w8 All I have are the clothes on my back.\w8\s[4]\w8\w8 Unless you want a dirty mattress.\w8\e"
+			
+							"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\w8\e"
+						}
+	
+						if urnice >= 401
+						{
+								"\0\s[5]\i[3]I wonder\i[1] if you like poetry.\w8\e"
+								"\0\s[2]\i[7]Hm...\w8 What rhymes with orange?\w8 ...\w8\s[1]\i[3] Blorange?\w8\w8\w8\w8\s[2]\i[3]\w8 ... I'm an idiot.\w8\e"
+								"\0\s[3]Please keep being kind.\w8 Please don't...\w8 Please just keep being kind.\w8\e"
+								"\0\s[1]\i[3]Willing ignorance...\w8 'Like a willing ignorance'...\w8\s[2]\i[4]Yes.\w4 That would be a great line for a poem.\w8\e"
+								"\0\s[0]\i[7]You know you're incredibly odd, right?\e"
+								"\0\s[0]\i[6]Why won't you just hurt me already?\w8 I know it's coming!\w8\e"
+								"\0\s[2]\i[6]I know you don't actually like me, so take whatever it is you want and be done.\w8\e"
+								"\0\s[0]You remind me of someone.\w8\s[0]\i[5]\w8 Someone I used to know.\w8\s[0]\i[0]\w8 Someone kind.\w8\e"
+								"\0\s[0]\i[9]Ever since I was exiled, things have been really hard...\w8 Thank you for making it a little less hard.\w8\e"
+								"\0\s[5]Last time I went scavenging for necessities I couldn't find anything.\w8\e"
+			
+								"\0\s[4]\i[8]I truly appreciate the things you've given me.\w8 I can never find anything when I go out to scavenge for things myself.\w8\e"
+			
+								"\0\s[5]\i[5]I have nothing to offer you in return for how nice you are.\w8 All I have are the clothes on my back.\w8\s[4]\w8\w8 Unless you want a dirty mattress.\w8\e"
+			
+								"\0\s[3]I mostly have to scavenge for the things I own.\w8 I feel like a vulture picking through garbage for necessities.\w8\e"
+						}
+		
+						if urnice >= 600
+						{
+							if favoritecolor == "None"
+							{
+								"So...\w8 what is your favorite color?\![open,inputbox,Onfavoritecolor,-1]"
+							}
+							elseif favoriteseason == "None"
+							{
+								"I was curious...\w8 What is your favorite season?\![open,inputbox,Onfavoriteseason,-1]"
+							}
+							else
+							{
+								"\0\s[20]This is the most time I've ever been around a human before.\w8 It's so odd that your ears don't move.\w8 They're so round, too!\w8\e"
+								"\0\s[2]\i[3]You have really kind eyes.\w8\e"
+								"\0\s[0]I miss being able to rock climb like I used to.\w8\e"
+								"\0\s[0]I used to ride on horseback through the forest and the mountains when I was younger.\w4 It was nice.\w8\e"
+								"\0\s[0]\i[9]Thank you again for all the things you've given me.\w4 They've really improved my quality of life.\w8\e"
+							}
+						}
+	
+						if urnice >= 700
+						{
+							"\0\s[9]\i[6]I couldn't take the heartbreak of losing a friend.\w8 Please stop being so kind to me.\w8 It'll make it easier when you -\w8\s[2]\i[7]\w8\e"
+							"\0\s[0]\i[9]I'm writing a poem about you.\w8 You're lovely material for one.\w8\e"
+							"\0\s[0]\i[9]I hope you don't mind me saying, but I really enjoy spending time with you.\w8\e"
+							"\0\s[16]\i[1]<He's just sitting there happily purring. Is he just 	happy to be here?>\w8\e"
+							"\0\s[5]You'd really like my doctor friend.\w4 He's very nice like you are; so I know you'd get along.\w8\e"
+							"\0\s[0]I wish I could tell Arthur about you.\w4 He was my best friend back before I was exiled.\w4 He would have liked you.\w8\e"
+							if toldname == 1
+							{
+								"<He's mumbling softly and you barely catch what he 	says>\n\n\w8\0\s[1]\i[3]%(username) was as compassionate as a dragon was greedy...\w8\e"
+								"<He's mumbling softly and you barely catch what he says>\n\n\w8\0\s[3]%(username) heart burst bright with a golden light...\w8\e"
+							}
+						}
+					 //End fourth chunk
+			
+					{//Fifth Chunk
+						"\0\s[3]...\w8\e"
+	
+						"\0\s[0]\i[5]Why am I here?\w8\e"
+		
+						"\0\s[0]\n\f[height,10]I suppose I am comfortable.\w4 It's not so bad here...\w8\e"
+	
+						"\0\s[0]\i[7]You do know what I am, right?\w8\e"
+	
+						"\0\s[0]\i[4]What enjoyment are you getting out of me being here?\w8\e"
+	
+						"\0\s[1]\i[8]It is not polite to stare.\w8\s[0]\i[6] I say that because you keep staring!\w8\e"
+		
+						"\0\s[6]Agh!\w8\w8\w8\w8\w8\w8\s[2]\i[2] I forgot you were here.\w8\e"
+		
+						"\0\s[2]...\w8\e"
+	
+						"\0\s[2]I suppose it's better to be here than...\w8 elsewhere.\w8\e"
+	
+						"\0\s[2]\n\f[height,10]It does feel nice to not be shivering.\w8\e"
+	
+						"\0\s[0]\i[8]Mm... Can't fall...\w8 asleep...\w8 here...\w8\e"
+	
+						"\0\s[2]\i[6]Ugh... my back... hurts...\w8\e"
+	
+						"\0\s[0]\i[5]Are you just toying with me?\w8 I don't understand what your motives are.\w8\e"
+					} // end fifth chunk
+				}//end else statement to thirst
+			}//end of else to not reading
+		}//end of else statement to not rummaging
+	}//end of else from holding obsidian
+} //to end AI talk
+
+OnReading 
+{
+	reading = 1
+	--
+	"\0\s[15]<Looks like it's reading time again.>"
+}
+
+Select.whatcatch
+{
+	"\0\s[0]\i[5]The catch to me being here.\w8 It's... \w8\s[4]\w8warm and... \w8comfortable.\w8 I don't really deserve this.\w8\e"
+}
+
+Select.nocatch
+{
+	"\0\s[4]But...\w8 That doesn't make any sense.\w8\e"
+}
+
+Onfavoritecolor
+{
+favoritecolor = reference0 
+
+	"\0\s[0]\i[3]Hm...\w8 Yes...\w8 %(favoritecolor) is very nice.\w8 Thank you for letting me know.\w8\e"
+}
+
+Onfavoriteseason
+{
+favoriteseason = reference0 
+
+	if reference0 == "winter" || reference0 == "WINTER" || reference0 == "Winter"
+	{
+		"\0\s[0]\i[2] Mother of night!\w8 You like winter?\w4 The cold?\w4 The snow?\w4 What is wrong with you?\w8\e"
+	}
+	
+	elseif reference0 == "spring" || reference0 == "SPRING" || reference0 == "Spring"
+	{
+		"\0\s[0]\i[9] Yes.\w8 I like spring, too.\w8 I love the flowers.\w8 I love that it's not too cold anymore.\w8 And the snow melting makes some of the most beautiful landscapes.\w8\e"
+	}
+	
+	elseif reference0 == "fall" || reference0 == "FALL" || reference0 == "Fall" || reference0 == "autumn" || reference0 == "AUTUMN" || reference0 == "Autumn"
+	{
+		"\0\s[0]\i[7]Autumn is...\w8 Nice.\w8 Too cold for my liking, however.\w8\e"
+	}
+	
+	elseif reference0 == "summer" || reference0 == "SUMMER" || reference0 == "Summer"
+	{
+		"\0\s[0] Summer is very nice.\w8 The nights are warm and I truly appreciate that.\w8 It's a good time to swim and do all kinds of things outdoors.\w8 Truly lovely.\w8\e"
+	}
+	else
+	{
+		"\0\s[0]\i[6]That is not a season I've heard of.\w8\e"
+	}
+}
+//--Chains
+//Here is where you will put your bits of chain dialogue. They are outside of RandomTalk, which makes them a bit more flexible as I mentioned above. As you can see, this function is called "firstchain", which was the same tag we put at the end of the chain in aitalk with \e:chain=firstchain.
+
+
+//Pay careful attention to the CHAIN text and double brackets for these. Double brackets, CHAIN, dialogue, double brackets, CHAIN. If you are planning on making chains, I'd recommend just copying and pasting the chain example here and changing the dialogue and name of the function as you need. Less likely for mistakes to happen, you know?
+//Note also it ends with \e:chain=end, basically ending the chain.
+
+//As you can see, you can chain your chains together to make a very long-running conversation if you want! Just make sure to end the chain when you're done.
+
+
+//Alright, we're done with the random converations for now, but there are a few other things in aitalk that we'll need to fill out too.
+
+noreading
+{{CHAIN
+	reading = 0
+	
+	"\0\s[0]Sorry.\w8 How long was I reading?\w8\e:chain=end"
+	"\0\s[0]I apologize.\w8 I wasn't reading too long, was I?\w8\e:chain=end"
+	"\0\s[0]Oh...\w8 Disappeared for a while, didn't I?\w8\e:chain=end"
+}}CHAIN
+
+//-OnMinuteChange
+//These are time-related bits of dialogue for your ghost to say. If you're uninterested, you can delete it all except for a line for MikireTalk. So it'd look something like
+
+//OnMinuteChange
+//{
+//timeslot = GetTimeSlot
+//if mikireflag == 1
+// 	{
+// 		MikireTalk
+//	}
+//}
+
+//But I think these are kind of neat, so I'd leave them myself.
+
+OnMinuteChange
+ {
+	timeslot = GetTimeSlot //this tells the ghost what time it is
+	--
+	if giveblood > 0
+	{
+		if bloodmode == "fast"
+		{
+			giveblood -= 2
+		}
+		elseif bloodmode == "slow"
+		{
+			giveblood -= 1
+		}
+		else
+		{
+			giveblood -= 2
+		}
+	}
+	elseif giveblood <= 0
+	{
+		giveblood = 0
+	}
+	--
+ 	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
+	{
+		allsearches = 0
+		
+ 		if hour == 12 //And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
+		{
+ 			//"\0\s[0]It's noon.\e"
+			//Replace with appropriate dialogue as you want.
+		}
+ 		elseif hour == 0 //If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
+		{
+ 			//"\0\s[0]It's midnight!\e"
+ 			//"\0\s[0]This is another bit of dialogue for midnight.\w8\1\s[10]BooooOoooOOOooOOOOo.\e"
+ 			//"\0\s[0]This is the third bit of dialogue for midnight.\e"
+			//Then replace the dialogue with what's appropriate.
+		}
+		elseif hour == 23 //if the hour is 23, aka 11 pm.
+		{
+			if minute == 55 //And if the minutes are at 55.
+			{
+			//"\0\s[0]5 minutes to midnight.\e"
+			}
+			else //if it isn't 11:55. These are meant to be examples of specific times you can check, you don't have to check for the same times. You can also always delete individual elseifs if you can't think of any time to check. Like, you could delete the elseif for hour == 23 and the subsequent checks below it, then move on to the elseif below for hour 7. This section is flexible.
+			{
+			//"\0\s[0]It's 11 pm.\e"
+			//replace the dialogue here again as you like...
+			}
+		}
+		elseif hour == 7 && minute == 30 && weekday == 0 //Here, it's checking for a specific time on a specific day. You can add things to your time checks just like this by using the AND operator, &&. This adds up to 7:30, Sunday. If you have a favorite TV program on at some time, you could have your ghost comment on when it comes on like this.
+		{
+			//"\0\s[0]It's 7:30 on Sunday.\e"
+			//Replace with what's appropriate.
+		}
+		elseif hour == 16 //if the hour is 16, or 4 pm. You can add in time checks for whatever times you want, or change what these time checks are looking for. These are just meant to be examples of how it works.
+		{
+			//"\1\s[10]It's 4 pm.\e"
+			//Replace with what's appropriate.
+		}
+		else
+		{
+			//"\0\s[0]It's %(hour12)'o clock.\e"
+			//%(hour12) stores the time. This is a general top of the hour notification. I personally like this because it helps me keep track of time when I've been working on something, so when a ghost is all "Hey it's 3 o clock" I can be like woah really when did that happen. If you think this is annoying though, you can just delete this bit of dialogue to leave this else statement blank, or leave "" in here instead.
+		}
+	}
+	//Don't touch this part.
+	elseif mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ }
+
+//--OnSecondChange
+//Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+
+OnSecondChange
+ {
+	if passsec == 60
+ 		{
+	 	passsec = 0
+ 		passmin = passmin + 1
+		}
+ 	else
+ 		{
+	 	passsec = passsec + 1
+		}
+	if mikireflag == 1 && reference1 == 0
+		{
+			EndMikireTalk
+ 		}
+		mikireflag = reference1
+	if reference2 == 1
+	{
+ 		//This dialogue is for when the two characters are overlapping each other. If you don't want your characters to care, you can just leave this blank.
+		
+ 		//
+		
+		//You can see here the use of two envelopes, screenwidth and screenheight, to tell the user their resolution. Oddly, they are not in parentheses. I'm not sure why this is, but they don't display right otherwise. An odd quirk with these two envelopes.
+		//Note also how Triangle moves away at the end of the dialogue. This is due to the \4 tag. That will make any one character move away from the other if they are able. I talked about this tag and its counterpart tag \5 in the SakuraScript page on the walkthrough. \5 FURSIE THIS WILL MOVE THE CHARACTERS CLOSE TO EACH OTHER
+	}
+ }
+
+ //---- MikireTalk ---------------------------------------------------------------------
+ //I'm actually a little fuzzy on MikireTalk and what exactly it does since it shows up a lot in odd places, but for the purposes of this function here, what this does is bring up some dialogue when the main character is off the screen. For example, if you dragged Girl over to the side of your monitor until she was partially concealed by it. This dialogue would then come up. If you don't want your characters to care, you can leave the dialogue blank.
+ 
+MikireTalk
+ {
+	//"\0\s[0]I'm off the screen.\w8\1\s[10]You can push Ctrl-Shift-F12 to bring her back."
+	//Note the hotkey combo Triangle mentions. He's telling the truth, that should bring her back on the screen.
+ }
+
+ //----EndMikireTalk--------------------------------------------------------------------
+ //For after you bring the character back on screen.
+ 
+EndMikireTalk
+ {
+	//"\0\s[0]I'm no longer off the screen.\w8\1\s[19]What a shame.\w8\0\s[9]\n\n[half]Shut up.\e"
+ }
+
+
+//**** OnSurfaceRestore *****************************************************************
+//OnSurfaceRestore is a handy function. What this does is that after a short period of time, the ghost will go back to its default pose, so you won't have a ghost stuck in one expression for too long. It's also helpful if you've made one of the characters disappear using \s[-1] in dialogue and didn't bring them back at the end of it. This will do that for you.
+//I'm going to comment out the if/else statements in this because the circumstances in which they'd come up seem pretty unlikely and unnecessary if you're just going to be making a simple ghost. You can just leave this function alone and move on if you want. However, if you do want to use them, just uncomment the lines by deleting the slashes and fill in the info as you need.
+
+//*********************Advanced User Info*******************************
+//You can put if statements in OnSurfaceRestore to make exceptions for certain poses, or to make sure that once they're in a certain pose, they stay in that pose. For example, if you turn my Hunter and Smoker ghost into eggplants, there's a check for the their eggplant pose numbers to make sure they STAY eggplants when OnSurfaceRestore is called.
+//You can also use OnSurfaceRestore to clean up things that might be left on the screen, primarily from using p[number]\s[] to call up other objects or characters. Just make sure to add a p[number]\s[-1] to OnSurfaceRestore, and that should get rid of it each time the ghost cleans itself up.
+//***********************************************************************
+
+OnSurfaceRestore
+ {
+	if HoldingObsidian == 1
+	{
+		"\0\s[18]\1\s[-1]"
+	}
+
+	else
+	{
+		if reading == 1
+		{
+			"\0\s[15]\1\s[-1]"
+		}
+		else //if reading == 0
+		{
+			if rummaging == 1
+			{
+				"\1\s[-1]" //Nothing here to keep surface from restoring to anything
+			}
+			else //if rummaging == 0
+			{
+				if giveblood <= 0
+				{
+					"\0\s[3]\i[2]"
+					"\0\s[0]\i[10]"
+				}
+				else //if giveblood > -25
+				{
+					if urnice <= 300 //|| meanie >= 5
+					{
+						"\0\s[0]\i[4]\1\s[-1]"
+						"\0\s[0]\i[5]\1\s[-1]"
+						"\0\s[5]\i[4]\1\s[-1]"
+						"\0\s[5]\i[5]\1\s[-1]"
+						"\0\s[2]\1\s[-1]"
+					}
+					else //if urnice > 300 //&& meanie < 5 
+					{
+						"\0\s[0]\1\s[-1]"
+						"\0\s[0]\i[5]\1\s[-1]"
+						"\0\s[2]\i[4]\1\s[-1]"
+						"\0\s[0]\i[9]\1\s[-1]"
+					}
+				}
+			}
+		}
+	}
+ }
+
+ 
+ //--OnKeyPress
+ //This defines the hotkeys your ghost will use. You can change these to whatever you want, but I don't really know why you would. I'd just leave this alone. Advanced Users can add new hotkeys attached to whatever function if you want.
+ 
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+}
